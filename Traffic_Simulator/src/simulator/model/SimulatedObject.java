@@ -1,6 +1,7 @@
 package simulator.model;
 
-import org.json.JSONObject;
+
+import org.json.JSONObject;;
 
 public abstract class SimulatedObject {
 

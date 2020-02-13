@@ -6,7 +6,8 @@ public class VehicleException extends Exception{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1836085095259509945L;
+
 
 	public VehicleException() {
 		super();

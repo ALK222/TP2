@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import exceptions.RoadException;
+import exceptions.VehicleException;
 
 public abstract class Road extends SimulatedObject{
 	
@@ -62,7 +63,7 @@ public abstract class Road extends SimulatedObject{
 	
 	protected abstract void updateSpeedLimit();
 	
-	protected abstract void calculateVehicleSpeed(Vehicle v);
+	protected abstract void calculateVehicleSpeed(Vehicle v) throws VehicleException;
 	
 	protected int getLenght() {
 		return this.length;
@@ -109,7 +110,7 @@ public abstract class Road extends SimulatedObject{
 	
 	
 	@Override
-	void advance(int time) throws RoadException {
+	void advance(int time) throws RoadException, VehicleException {
 		this.reduceTotalContamination();
 		this.updateSpeedLimit();
 		for(Vehicle v : vehicles) {

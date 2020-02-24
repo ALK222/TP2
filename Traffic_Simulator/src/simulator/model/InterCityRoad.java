@@ -1,12 +1,13 @@
 package simulator.model;
 
+import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.VehicleException;
 
 public class InterCityRoad extends Road {
 
 	InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length,
-			Weather weather) throws RoadException {
+			Weather weather) throws RoadException, JunctionException {
 		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
 	}
 

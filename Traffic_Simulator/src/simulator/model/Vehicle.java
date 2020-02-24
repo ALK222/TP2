@@ -79,6 +79,10 @@ public class Vehicle extends SimulatedObject{
 	protected int getContamination() {
 		return this.contamination_grade;
 	}
+	
+	protected Road getCurrentRoad() {
+		return this.current_road;
+	}
 	protected void setContamination(int contamination) throws VehicleException{
 		if(contamination < 0 && contamination > 10) {
 			throw new VehicleException("Invalid contamination Value");
@@ -105,8 +109,9 @@ public class Vehicle extends SimulatedObject{
 		
 	}
 
-	protected void moveToNextRoad() {
+	protected void moveToNextRoad() throws RoadException {
 		this.current_road.exit(this);
+		this.current_road.destination.enter(this);
 	}
 
 

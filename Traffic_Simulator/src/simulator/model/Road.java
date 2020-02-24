@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.VehicleException;
 
@@ -31,7 +32,7 @@ public abstract class Road extends SimulatedObject{
 	
 	protected List<Vehicle> vehicles;
 
-	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws RoadException  {
+	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws RoadException, JunctionException  {
 		super(id);
 		if(maxSpeed < 0) {
 			throw new RoadException("Invalid max speed");
@@ -50,14 +51,14 @@ public abstract class Road extends SimulatedObject{
 		}
 		else {
 			this.origin = srcJunc;
-			srcJunc.addExit(this);
+			srcJunc.addOutGoingRoad(this);
 		}
 		if(destJunc == null) {
 			throw new RoadException("No end junction provided");
 		}
 		else {
 			this.destination = destJunc;
-			destJunc.addBegining(this);
+			destJunc.addIncommingRoad(this);
 		}
 	}
 	

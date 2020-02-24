@@ -1,5 +1,7 @@
 package simulator.model;
 
+import exceptions.RoadException;
+
 public abstract class Event implements Comparable<Event> {
 
 	protected int _time;
@@ -17,9 +19,10 @@ public abstract class Event implements Comparable<Event> {
 
 	@Override
 	public int compareTo(Event o) {
-		// TODO complete
-		return 0;
+		if(this._time == o.getTime()) return 0;
+		else if (this._time < o.getTime()) return 1; 
+		return -1;
 	}
 
-	abstract void execute(RoadMap map);
+	abstract void execute(RoadMap map) throws RoadException;
 }

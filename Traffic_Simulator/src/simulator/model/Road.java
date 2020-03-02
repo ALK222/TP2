@@ -14,9 +14,9 @@ public abstract class Road extends SimulatedObject{
 	
 	
 
-	protected Junction origin;
+	protected String origin;
 	
-	protected Junction destination;
+	protected String destination;
 	
 	protected int length;
 	
@@ -32,7 +32,7 @@ public abstract class Road extends SimulatedObject{
 	
 	protected List<Vehicle> vehicles;
 
-	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws RoadException, JunctionException  {
+	Road(String id, String srcJunc, String destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws RoadException, JunctionException  {
 		super(id);
 		if(maxSpeed < 0) {
 			throw new RoadException("Invalid max speed");

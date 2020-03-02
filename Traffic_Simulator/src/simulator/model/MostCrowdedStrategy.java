@@ -6,7 +6,7 @@ import java.util.ListIterator;
 
 public class MostCrowdedStrategy implements LightSwitchingStrategy {
 	int timeSlot;
-	MostCrowdedStrategy(int timeSlot){
+	public MostCrowdedStrategy(int timeSlot){
 		this.timeSlot = timeSlot;
 	}
 	

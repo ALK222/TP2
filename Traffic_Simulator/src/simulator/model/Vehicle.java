@@ -1,6 +1,5 @@
 package simulator.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class Vehicle extends SimulatedObject{
 	
 	//ATRIBUTTES
 	
-	private List<Junction> itinerary;
+	private List<String> itinerary;
 	
 	private int max_speed;
 	
@@ -33,7 +32,7 @@ public class Vehicle extends SimulatedObject{
 	
 	//CONSTRUCTOR
 	
-	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException {
+	Vehicle(String id, int maxSpeed, int contClass, List<String> itinerary) throws VehicleException {
 		super(id);
 		if(maxSpeed < 0) {
 			throw new VehicleException("Invalid speed");

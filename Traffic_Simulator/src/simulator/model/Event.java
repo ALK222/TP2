@@ -1,6 +1,8 @@
 package simulator.model;
 
+import exceptions.JunctionException;
 import exceptions.RoadException;
+import exceptions.VehicleException;
 
 public abstract class Event implements Comparable<Event> {
 
@@ -24,5 +26,5 @@ public abstract class Event implements Comparable<Event> {
 		return -1;
 	}
 
-	abstract void execute(RoadMap map) throws RoadException;
+	abstract void execute(RoadMap map) throws RoadException, VehicleException, JunctionException;
 }

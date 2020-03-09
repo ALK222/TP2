@@ -16,7 +16,7 @@ this.currGreen = currGreen;
 this.lastSwitchingTime = lastSwitchingTime;
 this.currTime = currTime;/*/
 	int timeSlot;
-	RoundRobinStrategy(int timeSlot){
+	public RoundRobinStrategy(int timeSlot){
 		this.timeSlot = timeSlot;
 	}
 	@Override

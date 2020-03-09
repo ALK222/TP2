@@ -1,6 +1,13 @@
 package simulator.factories;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import exceptions.CoordException;
+import exceptions.FactoryException;
+import exceptions.JunctionException;
+import exceptions.RoadException;
+import exceptions.StrategyException;
 
 public abstract class Builder<T> {
 	protected String _type;
@@ -12,7 +19,7 @@ public abstract class Builder<T> {
 			_type = type;
 	}
 
-	public T createInstance(JSONObject info) {
+	public T createInstance(JSONObject info) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException {
 
 		T b = null;
 
@@ -23,5 +30,5 @@ public abstract class Builder<T> {
 		return b;
 	}
 
-	protected abstract T createTheInstance(JSONObject data);
+	protected abstract T createTheInstance(JSONObject data) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException;
 }

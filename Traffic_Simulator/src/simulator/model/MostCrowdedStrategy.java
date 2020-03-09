@@ -1,12 +1,11 @@
 package simulator.model;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 public class MostCrowdedStrategy implements LightSwitchingStrategy {
 	int timeSlot;
-	MostCrowdedStrategy(int timeSlot){
+	public MostCrowdedStrategy(int timeSlot){
 		this.timeSlot = timeSlot;
 	}
 	

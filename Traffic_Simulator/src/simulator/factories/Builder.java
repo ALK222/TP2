@@ -8,6 +8,8 @@ import exceptions.FactoryException;
 import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.StrategyException;
+import exceptions.VehicleException;
+import exceptions.WeatherException;
 
 public abstract class Builder<T> {
 	protected String _type;
@@ -30,5 +32,5 @@ public abstract class Builder<T> {
 		return b;
 	}
 
-	protected abstract T createTheInstance(JSONObject data) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException;
+	protected abstract T createTheInstance(JSONObject data) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException, VehicleException, WeatherException;
 }

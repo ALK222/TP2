@@ -6,7 +6,7 @@ import exceptions.VehicleException;
 
 public class InterCityRoad extends Road {
 
-	InterCityRoad(String id, String srcJunc, String destJunc, int maxSpeed, int contLimit, int length,
+	InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length,
 			Weather weather) throws RoadException, JunctionException {
 		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
 	}

@@ -3,7 +3,14 @@ package simulator.factories;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import exceptions.CoordException;
+import exceptions.FactoryException;
+import exceptions.JunctionException;
+import exceptions.RoadException;
+import exceptions.StrategyException;
 
 public class BuilderBasedFactory<T> implements Factory<T> {
 
@@ -14,7 +21,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	}
 
 	@Override
-	public T createInstance(JSONObject info) {
+	public T createInstance(JSONObject info) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException {
 		if (info != null) {
 			for (Builder<T> bb : _builders) {
 				T o = bb.createInstance(info);

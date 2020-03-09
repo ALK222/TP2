@@ -7,7 +7,7 @@ public class NewJunctionEvent extends Event {
 	
 	private Junction junc;
 
-	NewJunctionEvent(int time, String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) throws StrategyException, CoordException {
+	public NewJunctionEvent(int time, String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) throws StrategyException, CoordException {
 		super(time);
 		this.junc = new Junction(id,lsStrategy, dqStrategy, xCoor, yCoor);
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.VehicleException;
 import simulator.misc.SortedArrayList;
@@ -30,7 +31,7 @@ public class TrafficSimulator {
 		this.event_list.add(e);
 	}
 	
-	public void advance() throws RoadException, VehicleException {
+	public void advance() throws RoadException, VehicleException, JunctionException {
 		++time;
 		for(Event e : event_list) {
 			if(e.getTime() == this.time) {

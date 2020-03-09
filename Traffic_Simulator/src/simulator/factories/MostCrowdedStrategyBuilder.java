@@ -9,7 +9,7 @@ public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy> 
 
 	MostCrowdedStrategyBuilder() {
 		super("most_crowded_lss");
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

@@ -21,7 +21,8 @@ public abstract class Builder<T> {
 			_type = type;
 	}
 
-	public T createInstance(JSONObject info) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException {
+	public T createInstance(JSONObject info) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException,
+			VehicleException, WeatherException {
 
 		T b = null;
 

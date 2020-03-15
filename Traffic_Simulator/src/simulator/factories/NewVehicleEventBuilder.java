@@ -20,7 +20,6 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 
 	public NewVehicleEventBuilder() {
 		super("new_vehicle");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

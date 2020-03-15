@@ -8,6 +8,8 @@ import exceptions.FactoryException;
 import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.StrategyException;
+import exceptions.VehicleException;
+import exceptions.WeatherException;
 import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
@@ -17,11 +19,12 @@ public class NewJunctionEventBuilder extends Builder<Event> {
 
 	public NewJunctionEventBuilder() {
 		super("new_juntion");
-		
+
 	}
 
 	@Override
-	protected Event createTheInstance(JSONObject data) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException {
+	protected Event createTheInstance(JSONObject data) throws JSONException, StrategyException, CoordException,
+			FactoryException, RoadException, JunctionException, VehicleException, WeatherException {
 		
 		//ls comprovation
 		String lss = data.getJSONObject("ls_strategy").getString("type");

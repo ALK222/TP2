@@ -11,6 +11,8 @@ import exceptions.FactoryException;
 import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.StrategyException;
+import exceptions.VehicleException;
+import exceptions.WeatherException;
 
 public class BuilderBasedFactory<T> implements Factory<T> {
 
@@ -21,7 +23,8 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	}
 
 	@Override
-	public T createInstance(JSONObject info) throws JSONException, StrategyException, CoordException, FactoryException, RoadException, JunctionException {
+	public T createInstance(JSONObject info) throws JSONException, StrategyException, CoordException, FactoryException,
+			RoadException, JunctionException, VehicleException, WeatherException {
 		if (info != null) {
 			for (Builder<T> bb : _builders) {
 				T o = bb.createInstance(info);

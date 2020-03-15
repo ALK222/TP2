@@ -101,6 +101,10 @@ public class Vehicle extends SimulatedObject{
 			this.current_road.addContamination(contamination);
 			if(new_location >= this.current_road.getLenght()) {
 				//entrar a junction
+
+				this.itinerary.get(1).enter(this);
+
+				this.itinerary.remove(0);
 				
 			}
 			this.location = new_location;

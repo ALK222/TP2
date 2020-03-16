@@ -94,27 +94,29 @@ public class Vehicle extends SimulatedObject{
 
 	@Override
 	protected void advance(int time) throws RoadException {
-		if(status == VehicleStatus.TRAVELING) {
+		if(status.equals(VehicleStatus.TRAVELING)) {
 			int new_location = Math.min(this.location + this.current_speed, this.current_road.getLenght());
 			int contamination = (new_location - this.location) * this.contamination_grade;
 			this.total_contamination += contamination;
 			this.current_road.addContamination(contamination);
+			this.location = new_location;
 			if(new_location >= this.current_road.getLenght()) {
 				//entrar a junction
-
-				this.itinerary.get(1).enter(this);
-
-				this.itinerary.remove(0);
-				
+				this.current_road.destination.enter(this);
 			}
-			this.location = new_location;
 		}
 		
 	}
 
 	protected void moveToNextRoad() throws RoadException {
-		this.current_road.exit(this);
-		this.current_road.destination.enter(this);
+		// this.current_road.exit(this);
+		// this.current_road.destination.enter(this);
+		// this.location = 0;
+		this.current_road = this.current_road.destination.exRoad();
+		this.location = 0;
+		this.current_speed = 0;
+		this.status = VehicleStatus.PENDING;
+		this.current_road.enter(this);
 	}
 
 

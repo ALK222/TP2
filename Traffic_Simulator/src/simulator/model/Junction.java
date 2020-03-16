@@ -17,7 +17,7 @@ public class Junction extends SimulatedObject{
 	List<Road> listRoad;
 	Map<Junction,Road> mapRoad;
 	List<List<Vehicle>> listVehicle;
-	int greenLight; //Que semaforo está en verde -1 todos en rojo
+	int greenLight; //Que semaforo estï¿½ en verde -1 todos en rojo
 	int ultSem; //El paso en el cual el indice de semaforo en verde ha cambiado de valor
 	LightSwitchingStrategy est;
 	DequeuingStrategy deqEst;
@@ -70,7 +70,9 @@ public class Junction extends SimulatedObject{
 		//HACIDO
 	}
 	void enter(Vehicle v) throws RoadException {//Hechito
-		v.getCurrentRoad().enter(v);
+		//completar
+		int i = this.listRoad.indexOf(v.getCurrentRoad());
+		this.listVehicle.get(i).add(v);
 	}
 	Road roadTo(Junction j) {
 		Road aux = null;

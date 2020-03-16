@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import exceptions.CoordException;
@@ -83,11 +84,33 @@ public class Junction extends SimulatedObject{
 	public JSONObject report() {
 		JSONObject information = new JSONObject();
 		information.append("id", this._id);
+
 		if(this.greenLight != -1) information.append("green", this.listRoad.get(greenLight));
 		else information.append("green", "none");
-		information.append("queues", this.listVehicle);//COMPLETAR CON EL JSON DE LAS COLAS
+
+		information.append("queues", listReport(listVehicle));//COMPLETAR CON EL JSON DE LAS COLAS
+
 		return information;
 	}
 
+	private JSONObject listReport(List<List<Vehicle>> list){
+        JSONObject rep = new JSONObject();
+        int i = 1;
+        List<Vehicle> auxQ = list.iterator().next();
+        Vehicle it2 = auxQ.iterator().next();
+        while(auxQ.iterator().hasNext()){
+        	JSONArray vQ=  new JSONArray();
+            while( auxQ.iterator().hasNext()){
+                vQ.put(i, it2.report());
+                it2 = auxQ.iterator().next();
+            }
+			rep.append("road", listRoad.get(i)._id);
+			rep.append("vehicles", vQ);
+			auxQ.iterator().next();
+			i++;
+		}
+
+        return rep;
+    }
 
 }

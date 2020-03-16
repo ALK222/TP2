@@ -109,14 +109,19 @@ public class Vehicle extends SimulatedObject{
 	}
 
 	protected void moveToNextRoad() throws RoadException {
-		// this.current_road.exit(this);
-		// this.current_road.destination.enter(this);
-		// this.location = 0;
-		this.current_road = this.current_road.destination.exRoad();
 		this.location = 0;
 		this.current_speed = 0;
-		this.status = VehicleStatus.PENDING;
+		if(this.status.equals(VehicleStatus.PENDING)){
+			this.current_road = this.itinerary.get(0).exRoad();
+			this.status = VehicleStatus.TRAVELING;
+		}
+		else{
+			this.current_road.exit(this);
+			this.current_road = this.current_road.destination.exRoad();
+			this.status = VehicleStatus.PENDING;
+		}
 		this.current_road.enter(this);
+		
 	}
 
 

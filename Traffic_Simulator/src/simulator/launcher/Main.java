@@ -1,6 +1,9 @@
 package simulator.launcher;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,11 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import exceptions.JunctionException;
+import exceptions.RoadException;
+import exceptions.SimulatorException;
+import exceptions.VehicleException;
+import simulator.control.Controller;
 import simulator.factories.Builder;
 import simulator.factories.BuilderBasedFactory;
 import simulator.factories.Factory;
@@ -22,7 +30,7 @@ import simulator.factories.NewVehicleEventBuilder;
 import simulator.factories.SetContClassEventBuilder;
 import simulator.factories.SetWeatherEventBuilder;
 import simulator.model.Event;
-import simulator.model.NewJunctionEvent;
+import simulator.model.TrafficSimulator;
 
 public class Main {
 
@@ -30,6 +38,8 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
+
+	private static Integer _time;
 
 	private static void parseArgs(String[] args) {
 
@@ -45,6 +55,7 @@ public class Main {
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
+			parseTimeOption(line);
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -71,6 +82,7 @@ public class Main {
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
+		cmdLineOptions.addOption(Option.builder("t").longOpt("time").hasArg().desc("Time input").build());
 
 		return cmdLineOptions;
 	}
@@ -90,13 +102,21 @@ public class Main {
 		}
 	}
 
+	private static void parseTimeOption(CommandLine line) {
+		_inFile = line.getOptionValue("t");
+		if (_inFile == null) {
+			_time = _timeLimitDefaultValue;
+		} else {
+			_time = Integer.parseInt(_inFile);
+		}
+	}
+
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		_outFile = line.getOptionValue("o");
 	}
 
 	private static void initFactories() {
 
-		// TODO complete this method to initialize _eventsFactory
 		List<Builder<Event>> ebs = new ArrayList<>();
 		ebs.add(new NewJunctionEventBuilder());
 		ebs.add(new NewCityRoadEventBuilder());
@@ -104,16 +124,29 @@ public class Main {
 		ebs.add(new NewVehicleEventBuilder());
 		ebs.add(new SetContClassEventBuilder());
 		ebs.add(new SetWeatherEventBuilder());
-		
+
 		_eventsFactory = new BuilderBasedFactory<>(ebs);
 
 	}
 
-	private static void startBatchMode() throws IOException {
-		// TODO complete this method to start the simulation
+	private static void startBatchMode()
+			throws IOException, RoadException, VehicleException, JunctionException, SimulatorException {
+		TrafficSimulator ts = new TrafficSimulator();
+		Controller c = new Controller(ts, _eventsFactory);
+		OutputStream os;
+		if(!_outFile.equals(null)){
+			os= new FileOutputStream(_outFile);
+		}
+		else{
+			os= new ByteArrayOutputStream();
+		}
+		c.run(_time, os);
+		byte[] bytes = ts.report().toString().getBytes();
+		os.write(bytes);
 	}
 
-	private static void start(String[] args) throws IOException {
+	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,
+			SimulatorException {
 		initFactories();
 		parseArgs(args);
 		startBatchMode();

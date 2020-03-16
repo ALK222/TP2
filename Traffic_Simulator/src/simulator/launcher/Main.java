@@ -103,11 +103,11 @@ public class Main {
 	}
 
 	private static void parseTimeOption(CommandLine line) {
-		_inFile = line.getOptionValue("t");
-		if (_inFile == null) {
+		String aux = line.getOptionValue("t");
+		if (aux == null) {
 			_time = _timeLimitDefaultValue;
 		} else {
-			_time = Integer.parseInt(_inFile);
+			_time = Integer.parseInt(aux);
 		}
 	}
 
@@ -134,7 +134,8 @@ public class Main {
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller c = new Controller(ts, _eventsFactory);
 		OutputStream os;
-		if(!_outFile.equals(null)){
+		System.out.println(_outFile);
+		if(_outFile != null){
 			os= new FileOutputStream(_outFile);
 		}
 		else{

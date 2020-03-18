@@ -13,7 +13,7 @@ public class InterCityRoad extends Road {
 
 	@Override
 	protected void updateSpeedLimit() {
-		//Si contaminación excede limite -> límite 50%
+		//Si contaminaciï¿½n excede limite -> lï¿½mite 50%
 		if(this.total_contamination > this.contamination_alarm) this.current_speed_limit= (int)(this.max_speed*0.5);
 		else this.current_speed_limit= this.max_speed;
 	}

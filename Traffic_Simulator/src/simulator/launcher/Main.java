@@ -148,8 +148,7 @@ public class Main {
 			os= new ByteArrayOutputStream();
 		}
 		c.run(_time, os);
-		byte[] bytes = ts.report().toString().getBytes();
-		os.write(bytes);
+		
 	}
 
 	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,

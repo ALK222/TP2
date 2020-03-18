@@ -47,6 +47,7 @@ public abstract class Road extends SimulatedObject{
 		}
 		else {
 			this.contamination_alarm = contLimit;
+			this.total_contamination = 0;
 		}
 		if(srcJunc == null) {
 			throw new RoadException("No initial junction provided");
@@ -120,12 +121,14 @@ public abstract class Road extends SimulatedObject{
 	
 	@Override
 	void advance(int time) throws RoadException, VehicleException {
-		this.reduceTotalContamination();
-		this.updateSpeedLimit();
+		
 		for(Vehicle v : vehicles) {
 			calculateVehicleSpeed(v);
 			v.advance(time);
 		}
+
+		this.reduceTotalContamination();
+		this.updateSpeedLimit();
 		//Recuerda shortear esta wea
 		
 	}

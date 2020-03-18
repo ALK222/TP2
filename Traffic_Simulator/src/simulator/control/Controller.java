@@ -3,8 +3,6 @@ package simulator.control;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,11 +44,14 @@ public class Controller {
 	}
 
 	public void run(int n, OutputStream out) throws RoadException, VehicleException, JunctionException, IOException {
+
 		for(int i = 0; i < n; ++i){
 			traffic_simulator.advance();
-			PrintStream p = new PrintStream(out);
-			p.println(traffic_simulator.report().toString(3));
+			System.out.println(traffic_simulator.report().toString());
+			byte[] bytes = (traffic_simulator.report().toString() + "\n").getBytes();//hay que darle formato
+			out.write(bytes);
 		}
+		
 	}
 
 	public void reset(){

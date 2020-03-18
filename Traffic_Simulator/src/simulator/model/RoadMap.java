@@ -88,11 +88,20 @@ public class RoadMap{
 	
 	public JSONObject report() {
 		JSONObject inform = new JSONObject();
-		JSONArray junct = new JSONArray(listJunc);
+		JSONArray junct = new JSONArray();
+		for(Junction j : listJunc){
+			junct.put(j.report());
+		}
 		inform.append("junctions", junct);
-		JSONArray roads = new JSONArray(listRoad);
+		JSONArray roads = new JSONArray();
+		for(Road r : listRoad){
+			roads.put(r.report());
+		}
 		inform.append("roads", roads);
-		JSONArray vecs = new JSONArray(listVec);
+		JSONArray vecs = new JSONArray();
+		for(Vehicle v : listVec){
+			vecs.put(v.report());
+		}
 		inform.append("vehicles", vecs);
 		return inform;
 		//ESTO NO VA A FUNCAR

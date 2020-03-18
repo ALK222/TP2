@@ -100,7 +100,7 @@ public class Vehicle extends SimulatedObject{
 	protected void advance(int time) throws RoadException {
 		if(status.equals(VehicleStatus.TRAVELING)) {
 			int new_location = Math.min(this.location + this.current_speed, this.current_road.getLenght());
-			int contamination = (new_location - this.location) * this.contamination_grade;
+			int contamination = (this.location - new_location) * this.contamination_grade;
 			this.total_contamination += contamination;
 			this.current_road.addContamination(contamination);
 			this.location = new_location;

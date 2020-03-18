@@ -34,23 +34,16 @@ public class TrafficSimulator {
 	
 	public void advance() throws RoadException, VehicleException, JunctionException {
 		++time;
-		// for(Event e : event_list) {
-		// 	if(e.getTime() == this.time) {
-		// 		e.execute(mapa_carreteras);
-		// 		//event_list.remove(e);
-		// 	}
-		// }
+
 		List<Event> aux = new ArrayList<>();
 		for(Event e: event_list){
 			if(e.getTime() == this.time){
 				aux.add(e);
-			}
-			for(Event d : aux){
-				d.execute(mapa_carreteras);
-				event_list.remove(d);
+				e.execute(mapa_carreteras);
 			}
 		}
 		
+		event_list.removeAll(aux);
 		
 		for(Junction j : mapa_carreteras.getJunctions()) {
 			j.advance(time);

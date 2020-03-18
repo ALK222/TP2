@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ public abstract class Road extends SimulatedObject{
 
 	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws RoadException, JunctionException  {
 		super(id);
+		this.vehicles = new ArrayList<Vehicle>();
 		if(maxSpeed < 0) {
 			throw new RoadException("Invalid max speed");
 		}
@@ -59,6 +61,12 @@ public abstract class Road extends SimulatedObject{
 		else {
 			this.destination = destJunc;
 			destJunc.addIncommingRoad(this);
+		}
+		if(weather == null){
+			throw new RoadException("Illegal weather");
+		}
+		else{
+			this.weather_condition = weather;
 		}
 	}
 	

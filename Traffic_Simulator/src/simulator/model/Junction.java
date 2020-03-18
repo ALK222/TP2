@@ -13,33 +13,41 @@ import exceptions.CoordException;
 import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.StrategyException;
+import exceptions.VehicleException;
 
-public class Junction extends SimulatedObject{
+public class Junction extends SimulatedObject {
 	List<Road> listRoad;
-	Map<Junction,Road> mapRoad;
+	Map<Junction, Road> mapRoad;
 	List<List<Vehicle>> listVehicle;
-	int greenLight; //Que semaforo est� en verde -1 todos en rojo
-	int ultSem; //El paso en el cual el indice de semaforo en verde ha cambiado de valor
+	int greenLight; // Que semaforo est� en verde -1 todos en rojo
+	int ultSem; // El paso en el cual el indice de semaforo en verde ha cambiado de valor
 	LightSwitchingStrategy est;
 	DequeuingStrategy deqEst;
 	int _x;
 	int _y;
-	Junction(String id, LightSwitchingStrategy lsStrategy,DequeuingStrategy dqStrategy, int xCoord, int yCoord) throws StrategyException, CoordException {
+
+	Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoord, int yCoord)
+			throws StrategyException, CoordException {
 		super(id);
 		this.listRoad = new ArrayList<Road>();
-		this.mapRoad= new TreeMap<Junction,Road>();
-		this.listVehicle =  new ArrayList<List<Vehicle>> ();
-		if(lsStrategy == null ) {throw new StrategyException("LighSwitchinStrategy is NULL");}
-		if(dqStrategy == null ) {throw new StrategyException("DequeuingStrategy is NULL");}
+		this.mapRoad = new TreeMap<Junction, Road>();
+		this.listVehicle = new ArrayList<List<Vehicle>>();
+		if (lsStrategy == null) {
+			throw new StrategyException("LighSwitchinStrategy is NULL");
+		}
+		if (dqStrategy == null) {
+			throw new StrategyException("DequeuingStrategy is NULL");
+		}
 		this.deqEst = dqStrategy;
-		this.est= lsStrategy;
-		if(xCoord <0 || yCoord <0)throw new CoordException("The coordenades are negatives");
-		this._x= xCoord;
+		this.est = lsStrategy;
+		if (xCoord < 0 || yCoord < 0)
+			throw new CoordException("The coordenades are negatives");
+		this._x = xCoord;
 		this._y = yCoord;
 	}
 
 	@Override
-	void advance(int time) throws RoadException {
+	void advance(int time) throws RoadException, VehicleException {
 		List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
 		for(Vehicle i : aux) {
 			i.moveToNextRoad();
@@ -59,7 +67,7 @@ public class Junction extends SimulatedObject{
 		int i = 0;
 		for (Road r : listRoad) {
 			 r=listRoad.get(i);
-			if(r.destination.equals(this))aux=r;
+			if(r.origin.equals(this))aux=r;
 		}
 		return aux;
 	}

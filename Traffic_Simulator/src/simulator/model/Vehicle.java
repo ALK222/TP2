@@ -29,6 +29,8 @@ public class Vehicle extends SimulatedObject{
 	private int total_contamination;
 	
 	private int total_distance;
+
+	private int current_junction;
 	
 	//CONSTRUCTOR
 	
@@ -55,6 +57,8 @@ public class Vehicle extends SimulatedObject{
 		this.current_speed = 0;
 		this.total_contamination = 0;
 		this.total_distance = 0;
+		this.status = VehicleStatus.PENDING;
+		this.current_junction = 0;
 	}
 
 	//METHODS
@@ -108,12 +112,14 @@ public class Vehicle extends SimulatedObject{
 		
 	}
 
-	protected void moveToNextRoad() throws RoadException {
+	protected void moveToNextRoad() throws RoadException, VehicleException {
 		this.location = 0;
 		this.current_speed = 0;
+		if(!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING)) throw new VehicleException("Illegal status");
 		if(this.status.equals(VehicleStatus.PENDING)){
-			this.current_road = this.itinerary.get(0).exRoad();
+			this.current_road = this.itinerary.get(this.current_junction).exRoad();
 			this.status = VehicleStatus.TRAVELING;
+			this.current_junction++;
 		}
 		else{
 			this.current_road.exit(this);
@@ -121,7 +127,6 @@ public class Vehicle extends SimulatedObject{
 			this.status = VehicleStatus.PENDING;
 		}
 		this.current_road.enter(this);
-		
 	}
 
 

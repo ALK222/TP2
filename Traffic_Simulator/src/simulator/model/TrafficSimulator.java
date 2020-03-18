@@ -33,7 +33,7 @@ public class TrafficSimulator {
 	}
 	
 	public void advance() throws RoadException, VehicleException, JunctionException {
-		++time;
+		
 
 		List<Event> aux = new ArrayList<>();
 		for(Event e: event_list){
@@ -52,6 +52,8 @@ public class TrafficSimulator {
 		for(Road road : mapa_carreteras.getRoads()) {
 			road.advance(time);
 		}
+		
+		++time;
 	}
 	
 	public void reset() {

@@ -18,7 +18,7 @@ import simulator.model.NewJunctionEvent;
 public class NewJunctionEventBuilder extends Builder<Event> {
 
 	public NewJunctionEventBuilder() {
-		super("new_juntion");
+		super("new_junction");
 
 	}
 

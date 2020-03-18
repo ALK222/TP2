@@ -1,8 +1,10 @@
 package simulator.launcher;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,16 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.json.JSONException;
 
+import exceptions.CoordException;
+import exceptions.FactoryException;
 import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.SimulatorException;
+import exceptions.StrategyException;
 import exceptions.VehicleException;
+import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.factories.Builder;
 import simulator.factories.BuilderBasedFactory;
@@ -129,10 +136,11 @@ public class Main {
 
 	}
 
-	private static void startBatchMode()
-			throws IOException, RoadException, VehicleException, JunctionException, SimulatorException {
+	private static void startBatchMode() throws IOException, RoadException, VehicleException, JunctionException,
+			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller c = new Controller(ts, _eventsFactory);
+		c.loadEvents(new ByteArrayInputStream(_inFile.getBytes()));
 		OutputStream os;
 		System.out.println(_outFile);
 		if(_outFile != null){
@@ -147,7 +155,7 @@ public class Main {
 	}
 
 	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,
-			SimulatorException {
+			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		initFactories();
 		parseArgs(args);
 		startBatchMode();

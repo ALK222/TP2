@@ -1,7 +1,7 @@
 package simulator.launcher;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -139,7 +139,7 @@ public class Main {
 			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller c = new Controller(ts, _eventsFactory);
-		c.loadEvents(new ByteArrayInputStream(_inFile.getBytes()));
+		c.loadEvents(new FileInputStream(_inFile));
 		OutputStream os;
 		System.out.println(_outFile);
 		if(_outFile != null){

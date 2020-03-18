@@ -141,7 +141,6 @@ public class Main {
 		Controller c = new Controller(ts, _eventsFactory);
 		c.loadEvents(new FileInputStream(_inFile));
 		OutputStream os;
-		System.out.println(_outFile);
 		if(_outFile != null){
 			os= new FileOutputStream(_outFile);
 		}

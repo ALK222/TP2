@@ -25,7 +25,6 @@ public abstract class Builder<T> {
 			VehicleException, WeatherException {
 
 		T b = null;
-		String prueba = info.getString("type");
 		if (_type != null && _type.equals(info.getString("type"))) {
 			b = createTheInstance(info.has("data") ? info.getJSONObject("data") : null);
 		}

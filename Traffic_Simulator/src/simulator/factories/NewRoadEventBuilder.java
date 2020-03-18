@@ -14,7 +14,6 @@ public abstract class NewRoadEventBuilder extends Builder<Event> {
 
 	NewRoadEventBuilder(String type) {
 		super(type);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

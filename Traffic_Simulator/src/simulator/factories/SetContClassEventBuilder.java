@@ -19,7 +19,6 @@ public class SetContClassEventBuilder extends Builder<Event> {
 
 	public SetContClassEventBuilder() {
 		super("set_cont_class");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

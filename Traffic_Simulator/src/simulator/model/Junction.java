@@ -40,7 +40,6 @@ public class Junction extends SimulatedObject{
 
 	@Override
 	void advance(int time) throws RoadException {
-		// TODO Auto-generated method stub
 		List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
 		for(Vehicle i : aux) {
 			i.moveToNextRoad();

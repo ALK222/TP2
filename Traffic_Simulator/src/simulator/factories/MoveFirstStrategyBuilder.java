@@ -9,7 +9,6 @@ public class MoveFirstStrategyBuilder extends Builder<DequeuingStrategy> {
 
 	MoveFirstStrategyBuilder() {
 		super("move_first_dqs");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

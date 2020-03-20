@@ -34,7 +34,7 @@ public class Vehicle extends SimulatedObject{
 	
 	//CONSTRUCTOR
 	
-	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException {
+	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException, RoadException {
 		super(id);
 		if(maxSpeed < 0) {
 			throw new VehicleException("Invalid speed");
@@ -58,7 +58,6 @@ public class Vehicle extends SimulatedObject{
 		this.total_contamination = 0;
 		this.total_distance = 0;
 		this.status = VehicleStatus.PENDING;
-		this.current_junction = 0;
 	}
 
 	//METHODS
@@ -117,13 +116,14 @@ public class Vehicle extends SimulatedObject{
 		this.current_speed = 0;
 		if(!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING)) throw new VehicleException("Illegal status");
 		if(this.status.equals(VehicleStatus.PENDING)){
-			this.current_road = this.itinerary.get(this.current_junction).exRoad();
-			this.status = VehicleStatus.TRAVELING;
+			this.current_road = this.itinerary.get(0).roadTo(this.itinerary.get(1));
+			this.itinerary.get(0).enter(this);
 			this.current_junction++;
 		}
 		else{
 			this.current_road.exit(this);
-			this.current_road = this.current_road.destination.exRoad();
+			this.current_road = this.current_road.destination.roadTo(this.itinerary.get(current_junction + 1));
+			this.current_junction++;
 			this.status = VehicleStatus.PENDING;
 		}
 		this.current_road.enter(this);

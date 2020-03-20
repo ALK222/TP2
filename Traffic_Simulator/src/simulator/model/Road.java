@@ -36,39 +36,23 @@ public abstract class Road extends SimulatedObject{
 	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws RoadException, JunctionException  {
 		super(id);
 		this.vehicles = new ArrayList<Vehicle>();
-		if(maxSpeed < 0) {
-			throw new RoadException("Invalid max speed");
-		}
-		else {
-			this.max_speed = maxSpeed;
-		}
-		if(contLimit < 0) {
-			throw new RoadException("Invalid contamination limit");
-		}
-		else {
-			this.contamination_alarm = contLimit;
-			this.total_contamination = 0;
-		}
-		if(srcJunc == null) {
-			throw new RoadException("No initial junction provided");
-		}
-		else {
-			this.origin = srcJunc;
-			srcJunc.addOutGoingRoad(this);
-		}
-		if(destJunc == null) {
-			throw new RoadException("No end junction provided");
-		}
-		else {
-			this.destination = destJunc;
-			destJunc.addIncommingRoad(this);
-		}
-		if(weather == null){
-			throw new RoadException("Illegal weather");
-		}
-		else{
-			this.weather_condition = weather;
-		}
+		if(maxSpeed < 0) throw new RoadException("Invalid max speed");
+			
+		if(contLimit < 0) throw new RoadException("Invalid contamination limit");
+
+		if(destJunc == null) throw new RoadException("No end junction provided");
+			
+		if(srcJunc == null) throw new RoadException("No initial junction provided");
+			
+		if(weather == null) throw new RoadException("Illegal weather");
+		this.max_speed = maxSpeed;
+		this.weather_condition = weather;
+		this.contamination_alarm = contLimit;
+		this.total_contamination = 0;
+		this.origin = srcJunc;
+		this.destination = destJunc;
+		this.origin.addIncommingRoad(this);
+		this.destination.addOutGoingRoad(this);
 	}
 	
 	protected abstract void updateSpeedLimit();

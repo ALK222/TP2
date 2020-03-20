@@ -1,7 +1,6 @@
 package simulator.model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -19,6 +18,7 @@ public class Junction extends SimulatedObject {
 	List<Road> listRoad;
 	Map<Junction, Road> mapRoad;
 	List<List<Vehicle>> listVehicle;
+	Map<Road, List<Vehicle>> mapaColas; //mapa carretera-cola
 	int greenLight; // Que semaforo est� en verde -1 todos en rojo
 	int ultSem; // El paso en el cual el indice de semaforo en verde ha cambiado de valor
 	LightSwitchingStrategy est;
@@ -32,6 +32,7 @@ public class Junction extends SimulatedObject {
 		this.listRoad = new ArrayList<Road>();
 		this.mapRoad = new TreeMap<Junction, Road>();
 		this.listVehicle = new ArrayList<List<Vehicle>>();
+		this.mapaColas = new TreeMap<Road, List<Vehicle>>();
 		if (lsStrategy == null) {
 			throw new StrategyException("LighSwitchinStrategy is NULL");
 		}
@@ -48,19 +49,23 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance(int time) throws RoadException, VehicleException {
+		
 		List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
 		for(Vehicle i : aux) {
 			i.moveToNextRoad();
 		}
+		
 		this.greenLight = this.est.chooseNextGreen(listRoad, listVehicle, greenLight, ultSem, time);
 	}
 	
 	void addIncommingRoad(Road r) throws JunctionException {
-		if(!r.destination.equals(this)) throw new JunctionException("This road isn't a entry road");
+		if(!r.origin.equals(this)) throw new JunctionException("This road isn't a entry road");
 		this.listRoad.add(r);
-		LinkedList<Vehicle> queue = new LinkedList<Vehicle>();
+		List<Vehicle> queue = r.vehicles;
 		this.listVehicle.add(queue);
+		this.mapaColas.put(r, r.vehicles);
 		
+		this.mapRoad.put(this, r);
 	}
 	Road exRoad(){//Busca si hay una carretera saliente
 		Road aux = null;
@@ -72,20 +77,24 @@ public class Junction extends SimulatedObject {
 		return aux;
 	}
 	void addOutGoingRoad(Road r) throws JunctionException {
-		if(!r.origin.equals(this)&& r.equals(exRoad()))throw new JunctionException("Bad road exit");
+		if(!r.destination.equals(this) && r.equals(exRoad()))throw new JunctionException("Bad road exit");
 		this.listRoad.add(r);
-		this.mapRoad.put(this, r);
+		List<Vehicle> queue = r.vehicles;
+		this.listVehicle.add(queue);
+		this.mapaColas.put(r, r.vehicles);
 		//HACIDO
 	}
 	void enter(Vehicle v) throws RoadException {//Hechito
 		//completar
-		int i = this.listRoad.indexOf(v.getCurrentRoad());
-		this.listVehicle.get(i).add(v);
+		List<Vehicle> aux = mapaColas.get(v.getCurrentRoad());
+		this.mapaColas.get(v.getCurrentRoad()).add(v);
 	}
 	Road roadTo(Junction j) {
-		Road aux = null;
-		aux=this.mapRoad.get(j);
-		return aux;
+		
+		for(Road aux : listRoad){
+			if(j.equals(aux.destination)) return aux;
+		}
+		return null;
 	}
 	@Override
 	public JSONObject report() {

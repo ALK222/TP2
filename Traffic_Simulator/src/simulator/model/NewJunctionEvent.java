@@ -1,6 +1,7 @@
 package simulator.model;
 
 import exceptions.CoordException;
+import exceptions.JunctionException;
 import exceptions.StrategyException;
 
 public class NewJunctionEvent extends Event {
@@ -13,7 +14,8 @@ public class NewJunctionEvent extends Event {
 	}
 
 	@Override
-	void execute(RoadMap map) {
+	void execute(RoadMap map) throws JunctionException {
+		map.addJunction(junc);
 		map.juncMap.put(this.junc.getId(), junc);
 
 	}

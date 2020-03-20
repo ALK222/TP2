@@ -18,7 +18,7 @@ public class NewInterCityRoadEventBuilder extends NewRoadEventBuilder {
 	@Override
 	protected Event createTheRoad(JSONObject data) throws JSONException, RoadException, JunctionException {
 		return new NewInterCityRoad(data.getInt("time"),data.getString("id"),data.getString("src"), 
-				data.getString("dest"), data.getInt("maxspeed"), data.getInt("co2limit"), data.getInt("length"), 
+				data.getString("dest"), data.getInt("length"), data.getInt("co2limit"), data.getInt("maxspeed"), 
 				Weather.valueOf(data.getString("weather")));
 	}
 

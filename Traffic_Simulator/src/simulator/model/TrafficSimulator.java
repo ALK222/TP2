@@ -65,7 +65,8 @@ public class TrafficSimulator {
 	public JSONObject report() {
 		JSONObject r = new JSONObject();
 		r.append("Time", time);
-		r.append("", mapa_carreteras.report());
+		r.append("State", mapa_carreteras.report());
+		System.out.println(r.toString());
 		return r;
 	}
 }

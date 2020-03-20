@@ -8,51 +8,48 @@ import org.json.JSONObject;
 import exceptions.RoadException;
 import exceptions.VehicleException;
 
-public class Vehicle extends SimulatedObject{
-	
-	//ATRIBUTTES
-	
+public class Vehicle extends SimulatedObject {
+
+	// ATRIBUTTES
+
 	private List<Junction> itinerary;
-	
+
 	private int max_speed;
-	
+
 	private int current_speed;
-	
+
 	private VehicleStatus status;
-	
+
 	private Road current_road;
-	
+
 	private int location;
-	
+
 	private int contamination_grade;
-	
+
 	private int total_contamination;
-	
+
 	private int total_distance;
 
 	private int current_junction;
-	
-	//CONSTRUCTOR
-	
+
+	// CONSTRUCTOR
+
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException {
 		super(id);
-		if(maxSpeed < 0) {
+		if (maxSpeed < 0) {
 			throw new VehicleException("Invalid speed");
-		}
-		else {
+		} else {
 			this.max_speed = maxSpeed;
 		}
-		if(contClass < 0 && contClass > 10) {
+		if (contClass < 0 && contClass > 10) {
 			throw new VehicleException("Invalid contamination class");
-		}
-		else {
+		} else {
 			this.contamination_grade = contClass;
 		}
-		if(itinerary.size() < 2) {
+		if (itinerary.size() < 2) {
 			throw new VehicleException("Invalid itinerary");
-		}
-		else {
-			this.itinerary = Collections.unmodifiableList(itinerary);				
+		} else {
+			this.itinerary = Collections.unmodifiableList(itinerary);
 		}
 		this.current_speed = 0;
 		this.total_contamination = 0;
@@ -61,74 +58,79 @@ public class Vehicle extends SimulatedObject{
 		this.current_junction = 0;
 	}
 
-	//METHODS
-	
+	// METHODS
+
 	protected void setSpeed(int speed) throws VehicleException {
-		if(speed < 0) {
+		if (speed < 0) {
 			throw new VehicleException("Invalid Speed");
-		}
-		else {
+		} else {
 			this.current_speed = Math.min(speed, this.max_speed);
 		}
 	}
-	
+
 	protected int getSpeed() {
 		return this.current_speed;
 	}
-	
+
 	protected int getLocation() {
 		return this.location;
 	}
+
 	protected int getContamination() {
 		return this.contamination_grade;
 	}
-	
+
 	protected Road getCurrentRoad() {
 		return this.current_road;
 	}
-	protected void setContamination(int contamination) throws VehicleException{
-		if(contamination < 0 && contamination > 10) {
+	protected VehicleStatus getStatus() {
+		return this.status;
+	}
+	protected void setContamination(int contamination) throws VehicleException {
+		if (contamination < 0 && contamination > 10) {
 			throw new VehicleException("Invalid contamination Value");
-		}
-		else {
+		} else {
 			this.total_contamination = contamination;
 		}
 	}
-	
 
 	@Override
 	protected void advance(int time) throws RoadException {
-		if(status.equals(VehicleStatus.TRAVELING)) {
+		if (status.equals(VehicleStatus.TRAVELING)) {
 			int new_location = Math.min(this.location + this.current_speed, this.current_road.getLenght());
-			int contamination = (this.location - new_location) * this.contamination_grade;
+			int contamination = (new_location - this.location) * this.contamination_grade;
 			this.total_contamination += contamination;
 			this.current_road.addContamination(contamination);
 			this.location = new_location;
-			if(new_location >= this.current_road.getLenght()) {
-				//entrar a junction
-				this.current_road.destination.enter(this);
+			if (new_location >= this.current_road.getLenght()) {
+				// entrar a junction
+				if (this.itinerary.get(this.itinerary.size()-1).equals(this.current_road.destination))
+					this.status = VehicleStatus.ARRIVED;
+				else {
+					this.current_road.destination.enter(this);
+					this.status = VehicleStatus.WAITING;
+				}
 			}
 		}
-		
+
 	}
 
 	protected void moveToNextRoad() throws RoadException, VehicleException {
 		this.location = 0;
 		this.current_speed = 0;
-		if(!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING)) throw new VehicleException("Illegal status");
-		if(this.status.equals(VehicleStatus.PENDING)){
+		if (!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING))
+			throw new VehicleException("Illegal status");
+		if (this.status.equals(VehicleStatus.PENDING)) {
 			this.current_road = this.itinerary.get(this.current_junction).exRoad();
 			this.status = VehicleStatus.TRAVELING;
 			this.current_junction++;
-		}
-		else{
+		} else {
 			this.current_road.exit(this);
 			this.current_road = this.current_road.destination.exRoad();
 			this.status = VehicleStatus.PENDING;
 		}
 		this.current_road.enter(this);
 	}
-
 
 	@Override
 	public JSONObject report() {
@@ -139,12 +141,11 @@ public class Vehicle extends SimulatedObject{
 		information.append("Co2", this.total_contamination);
 		information.append("class", this.contamination_grade);
 		information.append("status", this.status);
-		if(this.status != VehicleStatus.PENDING && this.status != VehicleStatus.ARRIVED) {
+		if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.ARRIVED) {
 			information.append("road", this.current_road.getId());
 			information.append("location", this.location);
 		}
 		return information;
 	}
 
-	
 }

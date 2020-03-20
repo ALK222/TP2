@@ -5,18 +5,18 @@ import exceptions.JunctionException;
 import exceptions.StrategyException;
 
 public class NewJunctionEvent extends Event {
-	
+
 	private Junction junc;
 
-	public NewJunctionEvent(int time, String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) throws StrategyException, CoordException {
+	public NewJunctionEvent(int time, String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy,
+			int xCoor, int yCoor) throws StrategyException, CoordException {
 		super(time);
-		this.junc = new Junction(id,lsStrategy, dqStrategy, xCoor, yCoor);
+		this.junc = new Junction(id, lsStrategy, dqStrategy, xCoor, yCoor);
 	}
 
 	@Override
 	void execute(RoadMap map) throws JunctionException {
-		map.addJunction(junc);
-		map.juncMap.put(this.junc.getId(), junc);
+		map.addJunction(this.junc);
 
 	}
 

@@ -127,6 +127,7 @@ public class Vehicle extends SimulatedObject {
 		} else {
 			this.current_road.exit(this);
 			this.current_road = this.current_road.destination.exRoad();
+			if()
 			this.status = VehicleStatus.PENDING;
 		}
 		this.current_road.enter(this);

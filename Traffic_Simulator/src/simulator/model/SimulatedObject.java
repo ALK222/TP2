@@ -25,8 +25,8 @@ public abstract class SimulatedObject implements Comparable<SimulatedObject>{
 
 	@Override
 	public int compareTo(SimulatedObject o) {
-		if(this._id.equals(o.getId())) return 1;
-		return 0;
+		if(this._id.equals(o.getId())) return 0;
+		return -1;
 	}
 
 	abstract void advance(int time) throws RoadException, VehicleException;

@@ -51,9 +51,12 @@ public class Junction extends SimulatedObject {
 	void advance(int time) throws RoadException, VehicleException {
 		
 		List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
+		List<Vehicle> remove = new ArrayList<Vehicle>();
 		for(Vehicle i : aux) {
 			i.moveToNextRoad();
+			remove.add(i);
 		}
+		aux.removeAll(remove);
 		
 		this.greenLight = this.est.chooseNextGreen(listRoad, listVehicle, greenLight, ultSem, time);
 	}

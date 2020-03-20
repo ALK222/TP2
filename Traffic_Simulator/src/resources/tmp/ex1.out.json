@@ -1,1 +1,8 @@
-{"":[{"roads":[[]],"vehicles":[[]],"junctions":[[]]}],"Time":[1]}
+{
+   "State": [{
+      "roads": [[]],
+      "vehicles": [[]],
+      "junctions": [[]]
+   }],
+   "Time": [1]
+}

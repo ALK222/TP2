@@ -146,6 +146,9 @@ public class Main {
 		if(_outFile != null){
 			os= new FileOutputStream(_outFile);
 			file = new File(_outFile);
+			if(!file.exists()){
+				file.createNewFile();
+			}
 		}
 		else{
 			os= null; //new ByteArrayOutputStream();
@@ -153,11 +156,8 @@ public class Main {
 		}
 		c.run(_time, os);
 
-		if(!file.exists() || file.equals(null)){
-			file.createNewFile();
-		}
-		byte[] bytes = ts.report().toString().getBytes();
-		os.write(bytes);
+		
+		
 	}
 
 	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,

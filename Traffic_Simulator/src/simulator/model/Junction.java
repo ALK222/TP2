@@ -54,7 +54,7 @@ public class Junction extends SimulatedObject {
 			i.moveToNextRoad();
 		}
 
-		this.listVehicle.removeAll(aux);
+		this.listVehicle.get(greenLight).remove(aux);
 	
 		int green=  this.greenLight;
 		this.greenLight = this.est.chooseNextGreen(listRoad, listVehicle, greenLight, ultSem, time);

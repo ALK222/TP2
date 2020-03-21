@@ -104,7 +104,9 @@ public class Vehicle extends SimulatedObject {
 			this.location = new_location;
 			if (new_location >= this.current_road.getLenght()) {
 				// entrar a junction
-				if(this.current_junction == this.itinerary.size()) this.status = VehicleStatus.ARRIVED;
+				if(this.current_junction+1 == this.itinerary.size()) { 
+					this.current_speed=0;
+					this.status = VehicleStatus.ARRIVED;}
 				else{
 					this.status = VehicleStatus.WAITING;
 					this.current_road.destination.enter(this);
@@ -125,8 +127,9 @@ public class Vehicle extends SimulatedObject {
 			this.current_junction++;
 		} else {
 			this.current_road.exit(this);
-			this.current_road = this.current_road.destination.roadTo(this.itinerary.get(current_junction + 1));
+			this.current_road = this.current_road.destination.roadTo(this.itinerary.get(current_junction));
 			this.status = VehicleStatus.TRAVELING;
+			this.current_junction++;
 		}
 		this.current_road.enter(this);
 	}
@@ -144,7 +147,7 @@ public class Vehicle extends SimulatedObject {
 			information.append("road", this.current_road.getId());
 			information.append("location", this.location);
 		}
-		//System.out.println(information);
+		System.out.println(information);
 		return information;
 	}
 

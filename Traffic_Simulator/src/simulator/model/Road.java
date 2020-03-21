@@ -49,10 +49,11 @@ public abstract class Road extends SimulatedObject{
 		this.weather_condition = weather;
 		this.contamination_alarm = contLimit;
 		this.total_contamination = 0;
+		this.length  = length;
 		this.origin = srcJunc;
 		this.destination = destJunc;
-		this.origin.addIncommingRoad(this);
-		this.destination.addOutGoingRoad(this);
+		this.destination.addIncommingRoad(this);
+		this.origin.addOutGoingRoad(this);
 	}
 	
 	protected abstract void updateSpeedLimit();

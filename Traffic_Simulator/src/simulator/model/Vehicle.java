@@ -120,16 +120,13 @@ public class Vehicle extends SimulatedObject {
 		if (!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING)) throw new VehicleException("Illegal status");
 		
 		if (this.status.equals(VehicleStatus.PENDING)) {
-			this.current_road = this.itinerary.get(0).roadTo(this.itinerary.get(1));
-			this.itinerary.get(0).enter(this);//.roadTo(this.itinerary.get(1));
-			this.status = VehicleStatus.WAITING;
+			this.current_road = this.itinerary.get(0).roadTo(this.itinerary.get(0));
+			this.status = VehicleStatus.TRAVELING;
 			this.current_junction++;
 		} else {
 			this.current_road.exit(this);
 			this.current_road = this.current_road.destination.roadTo(this.itinerary.get(current_junction + 1));
-			this.itinerary.get(current_junction).enter(this);
 			this.status = VehicleStatus.TRAVELING;
-			current_junction++;
 		}
 		this.current_road.enter(this);
 	}
@@ -147,6 +144,7 @@ public class Vehicle extends SimulatedObject {
 			information.append("road", this.current_road.getId());
 			information.append("location", this.location);
 		}
+		//System.out.println(information);
 		return information;
 	}
 

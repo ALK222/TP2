@@ -3,6 +3,7 @@ package simulator.control;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +51,7 @@ public class Controller {
 		for(int i = 0; i < n; ++i){
 			traffic_simulator.advance();
 			if(i != 0){
-				System.out.println(traffic_simulator.report().toString());
+			//	System.out.println(traffic_simulator.report().toString());
 				ja.put(traffic_simulator.report().toString());
 			}
 		}

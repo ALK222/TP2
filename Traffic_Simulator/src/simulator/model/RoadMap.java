@@ -100,7 +100,7 @@ public class RoadMap{
 		inform.put("roads", roadRep);
 		inform.put("vehicles", vecRep);
 		inform.put("junctions", juncRep);
-
+	
 		return inform;
 	}
 

@@ -15,10 +15,10 @@ import exceptions.StrategyException;
 import exceptions.VehicleException;
 
 public class Junction extends SimulatedObject {
-	List<Road> listRoad;
-	Map<Junction, Road> mapRoad;
+	List<Road> listRoad;// Carreteras entrantes
+	Map<Junction, Road> mapRoad;// Mapa de carreteras salientes
 	List<List<Vehicle>> listVehicle;
-	Map<Road, List<Vehicle>> mapaColas; //mapa carretera-cola
+	Map<Road, List<Vehicle>> mapaColas; // mapa carretera-cola
 	int greenLight; // Que semaforo estï¿½ en verde -1 todos en rojo
 	int ultSem; // El paso en el cual el indice de semaforo en verde ha cambiado de valor
 	LightSwitchingStrategy est;
@@ -49,27 +49,39 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance(int time) throws RoadException, VehicleException {
-		List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
-		for (Vehicle i : aux) {
-			i.moveToNextRoad();
+		if (!this.listVehicle.isEmpty()) {
+			List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
+			for (Vehicle i : aux) {
+				i.moveToNextRoad();
+				if (i.getStatus().equals(VehicleStatus.TRAVELING)) {
+					this.listVehicle.remove(greenLight).remove(i);
+				}
+			}
+			// this.listVehicle.removeAll(aux);
 		}
 
-		this.listVehicle.get(greenLight).remove(aux);
-	
-		int green=  this.greenLight;
+		// for(int i = 0; i <= aux.size()-1;i++) {
+		// aux.get(i).moveToNextRoad();
+		// }
+
+		int green = this.greenLight;
 		this.greenLight = this.est.chooseNextGreen(listRoad, listVehicle, greenLight, ultSem, time);
-		if(this.greenLight == green) this.ultSem++;
-		else this.ultSem=0;
+		if (this.greenLight == green)
+			this.ultSem++;
+		else
+			this.ultSem = 0;
 	}
 
 	void addIncommingRoad(Road r) throws JunctionException {
-		if(!r.origin.equals(this)) throw new JunctionException("This road isn't a entry road");
+		if (!r.destination.equals(this))
+			throw new JunctionException("This road isn't a entry road");
 		this.listRoad.add(r);
-		List<Vehicle> queue = r.vehicles;
+		List<Vehicle> queue = new ArrayList<Vehicle>();
+		;
 		this.listVehicle.add(queue);
-		this.mapaColas.put(r, r.vehicles);
-		
-		this.mapRoad.put(this, r);
+		this.mapaColas.put(r, queue);
+
+		// this.mapRoad.put(this, r);
 	}
 
 	Road exRoad() {// Busca si hay una carretera saliente
@@ -84,24 +96,32 @@ public class Junction extends SimulatedObject {
 	}
 
 	void addOutGoingRoad(Road r) throws JunctionException {
-		if(!r.destination.equals(this) && r.equals(exRoad()))throw new JunctionException("Bad road exit");
-		this.listRoad.add(r);
-		List<Vehicle> queue = r.vehicles;
-		this.listVehicle.add(queue);
-		this.mapaColas.put(r, r.vehicles);
-		//HACIDO
+		/*
+		 * añade el par (j,r) al mapa de carreteras salientes, donde j es el cruce
+		 * destino de la carretera r. Tienes que comprobar que ninguna otra carretera va
+		 * desde this al cruce j y, que la carretera r, es realmente una carretera
+		 * saliente al cruce actual. En otro caso debes lanzar una excepción
+		 */
+		if (!r.origin.equals(this) && r.equals(exRoad()))
+			throw new JunctionException("Bad road exit");
+		// if(!this.mapRoad.get(this).equals(null))throw new JunctionException("Bad road
+		// exit");
+		// this.listRoad.add(r);
+		this.mapRoad.put(this, r);
+		// List<Vehicle> queue = r.vehicles;
+		// this.listVehicle.add(queue);
+		// this.mapaColas.put(r, r.vehicles);
+		// HACIDO
 	}
-	void enter(Vehicle v) throws RoadException {//Hechito
-		//completar
+
+	void enter(Vehicle v) throws RoadException {// Hechito
+		// completar
 		this.mapaColas.get(v.getCurrentRoad()).add(v);
 	}
 
 	Road roadTo(Junction j) {
-		
-		for(Road aux : listRoad){
-			if(j.equals(aux.destination)) return aux;
-		}
-		return null;
+
+		return this.mapRoad.get(j);
 	}
 
 	@Override
@@ -119,13 +139,13 @@ public class Junction extends SimulatedObject {
 		return information;
 	}
 
-	private JSONArray listReport(){
+	private JSONArray listReport() {
 		JSONArray aux = new JSONArray();
 		JSONObject aux2 = new JSONObject();
 		JSONArray auxVec = new JSONArray();
-		for(Road r : listRoad){
+		for (Road r : listRoad) {
 			aux2.put("road", r._id);
-			for(Vehicle v : r.vehicles){
+			for (Vehicle v : r.vehicles) {
 				auxVec.put(v._id);
 			}
 			aux2.put("vehicles", auxVec);

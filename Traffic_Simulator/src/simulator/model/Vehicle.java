@@ -104,11 +104,10 @@ public class Vehicle extends SimulatedObject {
 			this.location = new_location;
 			if (new_location >= this.current_road.getLenght()) {
 				// entrar a junction
-				if (this.itinerary.get(this.itinerary.size()-1).equals(this.current_road.destination))
-					this.status = VehicleStatus.ARRIVED;
-				else {
-					this.current_road.destination.enter(this);
+				if(this.current_junction == this.itinerary.size()) this.status = VehicleStatus.ARRIVED;
+				else{
 					this.status = VehicleStatus.WAITING;
+					this.current_road.destination.enter(this);
 				}
 			}
 		}
@@ -118,19 +117,17 @@ public class Vehicle extends SimulatedObject {
 	protected void moveToNextRoad() throws RoadException, VehicleException {
 		this.location = 0;
 		this.current_speed = 0;
-		if (!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING))
-			throw new VehicleException("Illegal status");
+		if (!this.status.equals(VehicleStatus.PENDING) && !this.status.equals(VehicleStatus.WAITING)) throw new VehicleException("Illegal status");
+		
 		if (this.status.equals(VehicleStatus.PENDING)) {
-			this.current_road = this.itinerary.get(this.current_junction).exRoad();
-			this.status = VehicleStatus.TRAVELING;
+			this.current_road = this.itinerary.get(0).roadTo(this.itinerary.get(1));
 			this.current_junction++;
 		} else {
 			this.current_road.exit(this);
-			this.current_road = this.current_road.destination.exRoad();
-			if(this.current_junction == this.itinerary.size()) this.status = VehicleStatus.ARRIVED;
-			else this.status = VehicleStatus.PENDING;
+			this.current_road = this.current_road.destination.roadTo(this.itinerary.get(current_junction + 1));
 		}
 		this.current_road.enter(this);
+		//this.status = VehicleStatus.TRAVELING;
 	}
 
 	@Override

@@ -49,18 +49,14 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance(int time) throws RoadException, VehicleException {
-		if (!this.listVehicle.isEmpty()) {
-			List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
-			if (!aux.isEmpty()) {
-				for (Vehicle i : aux) {
-					if(!i.getStatus().equals(VehicleStatus.ARRIVED))
-					i.moveToNextRoad();
-				}
-			}
+		List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
+		for (Vehicle i : aux) {
+			i.moveToNextRoad();
 		}
-		int aux=  this.greenLight;
+	
+		int green=  this.greenLight;
 		this.greenLight = this.est.chooseNextGreen(listRoad, listVehicle, greenLight, ultSem, time);
-		if(this.greenLight == aux)this.ultSem++;
+		if(this.greenLight == green) this.ultSem++;
 		else this.ultSem=0;
 	}
 
@@ -116,29 +112,25 @@ public class Junction extends SimulatedObject {
 		else
 			information.append("green", "none");
 
-		information.append("queues", listReport(listVehicle));// COMPLETAR CON EL JSON DE LAS COLAS
+		information.append("queues", listReport());// COMPLETAR CON EL JSON DE LAS COLAS
 
 		return information;
 	}
 
-	private JSONObject listReport(List<List<Vehicle>> list) {
-		JSONObject rep = new JSONObject();
-		int i = 1;
-		List<Vehicle> auxQ = list.iterator().next();
-		Vehicle it2 = auxQ.iterator().next();
-		while (auxQ.iterator().hasNext()) {
-			JSONArray vQ = new JSONArray();
-			while (auxQ.iterator().hasNext()) {
-				vQ.put(i, it2.report());
-				it2 = auxQ.iterator().next();
+	private JSONArray listReport(){
+		JSONArray aux = new JSONArray();
+		JSONObject aux2 = new JSONObject();
+		JSONArray auxVec = new JSONArray();
+		for(Road r : listRoad){
+			aux2.put("road", r._id);
+			for(Vehicle v : r.vehicles){
+				auxVec.put(v._id);
 			}
-			rep.append("road", listRoad.get(i)._id);
-			rep.append("vehicles", vQ);
-			auxQ.iterator().next();
-			i++;
+			aux2.put("vehicles", auxVec);
+			aux.put(aux2);
 		}
 
-		return rep;
+		return aux;
 	}
 
 }

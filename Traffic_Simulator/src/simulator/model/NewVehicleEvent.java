@@ -36,7 +36,6 @@ public class NewVehicleEvent extends Event {
 		}
 		v = new Vehicle(id, maxSpeed, contClass, vItinerary);
 		map.addVehicle(v);
-		map.vecMap.put(v.getId(),v);
 		v.moveToNextRoad();
 
 	}

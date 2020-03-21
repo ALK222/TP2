@@ -1,6 +1,7 @@
 package simulator.launcher;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -141,13 +142,20 @@ public class Main {
 		Controller c = new Controller(ts, _eventsFactory);
 		c.loadEvents(new FileInputStream(_inFile));
 		OutputStream os;
+		File file;
 		if(_outFile != null){
 			os= new FileOutputStream(_outFile);
+			file = new File(_outFile);
 		}
 		else{
-			os= new ByteArrayOutputStream();
+			os= null; //new ByteArrayOutputStream();
+			file = null;
 		}
 		c.run(_time, os);
+
+		if(!file.exists() || file.equals(null)){
+			file.createNewFile();
+		}
 		byte[] bytes = ts.report().toString().getBytes();
 		os.write(bytes);
 	}

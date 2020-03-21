@@ -88,14 +88,26 @@ public class RoadMap{
 	
 	public JSONObject report() {
 		JSONObject inform = new JSONObject();
-		JSONArray junct = new JSONArray(listJunc);
-		inform.append("junctions", junct);
-		JSONArray roads = new JSONArray(listRoad);
-		inform.append("roads", roads);
-		JSONArray vecs = new JSONArray(listVec);
-		inform.append("vehicles", vecs);
-		//System.out.println(inform.toString());
+
+		JSONArray roadRep = new JSONArray();
+		JSONArray vecRep = new JSONArray();
+		JSONArray juncRep = new JSONArray();
+
+		auxReport(listRoad, roadRep);
+		auxReport(listVec, vecRep);
+		auxReport(listJunc, juncRep);
+
+		inform.put("roads", roadRep);
+		inform.put("vehicles", vecRep);
+		inform.put("junctions", juncRep);
+
 		return inform;
-		//ESTO NO VA A FUNCAR
+	}
+
+	private <T extends SimulatedObject> void auxReport(List<T> auxList, JSONArray aux) {
+		
+		for(T o : auxList){
+			aux.put(o.report());
+		}
 	}
 }

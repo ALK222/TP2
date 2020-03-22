@@ -127,7 +127,7 @@ public abstract class Road extends SimulatedObject {
 		for(Vehicle v : vehicles){
 			ja.put(v.getId());
 		}
-		report.append("vehicles", ja);
+		report.put("vehicles", ja);
 		return report;
 	}
 

@@ -3,6 +3,7 @@ package simulator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import exceptions.JunctionException;
@@ -118,11 +119,15 @@ public abstract class Road extends SimulatedObject {
 	@Override
 	public JSONObject report() {
 		JSONObject report = new JSONObject();
+		JSONArray ja = new JSONArray();
 		report.append("id", this.getId());
 		report.append("speedlimit", this.current_speed_limit);
 		report.append("weather", this.weather_condition);
 		report.append("co2", this.total_contamination);
-		report.append("vehicles", vehicles);
+		for(Vehicle v : vehicles){
+			ja.put(v.getId());
+		}
+		report.append("vehicles", ja);
 		return report;
 	}
 

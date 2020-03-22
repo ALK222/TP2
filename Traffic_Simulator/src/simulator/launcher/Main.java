@@ -150,7 +150,7 @@ public class Main {
 			}
 		}
 		else{
-			os= null; //new ByteArrayOutputStream();
+			os= System.out;
 			file = null;
 		}
 		c.run(_time, os);

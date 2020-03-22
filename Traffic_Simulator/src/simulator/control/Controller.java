@@ -49,14 +49,14 @@ public class Controller {
 		JSONObject jo = new JSONObject();
 		PrintStream p = new PrintStream(out);
 		JSONArray ja = new JSONArray();
-		for(int i = 0; i < n; ++i){
+		for(int i = 0; i <= n; ++i){
 			traffic_simulator.advance();
 			if(i != 0){
 				ja.put(traffic_simulator.report());
 			}
 		}
 		jo.append("states", ja);
-		p.println(jo.toString(3));
+		p.println(jo.toString());
 		
 	}
 

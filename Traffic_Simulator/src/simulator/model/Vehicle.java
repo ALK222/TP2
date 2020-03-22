@@ -148,7 +148,6 @@ public class Vehicle extends SimulatedObject {
 			information.append("road", this.current_road.getId());
 			information.append("location", this.location);
 		}
-		System.out.println(information);
 		return information;
 	}
 

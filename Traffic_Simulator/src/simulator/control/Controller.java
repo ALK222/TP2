@@ -52,11 +52,11 @@ public class Controller {
 		for(int i = 0; i < n; ++i){
 			traffic_simulator.advance();
 			if(i != 0){
-				ja.put(traffic_simulator.report().toString());
+				ja.put(traffic_simulator.report());
 			}
 		}
-		jo.put("states", ja);
-		p.println(jo.toString(1));
+		jo.append("states", ja);
+		p.println(jo.toString(3));
 		
 	}
 

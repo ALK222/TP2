@@ -29,7 +29,10 @@ public class CityRoad extends Road {
 		if(this.weather_condition.equals( Weather.WINDY) || this.weather_condition.equals(Weather.STORM)) x = 10;
 		else x=2;
 		
-		this.total_contamination -=x;
+		//this.total_contamination -= x;
+
+		this.total_contamination -= (int) x;
+
 		if(	this.total_contamination < 0) 	this.total_contamination= 0;
 
 	}

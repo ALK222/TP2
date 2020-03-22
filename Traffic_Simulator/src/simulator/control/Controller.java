@@ -47,17 +47,17 @@ public class Controller {
 
 	public void run(int n, OutputStream out) throws RoadException, VehicleException, JunctionException, IOException {
 		JSONObject jo = new JSONObject();
+		PrintStream p = new PrintStream(out);
 		JSONArray ja = new JSONArray();
 		for(int i = 0; i < n; ++i){
 			traffic_simulator.advance();
 			if(i != 0){
-			//	System.out.println(traffic_simulator.report().toString());
 				ja.put(traffic_simulator.report().toString());
 			}
 		}
 		jo.put("states", ja);
-		byte[] bytes =jo.toString(1).getBytes();
-		out.write(bytes);
+		p.println(jo.toString(1));
+		
 	}
 
 	public void reset(){

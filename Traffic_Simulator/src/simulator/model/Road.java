@@ -112,6 +112,7 @@ public abstract class Road extends SimulatedObject {
 		}
 		// Recuerda shortear esta wea
 
+
 	}
 
 	@Override

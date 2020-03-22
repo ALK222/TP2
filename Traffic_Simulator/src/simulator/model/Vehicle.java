@@ -112,6 +112,7 @@ public class Vehicle extends SimulatedObject {
 					this.current_road.destination.enter(this);
 				}
 			}
+			this.total_distance += new_location;
 		}
 
 	}

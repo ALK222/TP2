@@ -19,7 +19,7 @@ public class CityRoad extends Road {
 
 	@Override
 	protected void calculateVehicleSpeed(Vehicle v) throws VehicleException {
-		v.setSpeed((int)(((11.0-v.getContamination())/11.0)*this.max_speed));
+		v.setSpeed((int)Math.ceil((((11.0-v.getContamination())/11.0)*this.max_speed)));
 
 	}
 

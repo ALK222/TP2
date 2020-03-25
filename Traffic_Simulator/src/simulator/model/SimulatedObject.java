@@ -32,4 +32,9 @@ public abstract class SimulatedObject implements Comparable<SimulatedObject>{
 	abstract void advance(int time) throws RoadException, VehicleException;
 
 	abstract public JSONObject report();
+
+	public int compareTo(Vehicle o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import exceptions.RoadException;
 import exceptions.VehicleException;
 
-public class Vehicle extends SimulatedObject {
+public class Vehicle extends SimulatedObject{
 
 	// ATRIBUTTES
 
@@ -134,7 +134,11 @@ public class Vehicle extends SimulatedObject {
 		}
 		this.current_road.enter(this);
 	}
-
+	public int compareTo(Vehicle o) {
+		if(this.location == o.getLocation()) return 0;
+		else if (this.location < o.getLocation()) return 1; 
+		return -1;
+	}
 	@Override
 	public JSONObject report() {
 		JSONObject information = new JSONObject();

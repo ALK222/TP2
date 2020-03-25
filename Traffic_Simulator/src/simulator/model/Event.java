@@ -22,8 +22,8 @@ public abstract class Event implements Comparable<Event> {
 	@Override
 	public int compareTo(Event o) {
 		if(this._time == o.getTime()) return 0;
-		else if (this._time < o.getTime()) return 1; 
-		return -1;
+		else if (this._time < o.getTime()) return -1; 
+		return 1;
 	}
 
 	abstract void execute(RoadMap map) throws RoadException, VehicleException, JunctionException;

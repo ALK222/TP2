@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import exceptions.JunctionException;
 import exceptions.RoadException;
 import exceptions.VehicleException;
+import simulator.misc.SortedArrayList;
 
 public abstract class Road extends SimulatedObject {
 
@@ -35,7 +36,7 @@ public abstract class Road extends SimulatedObject {
 	Road(String id, Junction srcJunc, Junction destJunc, int length, int contLimit, int maxSpeed, Weather weather)
 			throws RoadException, JunctionException {
 		super(id);
-		this.vehicles = new ArrayList<Vehicle>();
+		this.vehicles = new SortedArrayList<Vehicle>();
 		if (maxSpeed < 0)
 			throw new RoadException("Invalid max speed");
 
@@ -111,9 +112,8 @@ public abstract class Road extends SimulatedObject {
 				v.advance(time);
 			}
 		}
+		
 		// Recuerda shortear esta wea
-
-
 	}
 
 	@Override

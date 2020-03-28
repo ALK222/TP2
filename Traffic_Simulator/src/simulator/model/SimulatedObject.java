@@ -25,7 +25,7 @@ public abstract class SimulatedObject implements Comparable<SimulatedObject>{
 
 	@Override
 	public int compareTo(SimulatedObject o) {
-		if(this._id.equals(o.getId())) return 0;
+		if(this._id.equals(o._id)) return 0;
 		return -1;
 	}
 
@@ -33,8 +33,4 @@ public abstract class SimulatedObject implements Comparable<SimulatedObject>{
 
 	abstract public JSONObject report();
 
-	public int compareTo(Vehicle o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

@@ -34,7 +34,7 @@ public class InterCityRoad extends Road {
 		else if(this.weather_condition.equals(Weather.WINDY)) x = 15;
 		else if(this.weather_condition.equals(Weather.STORM)) x = 20;
 		
-		this.total_contamination = (int) (((100.0 - x)/100.0) * this.total_contamination);
+		this.total_contamination = (int) Math.ceil(((100.0 - x)/100.0) * this.total_contamination);
 		if(	this.total_contamination < 0) 	this.total_contamination= 0;
 	}
 

@@ -104,7 +104,7 @@ public class Vehicle extends SimulatedObject{
 			this.total_contamination += contamination;
 			
 			this.current_road.addContamination(contamination);
-			
+			this.total_distance += new_location - this.location;
 			this.location = new_location;
 			
 			if (new_location >= this.current_road.getLenght()) {
@@ -117,7 +117,7 @@ public class Vehicle extends SimulatedObject{
 					this.current_road.destination.enter(this);
 				}
 			}
-			this.total_distance = new_location;
+			
 		}
 
 	}

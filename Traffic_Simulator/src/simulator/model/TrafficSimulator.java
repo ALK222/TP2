@@ -1,6 +1,5 @@
 package simulator.model;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,7 +23,9 @@ public class TrafficSimulator {
 	// COSNTRUCTOR
 
 	public TrafficSimulator() {
-		this.reset();
+		this.mapa_carreteras = new RoadMap();
+		this.event_list = new SortedArrayList<Event>();
+		this.time = 0;
 	}
 
 	// METHODS
@@ -64,9 +65,9 @@ public class TrafficSimulator {
 	}
 
 	public void reset() {
-		this.mapa_carreteras = new RoadMap();
-		this.event_list = new SortedArrayList<Event>();
-		this.time = 0;
+		mapa_carreteras.reset();
+		event_list.clear();
+		time = 0;
 	}
 
 	public JSONObject report() {

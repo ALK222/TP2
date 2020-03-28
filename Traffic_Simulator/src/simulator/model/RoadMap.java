@@ -78,12 +78,12 @@ public class RoadMap{
 	}
 	
 	protected void reset() {
-		this.listJunc = new ArrayList<Junction>();
-		this.listRoad = new ArrayList<Road>();
-		this.listVec = new ArrayList<Vehicle>();
-		this.juncMap = new TreeMap<String, Junction>();
-		this.roadMap = new TreeMap<String, Road>();
-		this.vecMap = new TreeMap<String, Vehicle>();
+		this.listJunc.clear();
+		this.listRoad.clear();
+		this.listVec.clear();
+		this.juncMap.clear();
+		this.roadMap.clear();
+		this.vecMap.clear();
 	}
 	
 	public JSONObject report() {

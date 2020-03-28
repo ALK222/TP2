@@ -90,7 +90,7 @@ public class Vehicle extends SimulatedObject{
 		if (contamination < 0 && contamination > 10) {
 			throw new VehicleException("Invalid contamination Value");
 		} else {
-			this.total_contamination = contamination;
+			this.contamination_grade = contamination;
 		}
 	}
 
@@ -98,10 +98,15 @@ public class Vehicle extends SimulatedObject{
 	protected void advance(int time) throws RoadException {
 		if (status.equals(VehicleStatus.TRAVELING)) {
 			int new_location = Math.min(this.location + this.current_speed, this.current_road.getLenght());
+			
 			int contamination = (new_location - this.location) * this.contamination_grade;
+			
 			this.total_contamination += contamination;
+			
 			this.current_road.addContamination(contamination);
+			
 			this.location = new_location;
+			
 			if (new_location >= this.current_road.getLenght()) {
 				// entrar a junction
 				if(this.current_junction+1 == this.itinerary.size()) { 
@@ -112,7 +117,7 @@ public class Vehicle extends SimulatedObject{
 					this.current_road.destination.enter(this);
 				}
 			}
-			this.total_distance += new_location;
+			this.total_distance = new_location;
 		}
 
 	}
@@ -134,11 +139,7 @@ public class Vehicle extends SimulatedObject{
 		}
 		this.current_road.enter(this);
 	}
-	public int compareTo(Vehicle o) {
-		if(this.location == o.getLocation()) return 0;
-		else if (this.location < o.getLocation()) return 1; 
-		return -1;
-	}
+	
 	@Override
 	public JSONObject report() {
 		JSONObject information = new JSONObject();

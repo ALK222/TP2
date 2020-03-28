@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,14 +37,14 @@ public class TrafficSimulator {
 
 	public void advance() throws RoadException, VehicleException, JunctionException {
 
-		Iterator<Event> it = this.event_list.iterator();
-		Event aux = it.next();
-		while (it.hasNext() && aux.getTime() == this.time) {
-			aux.execute(mapa_carreteras);
-			it.remove();
-			aux = it.next();
-		}
-		/*List<Event> aux1 = new ArrayList<>();
+		// Iterator<Event> it = this.event_list.iterator();
+		// Event aux = it.next();
+		// while (it.hasNext() && aux.getTime() == this.time) {
+		// 	aux.execute(mapa_carreteras);
+		// 	it.remove();
+		// 	aux = it.next();
+		// }
+		List<Event> aux1 = new ArrayList<>();
 		for (Event e : event_list) {
 			if (e.getTime() == this.time) {
 				aux1.add(e);
@@ -52,7 +53,7 @@ public class TrafficSimulator {
 		}
 
 		event_list.removeAll(aux1);
-*/
+
 		for (Junction j : mapa_carreteras.getJunctions()) {
 			j.advance(time);
 		}

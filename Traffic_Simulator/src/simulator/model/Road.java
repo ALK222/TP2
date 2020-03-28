@@ -1,6 +1,6 @@
 package simulator.model;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -64,7 +64,7 @@ public abstract class Road extends SimulatedObject {
 
 	protected abstract void updateSpeedLimit();
 
-	protected abstract void calculateVehicleSpeed(Vehicle v) throws VehicleException;
+	protected abstract int calculateVehicleSpeed(Vehicle v) throws VehicleException;
 
 	protected int getLenght() {
 		return this.length;
@@ -108,12 +108,25 @@ public abstract class Road extends SimulatedObject {
 		this.updateSpeedLimit();
 		for (Vehicle v : vehicles) {
 			if (!v.getStatus().equals(VehicleStatus.ARRIVED)) {
-				calculateVehicleSpeed(v);
+				v.setSpeed(this.calculateVehicleSpeed(v));
 				v.advance(time);
 			}
 		}
-		
+
 		// Recuerda shortear esta wea
+		
+		Comparator<Vehicle> c = new Comparator<Vehicle>() {
+
+			@Override
+			public int compare(Vehicle o1, Vehicle o2) {
+				if(o1.getLocation() == o2.getLocation()) return 0;
+			else if (o1.getLocation() < o2.getLocation()) return 1; 
+			return -1;
+			}
+		};
+
+
+		this.vehicles.sort(c);
 	}
 
 	@Override

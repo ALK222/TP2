@@ -13,13 +13,15 @@ public class CityRoad extends Road {
 
 	@Override
 	protected void updateSpeedLimit() {
+		
 		this.current_speed_limit = this.max_speed;
 
 	}
 
 	@Override
-	protected void calculateVehicleSpeed(Vehicle v) throws VehicleException {
-		v.setSpeed((int)Math.ceil((((11.0-v.getContamination())/11.0)*this.max_speed)));
+	protected int calculateVehicleSpeed(Vehicle v) throws VehicleException {
+
+		return (int)(((11.0-v.getContamination())/11.0)*this.max_speed);
 
 	}
 
@@ -29,7 +31,6 @@ public class CityRoad extends Road {
 		if(this.weather_condition.equals( Weather.WINDY) || this.weather_condition.equals(Weather.STORM)) x = 10;
 		else x=2;
 		
-		//this.total_contamination -= x;
 
 		this.total_contamination -= (int) x;
 

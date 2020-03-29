@@ -77,7 +77,6 @@ public class Junction extends SimulatedObject {
 			throw new JunctionException("This road isn't a entry road");
 		this.listRoad.add(r);
 		List<Vehicle> queue = new ArrayList<Vehicle>();
-		;
 		this.listVehicle.add(queue);
 		this.mapaColas.put(r, queue);
 
@@ -97,10 +96,10 @@ public class Junction extends SimulatedObject {
 
 	void addOutGoingRoad(Road r) throws JunctionException {
 		/*
-		 * añade el par (j,r) al mapa de carreteras salientes, donde j es el cruce
+		 * aï¿½ade el par (j,r) al mapa de carreteras salientes, donde j es el cruce
 		 * destino de la carretera r. Tienes que comprobar que ninguna otra carretera va
 		 * desde this al cruce j y, que la carretera r, es realmente una carretera
-		 * saliente al cruce actual. En otro caso debes lanzar una excepción
+		 * saliente al cruce actual. En otro caso debes lanzar una excepciï¿½n
 		 */
 		if (!r.origin.equals(this) && r.equals(exRoad()))
 			throw new JunctionException("Bad road exit");
@@ -144,8 +143,9 @@ public class Junction extends SimulatedObject {
 		JSONObject aux2 = new JSONObject();
 		JSONArray auxVec = new JSONArray();
 		for (Road r : listRoad) {
-			aux2.put("road", r._id);
-			for (Vehicle v : r.vehicles) {
+			String rId = r._id;
+			aux2.put("road", rId);
+			for (Vehicle v : mapaColas.get(r)) {
 				auxVec.put(v._id);
 			}
 			aux2.put("vehicles", auxVec);

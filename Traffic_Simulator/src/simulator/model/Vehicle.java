@@ -143,15 +143,15 @@ public class Vehicle extends SimulatedObject{
 	@Override
 	public JSONObject report() {
 		JSONObject information = new JSONObject();
-		information.append("id", (String)this._id);
-		information.append("speed", (int)this.current_speed);
-		information.append("distance", (int)this.total_distance);
-		information.append("Co2", (int)this.total_contamination);
-		information.append("class", (int)this.contamination_grade);
-		information.append("status", this.status);
+		information.put("id", (String)this._id);
+		information.put("speed", (int)this.current_speed);
+		information.put("distance", (int)this.total_distance);
+		information.put("Co2", (int)this.total_contamination);
+		information.put("class", (int)this.contamination_grade);
+		information.put("status", (String)this.status.parse());
 		if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.ARRIVED) {
-			information.append("road", (String)this.current_road.getId());
-			information.append("location", (int)this.location);
+			information.put("road", (String)this.current_road.getId());
+			information.put("location", (int)this.location);
 		}
 		return information;
 	}

@@ -125,12 +125,12 @@ public class Junction extends SimulatedObject {
 	@Override
 	public JSONObject report() {
 		JSONObject information = new JSONObject();
-		information.append("id", (String)this._id);
+		information.put("id", (String)this._id);
 
 		if (this.greenLight != -1)
-			information.append("green", (String) this.listRoad.get(greenLight)._id);
+			information.put("green", (String) this.listRoad.get(greenLight)._id);
 		else
-			information.append("green", "none");
+			information.put("green", "none");
 
 		information.put("queues", listReport());// COMPLETAR CON EL JSON DE LAS COLAS
 

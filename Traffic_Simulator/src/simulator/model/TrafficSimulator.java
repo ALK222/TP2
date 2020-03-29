@@ -44,7 +44,6 @@ public class TrafficSimulator {
 		// 	aux = it.next();
 		// }
 		List<Event> aux1 = new ArrayList<>();
-		++time;
 		for (Event e : event_list) {
 			if (e.getTime() == this.time) {
 				aux1.add(e);
@@ -62,7 +61,7 @@ public class TrafficSimulator {
 			road.advance(time);
 		}
 
-		//++time;
+		++time;
 	}
 
 	public void reset() {
@@ -73,7 +72,7 @@ public class TrafficSimulator {
 
 	public JSONObject report() {
 		JSONObject r = new JSONObject();
-		r.put("time", (int)time);
+		r.put("time", (int)time - 1);
 		r.put("state", mapa_carreteras.report());
 		return r;
 	}

@@ -48,9 +48,7 @@ public class Controller {
 	public void run(int n, OutputStream out) throws RoadException, VehicleException, JunctionException, IOException {
 		PrintStream p = new PrintStream(out);
 		p.println("{");
-		p.println("\"states\": [");
-
-    
+		p.println("  \"states\": [");
 		for(int i = 1; i <= n; ++i){
 			traffic_simulator.advance();
 				p.print(traffic_simulator.report());
@@ -58,13 +56,9 @@ public class Controller {
 					p.println(",");
 				}	
 			
-
 		}
-			
-
 		p.println("\n]");
 		p.println("}");
-		p.close();
 	}
 
 	public void reset(){

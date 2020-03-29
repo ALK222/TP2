@@ -45,6 +45,7 @@ public class Junction extends SimulatedObject {
 			throw new CoordException("The coordenades are negatives");
 		this._x = xCoord;
 		this._y = yCoord;
+		this.ultSem=1;
 	}
 
 	@Override

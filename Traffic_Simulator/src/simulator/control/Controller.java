@@ -49,14 +49,12 @@ public class Controller {
 		PrintStream p = new PrintStream(out);
 		p.println("{");
 		p.println("\"states\": [");
-		for(int i = 0; i <= n; ++i){
+		for(int i = 1; i <= n; ++i){
 			traffic_simulator.advance();
-			if(i != 0){
 				p.print(traffic_simulator.report());
 				if(i != n){
 					p.println(",");
 				}	
-			}
 			
 		}
 		p.println("\n]");

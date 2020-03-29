@@ -138,10 +138,11 @@ public class Junction extends SimulatedObject {
 	}
 
 	private JSONArray listReport() {
-		JSONArray aux = new JSONArray();
-		JSONObject aux2 = new JSONObject();
-		JSONArray auxVec = new JSONArray();
+	JSONArray aux = new JSONArray();
+
 		for (Road r : listRoad) {
+			JSONObject aux2 = new JSONObject();
+			JSONArray auxVec = new JSONArray();
 			String rId = r._id;
 			aux2.put("road", rId);
 			for (Vehicle v : mapaColas.get(r)) {
@@ -150,7 +151,7 @@ public class Junction extends SimulatedObject {
 			aux2.put("vehicles", auxVec);
 			aux.put(aux2);
 		}
-
+		
 		return aux;
 	}
 

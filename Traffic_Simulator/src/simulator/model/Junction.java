@@ -54,7 +54,7 @@ public class Junction extends SimulatedObject {
 			for (Vehicle i : aux) {
 				i.moveToNextRoad();
 				if (i.getStatus().equals(VehicleStatus.TRAVELING)) {
-					this.listVehicle.remove(greenLight).remove(i);
+					this.listVehicle.get(greenLight).remove(i);
 				}
 			}
 			// this.listVehicle.removeAll(aux);
@@ -66,10 +66,9 @@ public class Junction extends SimulatedObject {
 
 		int green = this.greenLight;
 		this.greenLight = this.est.chooseNextGreen(listRoad, listVehicle, greenLight, ultSem, time);
-		if (this.greenLight == green)
-			this.ultSem++;
-		else
-			this.ultSem = 0;
+		if (this.greenLight != green)
+			this.ultSem=time;
+		
 	}
 
 	void addIncommingRoad(Road r) throws JunctionException {

@@ -25,7 +25,7 @@ public class TestExamples {
 
 	public static void start(String path, boolean testMode) throws JSONException, FileNotFoundException {
 
-		JSONObject jo = new JSONObject(new JSONTokener(new FileInputStream(new File(path + "/db.json"))));
+		JSONObject jo = new JSONObject(new JSONTokener(new FileInputStream(new File(path + "db.json"))));
 
 		JSONArray tests = jo.getJSONArray("tests");
 
@@ -89,8 +89,10 @@ public class TestExamples {
 	// examples directory "resources/examples"
 	//
 	public static void main(String[] args) throws JSONException, FileNotFoundException {
-		String path = args.length == 0 ? "resources/examples" : args[0];
-
+		String path = args.length == 0 ? "" : args[0];
+/*
+ * String path = args.length == 0 ? "resources/examples" : args[0];
+ * */
 		// change 'true' to 'false' to generate the expected output instead of testing
 		start(path, true);
 	}

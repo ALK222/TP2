@@ -59,7 +59,7 @@ public class Controller {
 			}
 			
 		}
-		p.println("]");
+		p.println("\n]");
 		p.println("}");
 	}
 

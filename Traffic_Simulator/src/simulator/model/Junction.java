@@ -125,14 +125,14 @@ public class Junction extends SimulatedObject {
 	@Override
 	public JSONObject report() {
 		JSONObject information = new JSONObject();
-		information.append("id", this._id);
+		information.append("id", (String)this._id);
 
 		if (this.greenLight != -1)
-			information.append("green", this.listRoad.get(greenLight));
+			information.append("green", (String) this.listRoad.get(greenLight)._id);
 		else
 			information.append("green", "none");
 
-		information.append("queues", listReport());// COMPLETAR CON EL JSON DE LAS COLAS
+		information.put("queues", listReport());// COMPLETAR CON EL JSON DE LAS COLAS
 
 		return information;
 	}
@@ -144,9 +144,9 @@ public class Junction extends SimulatedObject {
 			JSONObject aux2 = new JSONObject();
 			JSONArray auxVec = new JSONArray();
 			String rId = r._id;
-			aux2.put("road", rId);
+			aux2.put("road",(String) rId);
 			for (Vehicle v : mapaColas.get(r)) {
-				auxVec.put(v._id);
+				auxVec.put((String)v._id);
 			}
 			aux2.put("vehicles", auxVec);
 			aux.put(aux2);

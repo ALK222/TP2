@@ -25,7 +25,7 @@ public class TrafficSimulator {
 	public TrafficSimulator() {
 		this.mapa_carreteras = new RoadMap();
 		this.event_list = new SortedArrayList<Event>();
-		this.time = 0;
+		this.time = 1;
 	}
 
 	// METHODS

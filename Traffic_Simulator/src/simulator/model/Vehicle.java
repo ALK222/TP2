@@ -63,12 +63,14 @@ public class Vehicle extends SimulatedObject{
 	protected void setSpeed(int speed) throws VehicleException {
 		if (speed < 0) {
 			throw new VehicleException("Invalid Speed");
-		} else {
+		} else if(this.status.equals(VehicleStatus.TRAVELING)) {
+			
 			this.current_speed = Math.min(speed, this.max_speed);
 		}
 	}
 
 	protected int getSpeed() {
+		
 		return this.current_speed;
 	}
 
@@ -114,6 +116,7 @@ public class Vehicle extends SimulatedObject{
 					this.status = VehicleStatus.ARRIVED;}
 				else{
 					this.status = VehicleStatus.WAITING;
+					this.current_speed=0;
 					this.current_road.destination.enter(this);
 				}
 			}
@@ -146,7 +149,7 @@ public class Vehicle extends SimulatedObject{
 		information.put("id", (String)this._id);
 		information.put("speed", (int)this.current_speed);
 		information.put("distance", (int)this.total_distance);
-		information.put("Co2", (int)this.total_contamination);
+		information.put("co2", (int)this.total_contamination);
 		information.put("class", (int)this.contamination_grade);
 		information.put("status", (String)this.status.parse());
 		if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.ARRIVED) {

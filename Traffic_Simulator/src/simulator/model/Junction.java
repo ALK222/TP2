@@ -54,7 +54,7 @@ public class Junction extends SimulatedObject {
 			List<Vehicle> aux = this.deqEst.dequeue(this.listVehicle.get(greenLight));
 			for (Vehicle i : aux) {
 				i.moveToNextRoad();
-				if (i.getStatus().equals(VehicleStatus.TRAVELING)) {
+				if (i.getStatus().equals(VehicleStatus.TRAVELING) || i.getStatus().equals(VehicleStatus.ARRIVED)) {
 					this.listVehicle.get(greenLight).remove(i);
 				}
 			}

@@ -99,7 +99,7 @@ public class Vehicle extends SimulatedObject {
 	}
 
 	@Override
-	protected void advance(int time) throws RoadException {
+	protected void advance(int time) throws RoadException, VehicleException {
 		if (status.equals(VehicleStatus.TRAVELING)) {
 			int new_location = Math.min(this.location + this.current_speed, this.current_road.getLenght());
 
@@ -113,14 +113,9 @@ public class Vehicle extends SimulatedObject {
 
 			if (new_location >= this.current_road.getLenght()) {
 				// entrar a junction
-				if (this.current_junction + 1 == this.itinerary.size()) {
-					this.current_speed = 0;
-					this.status = VehicleStatus.WAITING;
-				} else {
-					this.status = VehicleStatus.WAITING;
-					this.current_speed = 0;
-					this.current_road.destination.enter(this);
-				}
+				this.status = VehicleStatus.WAITING;
+				this.current_speed = 0;
+				this.current_road.destination.enter(this);
 			}
 
 		}
@@ -137,17 +132,20 @@ public class Vehicle extends SimulatedObject {
 			this.current_road = this.itinerary.get(0).roadTo(this.itinerary.get(0));
 			this.status = VehicleStatus.TRAVELING;
 			this.current_junction++;
+			this.current_road.enter(this);
 		} else {
-			if (this.current_junction == this.itinerary.size()) {
+			if (this.current_junction + 1 == this.itinerary.size()) {
 				this.status = VehicleStatus.ARRIVED;
+				this.current_road.exit(this);
 			} else {
 				this.current_road.exit(this);
 				this.current_road = this.current_road.destination.roadTo(this.itinerary.get(current_junction));
 				this.status = VehicleStatus.TRAVELING;
 				this.current_junction++;
+				this.current_road.enter(this);
 			}
 		}
-		this.current_road.enter(this);
+		
 	}
 
 	@Override

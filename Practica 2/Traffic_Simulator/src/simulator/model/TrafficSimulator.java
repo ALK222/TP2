@@ -20,6 +20,8 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 	private int time;
 
+	private List<TrafficSimObserver> observers;
+
 	// COSNTRUCTOR
 
 	public TrafficSimulator() {
@@ -90,18 +92,16 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 	@Override
 	public void addObserver(TrafficSimObserver o) {
-		// TODO Auto-generated method stub
+
+		this.observers.add(o);
 
 	}
 
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
-		// TODO Auto-generated method stub
+		
+		this.observers.remove(o);
 
 	}
 
-	@Override
-	void onAdvanceStart(RoadMap map, List<Event> events, ​int​​ time​){
-
-	}
 }

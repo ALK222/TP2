@@ -16,5 +16,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
     public ControlPanel(Controller ctrl){
         this._ctrl = ctrl;
     }
+
+    
     
 }

@@ -32,32 +32,39 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 	public void addEvent(Event e) {
 		this.event_list.add(e);
+		onEventAdded(mapa_carreteras, event_list, e, time);
 	}
 
 	public void advance() throws RoadException, VehicleException, JunctionException {
 
-		++time;
+		try{
+			++time;
 
-		this.onAdvanceStart(this.mapa_carreteras, this.event_list, this.time);
-
-		List<Event> aux1 = new ArrayList<>();
-		for (Event e : event_list) {
-			if (e.getTime() == this.time) {
-				aux1.add(e);
-				e.execute(mapa_carreteras);
+			this.onAdvanceStart(this.mapa_carreteras, this.event_list, this.time);
+	
+			List<Event> aux1 = new ArrayList<>();
+			for (Event e : event_list) {
+				if (e.getTime() == this.time) {
+					aux1.add(e);
+					e.execute(mapa_carreteras);
+				}
 			}
+	
+			event_list.removeAll(aux1);
+	
+			for (Junction j : mapa_carreteras.getJunctions()) {
+				j.advance(time);
+			}
+	
+			for (Road road : mapa_carreteras.getRoads()) {
+				road.advance(time);
+			}
+	
+			onAdvanceEnd(mapa_carreteras, event_list, time);
 		}
-
-		event_list.removeAll(aux1);
-
-		for (Junction j : mapa_carreteras.getJunctions()) {
-			j.advance(time);
+		catch (Exception e){
+			onError(e.getMessage());
 		}
-
-		for (Road road : mapa_carreteras.getRoads()) {
-			road.advance(time);
-		}
-
 		
 	}
 
@@ -65,6 +72,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		mapa_carreteras.reset();
 		event_list.clear();
 		time = 0;
+		onReset(mapa_carreteras, event_list, time);
 	}
 
 	public JSONObject report() {

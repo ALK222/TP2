@@ -3,17 +3,17 @@ package simulator.model;
 import java.util.List;
 
 public interface TrafficSimObserver {
-    void onAdvanceStart(RoadMap map, List<Event> events, int time​);
+    abstract void onAdvanceStart(RoadMap map, List<Event> events, int time​);
     
-    void onAdvanceEnd(RoadMap map, List<Event> events, int time​);
+    abstract void onAdvanceEnd(RoadMap map, List<Event> events, int time​);
 
-    void onEventAdded(RoadMap map, List<Event> events, Event e, int time​);
+    abstract void onEventAdded(RoadMap map, List<Event> events, Event e, int time​);
 
-    void onReset(RoadMap map, List<Event> events, int time);
+    abstract void onReset(RoadMap map, List<Event> events, int time);
     
-    void onRegister(RoadMap map, List<Event> events, int time​);
+    abstract void onRegister(RoadMap map, List<Event> events, int time​);
     
-    void onError(String err);
+    abstract void onError(String err);
 }
 
 

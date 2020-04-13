@@ -80,9 +80,8 @@ public class Controller implements Observable<TrafficSimObserver>{
 		this.traffic_simulator.removeObserver(o);
 
 	}
-	
-	@Override
-	public void addEvent(Event e){
+
+	public void addEvents(InputStream i){
 
 		this.traffic_simulator.addEvent(e);
 

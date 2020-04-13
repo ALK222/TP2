@@ -20,9 +20,11 @@ import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.factories.Factory;
 import simulator.model.Event;
+import simulator.model.Observable;
+import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
 
-public class Controller {
+public class Controller implements Observable<TrafficSimObserver>{
 
 	private TrafficSimulator traffic_simulator;
 
@@ -63,5 +65,26 @@ public class Controller {
 
 	public void reset(){
 		traffic_simulator.reset();
+	}
+
+	@Override
+	public void addObserver(TrafficSimObserver o) {
+		
+		this.traffic_simulator.addObserver(o);
+
+	}
+
+	@Override
+	public void removeObserver(TrafficSimObserver o) {
+		
+		this.traffic_simulator.removeObserver(o);
+
+	}
+	
+	@Override
+	public void addEvent(Event e){
+
+		this.traffic_simulator.addEvent(e);
+
 	}
 }

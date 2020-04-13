@@ -10,7 +10,7 @@ import exceptions.RoadException;
 import exceptions.VehicleException;
 import simulator.misc.SortedArrayList;
 
-public class TrafficSimulator {
+public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 	// ATRIBUTTES
 
@@ -36,13 +36,10 @@ public class TrafficSimulator {
 
 	public void advance() throws RoadException, VehicleException, JunctionException {
 
-		// Iterator<Event> it = this.event_list.iterator();
-		// Event aux = it.next();
-		// while (it.hasNext() && aux.getTime() == this.time) {
-		// 	aux.execute(mapa_carreteras);
-		// 	it.remove();
-		// 	aux = it.next();
-		// }
+		++time;
+
+		this.onAdvanceStart(this.mapa_carreteras, this.event_list, this.time);
+
 		List<Event> aux1 = new ArrayList<>();
 		for (Event e : event_list) {
 			if (e.getTime() == this.time) {
@@ -61,7 +58,7 @@ public class TrafficSimulator {
 			road.advance(time);
 		}
 
-		++time;
+		
 	}
 
 	public void reset() {
@@ -75,5 +72,28 @@ public class TrafficSimulator {
 		r.put("time", (int)time - 1);
 		r.put("state", mapa_carreteras.report());
 		return r;
+	}
+
+	/*
+	*
+	*	OBSERVER STUFF
+	*
+	*/
+
+	@Override
+	public void addObserver(TrafficSimObserver o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeObserver(TrafficSimObserver o) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	void onAdvanceStart(RoadMap map, List<Event> events, ​int​​ time​){
+
 	}
 }

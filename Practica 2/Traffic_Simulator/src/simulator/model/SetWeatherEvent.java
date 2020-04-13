@@ -29,4 +29,9 @@ public class SetWeatherEvent extends Event {
 		}
 	}
 
+	@Override
+	public String toString(){
+		return "Change Weather: " + this.p.toString();
+	}
+
 }

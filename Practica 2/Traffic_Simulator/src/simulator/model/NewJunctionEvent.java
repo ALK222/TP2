@@ -20,4 +20,9 @@ public class NewJunctionEvent extends Event {
 
 	}
 
+	@Override
+	public String toString(){
+		return "New Junction '" + this.junc._id + "'";
+	}
+
 }

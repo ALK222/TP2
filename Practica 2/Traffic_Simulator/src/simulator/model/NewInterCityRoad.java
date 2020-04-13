@@ -17,6 +17,9 @@ public class NewInterCityRoad extends NewRoadEvent {
 		map.addRoad(r);
 	}
 
-	
+	@Override
+	public String toString(){
+		return "New Inter City Road '" + this.r._id + "'";
+	}
 
 }

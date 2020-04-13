@@ -13,7 +13,7 @@ public class NewSetContClassEvent extends Event {
 	public NewSetContClassEvent(int time, List<Pair<String, Integer>> cs) throws VehicleException {
 		super(time);
 		if(cs.equals(null)) {
-			throw new VehicleException("La lista de vehiculos está vacia");
+			throw new VehicleException("La lista de vehiculos estï¿½ vacia");
 		}
 		this.p = new ArrayList<Pair<String, Integer>>();
 		this.p = cs;
@@ -27,5 +27,9 @@ public class NewSetContClassEvent extends Event {
 			map.getVehicle(vehicle.getFirst()).setContamination(vehicle.getSecond());
 		}
 	}
-
+	
+	@Override
+	public String toString(){
+		return "Change CO2 class: " + this.p.toString();
+	}
 }

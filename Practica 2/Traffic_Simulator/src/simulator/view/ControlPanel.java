@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -31,6 +32,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     private JFileChooser chooser;
 
     private JButton loadButton;
+
+    private JButton setContButton;
 
     public ControlPanel(Controller ctrl) {
 
@@ -104,6 +107,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
         toolbar.addSeparator();
     }
 
+    // USAR COMO PLANTILLA PARA EL RESTO DE BOTONES
     private void createLoadButton() {
 
         chooser = new JFileChooser();
@@ -138,6 +142,23 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
         });
 
         toolbar.add(loadButton);
+    }
+
+    private void createSetContClassButton() {
+
+        setContButton = new JButton();
+        loadButton.setToolTipText("Changes the CO2 class of a vehicle");
+        loadButton.setIcon(new ImageIcon(this.getClass().getResource("/Traffic_Simulator/src/resources/icons/co2class.png")));
+        loadButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+
+        });
+
+        toolbar.add(setContButton);
     }
     
 }

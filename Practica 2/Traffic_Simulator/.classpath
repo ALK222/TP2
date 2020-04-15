@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/alex_/Documents/GitHub/TP2_reforged/Traffic_Simulator/src/lib/commons-cli-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/alex_/Documents/GitHub/TP2_reforged/Traffic_Simulator/src/lib/json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Rehis/Documents/GitHub/TP2_reforged/Practica 2/Traffic_Simulator/src/lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Rehis/Documents/GitHub/TP2_reforged/Practica 2/Traffic_Simulator/src/lib/json.jar"/>
 	<classpathentry kind="lib" path="src/lib/commons-cli-1.4.jar"/>
 	<classpathentry kind="lib" path="src/lib/json.jar"/>
 	<classpathentry kind="output" path="bin"/>

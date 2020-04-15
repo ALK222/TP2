@@ -81,9 +81,21 @@ public class Controller implements Observable<TrafficSimObserver>{
 
 	}
 
-	public void addEvents(InputStream i){
-
+	public void addEvents(Event e){
+		//Modifico esto porque le pasas Event e no InputStream i
 		this.traffic_simulator.addEvent(e);
 
 	}
+	/*
+	 * 
+	 * 
+	 *	GETTERS 
+	 * 
+	 *
+	 */
+	
+	public TrafficSimulator getTS() {
+		return this.traffic_simulator;
+	}
+	
 }

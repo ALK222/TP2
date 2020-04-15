@@ -22,7 +22,10 @@ public abstract class NewRoadEvent extends Event {
 	}
 	
 	
-	
+	public String toString(){
+		return "New Road '" + this.r._id + "'";
+	}
+
 
 
 }

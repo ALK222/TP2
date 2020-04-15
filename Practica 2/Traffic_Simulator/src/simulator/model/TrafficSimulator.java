@@ -103,5 +103,14 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		this.observers.remove(o);
 
 	}
-
+	/*
+	 * 
+	 * 
+	 *	GETTERS 
+	 * 
+	 *
+	 */
+	public RoadMap getRoadMap() {
+		return this.mapa_carreteras; 
+	}
 }

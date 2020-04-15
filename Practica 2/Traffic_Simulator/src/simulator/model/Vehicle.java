@@ -69,24 +69,24 @@ public class Vehicle extends SimulatedObject {
 		}
 	}
 
-	protected int getSpeed() {
+	public int getSpeed() {
 
 		return this.current_speed;
 	}
 
-	protected int getLocation() {
+	public int getLocation() {
 		return this.location;
 	}
 
-	protected int getContamination() {
+	public int getContamination() {
 		return this.contamination_grade;
 	}
 
-	protected Road getCurrentRoad() {
+	public Road getCurrentRoad() {
 		return this.current_road;
 	}
 
-	protected VehicleStatus getStatus() {
+	public VehicleStatus getStatus() {
 		return this.status;
 	}
 
@@ -162,6 +162,10 @@ public class Vehicle extends SimulatedObject {
 			information.put("location", (int) this.location);
 		}
 		return information;
+	}
+
+	public double getContClass() {
+		return this.contamination_grade;
 	}
 
 }

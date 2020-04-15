@@ -3,6 +3,8 @@ package simulator.model;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.JComponent;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -66,7 +68,7 @@ public abstract class Road extends SimulatedObject {
 
 	protected abstract int calculateVehicleSpeed(Vehicle v) throws VehicleException;
 
-	protected int getLenght() {
+	public int getLenght() {
 		return this.length;
 	}
 
@@ -142,6 +144,21 @@ public abstract class Road extends SimulatedObject {
 		}
 		report.put("vehicles", ja);
 		return report;
+	}
+
+	public Junction getSrc() {
+		return this.origin;
+	}
+	public Junction getDest() {
+		return this.destination;
+	}
+
+	public double getTotalCO2() {
+		return this.total_contamination;
+	}
+
+	public double getCO2Limit() {
+		return this.contamination_alarm;
 	}
 
 }

@@ -36,16 +36,16 @@ public class MainWindow extends JFrame{
         mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
         mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
 
-        JPanel viewsPanel​ = new JPanel(new GridLayout(1, 2));
-        mainPanel.add(viewsPanel​, BorderLayout.CENTER);
+        JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
+        mainPanel.add(viewsPanel, BorderLayout.CENTER);
 
         JPanel tablesPanel = new JPanel();
         tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
-        viewsPanel​.add(tablesPanel);
+        viewsPanel.add(tablesPanel);
 
         JPanel mapsPanel = new JPanel();
         mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
-        viewsPanel​.add(mapsPanel);
+        viewsPanel.add(mapsPanel);
 
 
         //tables
@@ -68,13 +68,13 @@ public class MainWindow extends JFrame{
 
         //maps
 
-        JPanel mapView​ = createViewPanel(new MapComponent(_ctrl), "Map"​);
-        mapView​.setPreferredSize(new Dimension(500, 400));
-        mapsPanel.add(mapView​);
+        JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
+        mapView.setPreferredSize(new Dimension(500, 400));
+        mapsPanel.add(mapView);
 
-        JPanel mapRoadsView​ = createViewPanel(new MapByRoadComponent(_ctrl), "Map By Road"​);
-        mapView​.setPreferredSize(new Dimension(500, 400));
-        mapsPanel.add(mapRoadsView​);
+        JPanel mapRoadsView = createViewPanel(new MapByRoadComponent(_ctrl), "Map By Road");
+        mapView.setPreferredSize(new Dimension(500, 400));
+        mapsPanel.add(mapRoadsView);
 
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.pack();

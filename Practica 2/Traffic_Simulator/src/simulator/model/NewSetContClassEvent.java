@@ -21,7 +21,7 @@ public class NewSetContClassEvent extends Event {
 	
 	
 	@Override
-	void execute(RoadMap map) throws VehicleException {
+	public void execute(RoadMap map) throws VehicleException {
 		for(Pair<String, Integer> vehicle : this.p) {
 			if(map.getVehicle(vehicle.getFirst()).equals(null)) throw new VehicleException("El vehiculo no se encuentra en el mapa");
 			map.getVehicle(vehicle.getFirst()).setContamination(vehicle.getSecond());

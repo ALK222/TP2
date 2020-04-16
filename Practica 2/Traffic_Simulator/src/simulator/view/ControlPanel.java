@@ -53,6 +53,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private JButton setContButton;
 
+	protected ChangeCO2ClassDialog conClassDialog;
+
 	public ControlPanel(Controller ctrl) {
 
 		this._ctrl = ctrl;
@@ -169,84 +171,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setContButton.setIcon(
 				new ImageIcon(this.getClass().getResource("/Traffic_Simulator/src/resources/icons/co2class.png")));
 		setContButton.addActionListener(new ActionListener() {
-			class ChangeCO2ClassDialog extends JDialog implements ActionListener {
-				private List<Vehicle> v = new ArrayList<Vehicle>();
-				private Integer[] contClass = {0,1,2,3,4,5,6,7,8,9,10};
-				private int tics;
-				private String[] vehicles;
-				JComboBox<String> listVehicles;
-				JComboBox<Integer> listCont;
-				private JLabel tick_label;
-
-				public ChangeCO2ClassDialog(ChangeCO2ClassDialog change) {
-					v = _ctrl.getTS().getRoadMap().getVehicles();
-					vehicles = new String[v.size()];
-					for(int i = 0; i < v.size(); ++i){
-						vehicles[i] = v.get(i).getId();
-					}
-					listVehicles = new JComboBox<String>(vehicles);
-					listCont = new JComboBox<Integer>(contClass);
-					this.add(listVehicles);
-					this.add(listCont);
-					tick_label = new JLabel();
-					tick_label.setText(" Ticks: ");
-					this.add(tick_label);
-					tics = 0;
-					this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-					JPanel botones = new JPanel();
-					botones.setLayout(new FlowLayout());
-					JButton OkB = new JButton("OK");
-					OkB.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent arg0) {
-							change.aceppt();
-
-						}
-
-					});
-					botones.add(OkB);
-
-					JButton CancelB = new JButton("OK");
-					CancelB.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent arg0) {
-							change.cancel();
-
-						}
-
-					});
-
-					botones.add(CancelB);
-
-				}
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				public void aceppt() {
-
-					NewSetContClassEvent newContClass = new NewSetContClassEvent(this.tics, new Pair(first, second))
-
-				}
-
-				public void cancel() {
-
-				}
-
-			}
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-			}
-
-		});
-
+				conClassDialog = new ChangeCO2ClassDialog(_ctrl);
+				
+			}}
 		toolbar.add(setContButton);
 	}
 

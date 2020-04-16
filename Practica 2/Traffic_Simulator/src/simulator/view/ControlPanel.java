@@ -14,8 +14,10 @@ import java.util.List;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
@@ -32,6 +34,8 @@ import exceptions.StrategyException;
 import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
+import simulator.misc.Pair;
+import simulator.model.NewSetContClassEvent;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
 
@@ -167,23 +171,26 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setContButton.addActionListener(new ActionListener() {
 			class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 				private List<Vehicle> v = new ArrayList<Vehicle>();
-				private List<Integer> contClass;
+				private Integer[] contClass = {0,1,2,3,4,5,6,7,8,9,10};
 				private int tics;
-				private ListModel vehicle;
+				private String[] vehicles;
+				JComboBox<String> listVehicles;
+				JComboBox<Integer> listCont;
+				private JLabel tick_label;
 
 				public ChangeCO2ClassDialog(ChangeCO2ClassDialog change) {
 					v = _ctrl.getTS().getRoadMap().getVehicles();
-					contClass.add(0);
-					contClass.add(1);
-					contClass.add(2);
-					contClass.add(3);
-					contClass.add(4);
-					contClass.add(5);
-					contClass.add(6);
-					contClass.add(7);
-					contClass.add(8);
-					contClass.add(9);
-					contClass.add(10);
+					vehicles = new String[v.size()];
+					for(int i = 0; i < v.size(); ++i){
+						vehicles[i] = v.get(i).getId();
+					}
+					listVehicles = new JComboBox<String>(vehicles);
+					listCont = new JComboBox<Integer>(contClass);
+					this.add(listVehicles);
+					this.add(listCont);
+					tick_label = new JLabel();
+					tick_label.setText(" Ticks: ");
+					this.add(tick_label);
 					tics = 0;
 					this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 					JPanel botones = new JPanel();
@@ -222,6 +229,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				}
 
 				public void aceppt() {
+
+					NewSetContClassEvent newContClass = new NewSetContClassEvent(this.tics, new Pair(first, second))
 
 				}
 

@@ -98,7 +98,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		// Change contamination class button
 		createSetContClassButton();
-		toolbar.addSeparator();
 
 		// Change weather button
 		createChangeWeatherButton();
@@ -106,11 +105,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		// Run button (https://www.youtube.com/watch?v=K09_5IsgGe8)
 		createRunButton();
-		toolbar.addSeparator();
 
 		// Stop button
 		createStopButton();
-		toolbar.addSeparator();
 
 		// Tick counter
 		createTickCounter();
@@ -118,7 +115,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		// Exit button
 		createExitButton();
-		toolbar.addSeparator();
 	}
 
 	// USAR COMO PLANTILLA PARA EL RESTO DE BOTONES

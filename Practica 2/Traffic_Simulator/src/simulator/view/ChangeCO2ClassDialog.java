@@ -1,5 +1,6 @@
 package simulator.view;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -32,33 +33,48 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private JLabel tick_label;
     private Controller _ctrl;
     private JSpinner tick_field;
-
     public ChangeCO2ClassDialog(Controller ctrl) {
         this._ctrl = ctrl;
         initGUI();
     }
 
     private void initGUI() {
-
+    	JPanel mainPanel = new JPanel();
+	     mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
+	     JPanel panelSup = new JPanel();
+	     panelSup.setLayout(new FlowLayout());
         //Vehicle selector
         v = _ctrl.getTS().getRoadMap().getVehicles();
         vehicles = new String[v.size()];
         for (int i = 0; i < v.size(); ++i) {
             vehicles[i] = v.get(i).getId();
         }
+        /*
+         *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA 
+         * 
+         * 
+         * **/
+        vehicles = new String[2];
+        vehicles[0]= "v1";
+        vehicles[1] = "v2";
+        
+        ///////////
         listVehicles = new JComboBox<String>(vehicles);
-        this.add(listVehicles);
-
+        JLabel textV = new JLabel("Vehicles: ");
+        panelSup.add(textV);
+        panelSup.add(listVehicles);
         //Contamination Selector
         listCont = new JComboBox<Integer>(contClass);
-        this.add(listCont);
+        JLabel textClass = new JLabel("CO2 Class: ");
+        panelSup.add(textClass);
+        panelSup.add(listCont);
 
         //Tick selector
         tick_label = new JLabel();
         tick_label.setText(" Ticks: ");
-        this.add(tick_label);
+        panelSup.add(tick_label);
         ticks = 0;
-        createTickTextLabel();
+        panelSup.add(createTickTextLabel());
 
         this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
@@ -79,29 +95,30 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
                 try {
                     NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks), vc);
                     newContClass.execute(_ctrl.getTS().getRoadMap());
-                } catch (VehicleException e) {
+                   
+                } catch (VehicleException e1) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    e1.printStackTrace();
                 }
-
             }
-
+           
         });
         botones.add(okB);
 
         //CANCELAR
-        JButton cancelB = new JButton("OK");
+        JButton cancelB = new JButton("cancel");
         cancelB.addActionListener(this);
 
         botones.add(cancelB);
-
-        this.add(botones);
-
+        mainPanel.add(panelSup);
+        mainPanel.add(botones);
+        this.add(mainPanel);
+        this.setVisible(false);
         this.pack();
 
     }
     
-    private void createTickTextLabel() {
+    private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();
 		tick_field.setValue(ticks);
 		tick_field.setMinimumSize(new Dimension(80, 30));
@@ -117,7 +134,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 			
 		});		
 		
-		this.add(tick_field);
+		return tick_field;
     }
 
     @Override

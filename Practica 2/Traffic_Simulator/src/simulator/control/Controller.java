@@ -47,8 +47,8 @@ public class Controller implements Observable<TrafficSimObserver>{
 		}
 	}
 
-	public void run(int n, OutputStream out) throws RoadException, VehicleException, JunctionException, IOException {
-		PrintStream p = new PrintStream(out);
+	public void run(int n/*, OutputStream out*/) throws RoadException, VehicleException, JunctionException, IOException {
+		PrintStream p = new PrintStream("hola");
 		p.println("{");
 		p.println("  \"states\": [");
 		for(int i = 1; i <= n; ++i){

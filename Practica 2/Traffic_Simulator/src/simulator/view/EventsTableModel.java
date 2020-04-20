@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import simulator.control.Controller;
+import simulator.model.Event;
+import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver{
@@ -16,8 +19,10 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	
 	private List<EventEx> _events;
 	private String[] _colNames = { "#", "Time", "Priority" };
-
 	public EventsTableModel() {
+		_events=null;
+	}
+	public EventsTableModel(Controller _ctrl) {
 		_events=null;
 	}
 
@@ -85,5 +90,41 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			break;
 		}
 		return s;
+	}
+
+	@Override
+	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String err) {
+		// TODO Auto-generated method stub
+		
 	}
 }

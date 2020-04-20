@@ -17,9 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
@@ -35,7 +37,9 @@ import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
+import simulator.model.Event;
 import simulator.model.NewSetContClassEvent;
+import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
 
@@ -52,6 +56,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton loadButton;
 
 	private JButton setContButton;
+	
+	private JButton setWeatherButton;
+	
+	private JButton setRunButton;
+	
+	private JButton setStopButton;
+	
+	private JTextArea setTicksArea ;
+	
+	private JButton setExitButton;
 
 	protected ChangeCO2ClassDialog conClassDialog;
 
@@ -60,7 +74,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this._ctrl = ctrl;
 		_stoped = false;
 		initGui();
-		_ctrl.addObserver(this);
+		//_ctrl.addObserver(this);
 	}
 
 	private void run_sim(int n) {
@@ -68,7 +82,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			try {
 				_ctrl.run(1);
 			} catch (Exception e) {
-				onError(e);
+				onError(e.getMessage());
 				_stoped = true;
 				return;
 			}
@@ -97,6 +111,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.toolbar = new JToolBar();
 		setLayout(new BorderLayout());
 		add(toolbar, BorderLayout.PAGE_START);
+		conClassDialog = new ChangeCO2ClassDialog(_ctrl);
 
 		// Load
 		createLoadButton();
@@ -120,8 +135,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.addSeparator();
 
 		// Exit button
-		createExitButton();
-	}
+		createExitButton();	}
 
 	// USAR COMO PLANTILLA PARA EL RESTO DE BOTONES
 	private void createLoadButton() {
@@ -130,7 +144,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		chooser.setDialogTitle("Choose a file to load the objects to the simulation");
 		loadButton = new JButton();
 		loadButton.setToolTipText("Loads roads, vehicles, junctions and events into the simulator");
-		loadButton.setIcon(new ImageIcon(this.getClass().getResource("/icons/open.png")));
+		loadButton.setIcon(new ImageIcon("src/resources/icons/open.png"));
 		loadButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -169,19 +183,120 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setContButton = new JButton();
 		setContButton.setToolTipText("Changes the CO2 class of a vehicle");
 		setContButton.setIcon(
-				new ImageIcon(this.getClass().getResource("/Traffic_Simulator/src/resources/icons/co2class.png")));
+				new ImageIcon("src/resources/icons/co2class.png"));
 		setContButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conClassDialog = new ChangeCO2ClassDialog(_ctrl);
-				
-			}}
+				conClassDialog.setVisible(true);
+			}});
 		toolbar.add(setContButton);
 	}
 
 	private void createChangeWeatherButton() {
+		setWeatherButton = new JButton();
+		setWeatherButton.setToolTipText("Changes Road Weather");
+		setWeatherButton.setIcon(
+				new ImageIcon("src/resources/icons/weather.png"));
+		setWeatherButton.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conClassDialog = new ChangeCO2ClassDialog(_ctrl);
+				//Clase para crear la ventana
+			}});
+		toolbar.add(setWeatherButton);
+	}
+	
+	
+	private void createRunButton() {
+		setRunButton = new JButton();
+		setRunButton.setToolTipText("Run the simulation N ticks");
+		setRunButton.setIcon(
+				new ImageIcon("src/resources/icons/run.png"));
+		setRunButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conClassDialog = new ChangeCO2ClassDialog(_ctrl);
+				//Clase para crear la ventana
+			}});
+		toolbar.add(setRunButton);
+	}
+	
+	private void createStopButton() {
+		setStopButton = new JButton();
+		setStopButton.setToolTipText("Changes Road Weather");
+		setStopButton.setIcon(
+				new ImageIcon("src/resources/icons/stop.png"));
+		setStopButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//conClassDialog = new ChangeCO2ClassDialog(_ctrl);
+				//Clase para crear la ventana
+			}});
+		toolbar.add(setStopButton);
+	}
+	private void createTickCounter() {
+		setTicksArea = new JTextArea(1,5);
+		setTicksArea.setToolTipText("Set ticks to execute in simulation");
+		setTicksArea.setEditable(true);
+		toolbar.add(setTicksArea);
+	}
+	
+	private void createExitButton() {
+		setExitButton = new JButton();
+		setExitButton.setToolTipText("Exit the aplication");
+		setExitButton.setIcon(
+				new ImageIcon("src/resources/icons/exit.png"));
+		setExitButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showOptionDialog(new JFrame(),
+						 "Are sure you want to quit?", "Quit",
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						 null, null);
+						 if (n == 0) {System.exit(0); }
+			}});
+		toolbar.add(setExitButton);
 	}
 
+	@Override
+	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String err) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

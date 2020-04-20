@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -37,6 +39,7 @@ import simulator.factories.SetContClassEventBuilder;
 import simulator.factories.SetWeatherEventBuilder;
 import simulator.model.Event;
 import simulator.model.TrafficSimulator;
+import simulator.view.MainWindow;
 
 public class Main {
 
@@ -142,21 +145,37 @@ public class Main {
 		c.loadEvents(new FileInputStream(_inFile));
 		OutputStream os;
 		File file;
-		if(_outFile != null){
-			os= new FileOutputStream(_outFile);
+		if (_outFile != null) {
+			os = new FileOutputStream(_outFile);
 			file = new File(_outFile);
-			if(!file.exists()){
+			if (!file.exists()) {
 				file.createNewFile();
 			}
-		}
-		else{
-			os= System.out;
+		} else {
+			os = System.out;
 			file = null;
-		}
-		c.run(_time, os);
+		}SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				new MainWindow(c);
+			}
+		});
+		//c.run(_time/* , os */);
 
-		
-		
+	}
+
+	private static void startGUIMode() throws SimulatorException {
+		TrafficSimulator ts = new TrafficSimulator();
+		Controller ctrl = new Controller(ts,_eventsFactory);
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				new MainWindow(ctrl);
+			}
+		});
+
 	}
 
 	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,
@@ -164,6 +183,7 @@ public class Main {
 		initFactories();
 		parseArgs(args);
 		startBatchMode();
+		//startGUIMode();
 	}
 
 	// example command lines:

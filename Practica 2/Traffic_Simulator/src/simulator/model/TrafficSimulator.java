@@ -37,6 +37,11 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		onEventAdded(mapa_carreteras, event_list, e, time);
 	}
 
+	private void onEventAdded(RoadMap mapa_carreteras2, List<Event> event_list2, Event e, int time2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void advance() throws RoadException, VehicleException, JunctionException {
 
 		try{
@@ -70,11 +75,31 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		
 	}
 
+	private void onError(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void onAdvanceEnd(RoadMap mapa_carreteras2, List<Event> event_list2, int time2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void onAdvanceStart(RoadMap mapa_carreteras2, List<Event> event_list2, int time2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void reset() {
 		mapa_carreteras.reset();
 		event_list.clear();
 		time = 0;
 		onReset(mapa_carreteras, event_list, time);
+	}
+
+	private void onReset(RoadMap mapa_carreteras2, List<Event> event_list2, int time2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public JSONObject report() {

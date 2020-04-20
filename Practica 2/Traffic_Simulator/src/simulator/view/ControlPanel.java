@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +22,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.json.JSONException;
 
@@ -63,11 +67,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private JButton setStopButton;
 	
-	private JTextArea setTicksArea ;
+	private JSpinner setTicksArea ;
 	
 	private JButton setExitButton;
 
 	protected ChangeCO2ClassDialog conClassDialog;
+	
+	protected ChangeWeatherDialog weatherClassDialog;
+	
+	protected int ticks;
 
 	public ControlPanel(Controller ctrl) {
 
@@ -112,7 +120,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setLayout(new BorderLayout());
 		add(toolbar, BorderLayout.PAGE_START);
 		conClassDialog = new ChangeCO2ClassDialog(_ctrl);
-
+		weatherClassDialog = new ChangeWeatherDialog(_ctrl);
 		// Load
 		createLoadButton();
 		toolbar.addSeparator();
@@ -202,8 +210,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conClassDialog = new ChangeCO2ClassDialog(_ctrl);
-				//Clase para crear la ventana
+				weatherClassDialog.setVisible(true);
 			}});
 		toolbar.add(setWeatherButton);
 	}
@@ -239,12 +246,43 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.add(setStopButton);
 	}
 	private void createTickCounter() {
-		setTicksArea = new JTextArea(1,5);
+		
+		setTicksArea = new JSpinner();
 		setTicksArea.setToolTipText("Set ticks to execute in simulation");
-		setTicksArea.setEditable(true);
+		//setTicksArea.setMinimumSize(new Dimension(80, 30));
+	//	setTicksArea.setMaximumSize(new Dimension(200, 30));
+		//setTicksArea.setPreferredSize(new Dimension(80, 30));
+		setTicksArea.addChangeListener(new ChangeListener() {
+
+			public void stateChanged(ChangeEvent e) {
+				
+				ticks = Integer.valueOf(setTicksArea.getValue().toString());
+				
+			}
+			
+		});	
+		toolbar.add(new JLabel("Ticks:"));
 		toolbar.add(setTicksArea);
+		
+		/*
+		 *tick_field.setValue(ticks);
+		tick_field.setMinimumSize(new Dimension(80, 30));
+		tick_field.setMaximumSize(new Dimension(200, 30));
+		tick_field.setPreferredSize(new Dimension(80, 30));
+		tick_field.addChangeListener(new ChangeListener() {
+
+			public void stateChanged(ChangeEvent e) {
+				
+				ticks = Integer.valueOf(tick_field.getValue().toString());
+				
+			}
+			
+		});	
+		 *
+		 */
 	}
-	
+	 
+
 	private void createExitButton() {
 		setExitButton = new JButton();
 		setExitButton.setToolTipText("Exit the aplication");

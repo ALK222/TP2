@@ -10,11 +10,15 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import exceptions.RoadException;
 import exceptions.VehicleException;
+import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.NewSetContClassEvent;
-import simulator.model.Vehicle;
+import simulator.model.Road;
+import simulator.model.SetWeatherEvent;
+import simulator.model.Weather;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,17 +27,18 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-class ChangeCO2ClassDialog extends JDialog implements ActionListener {
-    private List<Vehicle> v = new ArrayList<Vehicle>();
-    private Integer[] contClass = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+class ChangeWeatherDialog extends JDialog implements ActionListener {
+    private List<Road> r = new ArrayList<Road>();
+    private Weather[] w ;
+    private String[] wS;
     private int ticks;
-    private String[] vehicles;
-    private JComboBox<String> listVehicles;
-    private JComboBox<Integer> listCont;
+    private String[] road;
+    private JComboBox<String> listRoad;
+    private JComboBox<String> listWeather;
     private JLabel tick_label;
     private Controller _ctrl;
     private JSpinner tick_field;
-    public ChangeCO2ClassDialog(Controller ctrl) {
+    public ChangeWeatherDialog(Controller ctrl) {
         this._ctrl = ctrl;
         initGUI();
     }
@@ -41,36 +46,44 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private void initGUI() {
     	JPanel mainPanel = new JPanel();
     	JPanel topPanel= new JPanel();
-    	topPanel.add(new JLabel("Schedule an event to change the CO2 class of a vehicle after a given  number of simulation ticks from now."));
+    	topPanel.add(new JLabel("Schedule an event to change the weather of a road after a given  number of simulation ticks from now."));
 	     mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
 	     mainPanel.add(topPanel);
 	     JPanel panelSup = new JPanel();
 	     panelSup.setLayout(new FlowLayout());
         //Vehicle selector
-        v = _ctrl.getTS().getRoadMap().getVehicles();
-        vehicles = new String[v.size()];
-        for (int i = 0; i < v.size(); ++i) {
-            vehicles[i] = v.get(i).getId();
+        r = _ctrl.getTS().getRoadMap().getRoads();
+        road = new String[r.size()];
+        for (int i = 0; i < r.size(); ++i) {
+            road[i] = r.get(i).getId();
         }
         /*
          *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA 
          * 
          * 
          * **/
-        vehicles = new String[2];
-        vehicles[0]= "v1";
-        vehicles[1] = "v2";
+        road = new String[2];
+        road[0]= "r1";
+        road[1] = "r2";
         
         ///////////
-        listVehicles = new JComboBox<String>(vehicles);
-        JLabel textV = new JLabel("Vehicles: ");
+        
+        //Coger el clima
+        w= Weather.values();
+        wS = new String[w.length];
+        for (int i = 0; i < w.length; ++i) {
+            wS[i] = w[i].parse();
+        }
+        
+        listRoad = new JComboBox<String>(road);
+        JLabel textV = new JLabel("Road: ");
         panelSup.add(textV);
-        panelSup.add(listVehicles);
+        panelSup.add(listRoad);
         //Contamination Selector
-        listCont = new JComboBox<Integer>(contClass);
-        JLabel textClass = new JLabel("CO2 Class: ");
+        listWeather = new JComboBox<String>(wS);
+        JLabel textClass = new JLabel("Weather: ");
         panelSup.add(textClass);
-        panelSup.add(listCont);
+        panelSup.add(listWeather);
 
         //Tick selector
         tick_label = new JLabel();
@@ -91,21 +104,25 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
-                vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),
-                        (Integer) listCont.getSelectedItem()));
+            	List<Pair<String, Weather>> rd = new ArrayList<Pair<String, Weather>>();
+                rd.add(new Pair<String, Weather>((String) listRoad.getSelectedItem(),
+                         (Weather)listWeather.getSelectedItem()));
 
                 try {
-                    NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks), vc);
-                    newContClass.execute(_ctrl.getTS().getRoadMap());
+                	SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks), rd);
+                    newWeatherClass.execute(_ctrl.getTS().getRoadMap());
                    
-                } catch (VehicleException e1) {
+                } catch (WeatherException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
-                }
+                } catch (RoadException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            
+            
             }
-           
-        });
+            });
         botones.add(okB);
 
         //CANCELAR

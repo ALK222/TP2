@@ -22,7 +22,7 @@ public class SetWeatherEvent extends Event {
 	
 	
 	@Override
-	void execute(RoadMap map) throws RoadException {
+	public	void execute(RoadMap map) throws RoadException {
 		for(Pair<String, Weather> road : this.p) {
 			if(map.getRoad(road.getFirst()).equals(null)) throw new RoadException("La carretera no se encuentra en el mapa");
 			map.getRoad(road.getFirst()).setWeather(road.getSecond());

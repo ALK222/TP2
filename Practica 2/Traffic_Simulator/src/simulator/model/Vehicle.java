@@ -22,15 +22,15 @@ public class Vehicle extends SimulatedObject {
 
 	private Road current_road;
 
-	private int location;
+	private Integer location;
 
-	private int contamination_grade;
+	private Integer contamination_grade;
 
-	private int total_contamination;
+	private Integer total_contamination;
 
-	private int total_distance;
+	private Integer total_distance;
 
-	private int current_junction;
+	private Integer current_junction;
 
 	// CONSTRUCTOR
 
@@ -69,16 +69,16 @@ public class Vehicle extends SimulatedObject {
 		}
 	}
 
-	public int getSpeed() {
+	public Integer getSpeed() {
 
 		return this.current_speed;
 	}
 
-	public int getLocation() {
+	public Integer getLocation() {
 		return this.location;
 	}
 
-	public int getContamination() {
+	public Integer getContamination() {
 		return this.contamination_grade;
 	}
 

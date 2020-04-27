@@ -1,31 +1,23 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JToolBar;
-import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -40,14 +32,16 @@ import exceptions.StrategyException;
 import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
-import simulator.misc.Pair;
 import simulator.model.Event;
-import simulator.model.NewSetContClassEvent;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
-import simulator.model.Vehicle;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Controller _ctrl;
 
@@ -143,7 +137,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.addSeparator();
 
 		// Exit button
-		createExitButton();	}
+		createExitButton();	
+	}
 
 	// USAR COMO PLANTILLA PARA EL RESTO DE BOTONES
 	private void createLoadButton() {
@@ -225,8 +220,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conClassDialog = new ChangeCO2ClassDialog(_ctrl);
-				//Clase para crear la ventana
+				_stoped = false;
+				run_sim(ticks);
 			}});
 		toolbar.add(setRunButton);
 	}
@@ -240,8 +235,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//conClassDialog = new ChangeCO2ClassDialog(_ctrl);
-				//Clase para crear la ventana
+				stop();
 			}});
 		toolbar.add(setStopButton);
 	}

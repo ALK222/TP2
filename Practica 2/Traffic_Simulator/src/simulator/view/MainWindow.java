@@ -1,5 +1,10 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -10,16 +15,14 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-import extra.jtable.*;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import simulator.control.Controller;
 
 public class MainWindow extends JFrame{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private Controller _ctrl;
 
     public MainWindow(Controller ctrl){
@@ -29,6 +32,9 @@ public class MainWindow extends JFrame{
     }
 
     private void initGUI() {
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -88,7 +94,7 @@ public class MainWindow extends JFrame{
         // TODO add a framed boreder to p with title
         p.setBorder(BorderFactory.createTitledBorder(b, title, TitledBorder.LEFT, TitledBorder.TOP));
         
-        p.add(new JScrollPane(c));
+        p.add(new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
         return p;
     }
 }

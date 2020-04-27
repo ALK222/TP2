@@ -69,6 +69,10 @@ public class Vehicle extends SimulatedObject {
 		}
 	}
 
+	public Integer getMaxSpeed(){
+		return this.max_speed;
+	}
+
 	public Integer getSpeed() {
 
 		return this.current_speed;
@@ -88,6 +92,14 @@ public class Vehicle extends SimulatedObject {
 
 	public VehicleStatus getStatus() {
 		return this.status;
+	}
+
+	public Integer getTotalCo2(){
+		return this.total_contamination;
+	}
+
+	public Integer getDistance(){
+		return this.total_distance;
 	}
 
 	protected void setContamination(int contamination) throws VehicleException {
@@ -162,10 +174,6 @@ public class Vehicle extends SimulatedObject {
 			information.put("location", (int) this.location);
 		}
 		return information;
-	}
-
-	public double getContClass() {
-		return this.contamination_grade;
 	}
 
 }

@@ -47,15 +47,29 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 			case 0:
 				rt = v.getId().toString();
 			break;
+
 			case 1:
 				rt = v.getLocation().toString();
 			break;
 
 			case 2:
+				rt = v.getContamination().toString();
+			break;
 
-			
+			case 3:
+				rt = v.getMaxSpeed().toString();
+			break;
+
+			case 4:
+				rt = v.getTotalCo2().toString();
+			break;
+
+			case 5:
+				rt = v.getDistance().toString();
+			break;			
 		}
-		return null;
+		
+		return rt;
 	}
 
 	@Override

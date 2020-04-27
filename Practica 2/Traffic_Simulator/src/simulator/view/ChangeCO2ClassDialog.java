@@ -24,6 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ChangeCO2ClassDialog extends JDialog implements ActionListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private List<Vehicle> v = new ArrayList<Vehicle>();
     private Integer[] contClass = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     private int ticks;

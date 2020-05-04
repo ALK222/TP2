@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
+import simulator.misc.SortedArrayList;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
@@ -23,8 +24,9 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 	
 	public VehiclesTableModel(Controller _ctrl) {
 		
-		_vehicles = new ArrayList<Vehicle>();
-		_ctrl.addObserver(this);
+		_vehicles = new SortedArrayList<Vehicle>();
+		//_ctrl.addObserver(this);// Si añades esto como observador(que creo que no lo es) salta error al meter tambien el RoadsTableModel,
+		//porque no se pueden comparar, no son iguales.
 	}
 
 	public String getColumnName(int c){
@@ -85,6 +87,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 			public void run() {
 				_vehicles = map.getVehicles();
 				fireTableStructureChanged();
+				fireTableDataChanged();
 			}
 		});
 		
@@ -98,6 +101,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 			public void run() {
 				_vehicles = map.getVehicles();
 				fireTableStructureChanged();
+				fireTableDataChanged();
 			}
 		});
 		
@@ -112,6 +116,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 			public void run() {
 				_vehicles = map.getVehicles();
 				fireTableStructureChanged();
+				fireTableDataChanged();
 			}
 		});
 		
@@ -126,6 +131,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 			public void run() {
 				_vehicles = map.getVehicles();
 				fireTableStructureChanged();
+				fireTableDataChanged();
 			}
 		});
 		
@@ -140,6 +146,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 			public void run() {
 				_vehicles = map.getVehicles();
 				fireTableStructureChanged();
+				fireTableDataChanged();
 			}
 		});
 		

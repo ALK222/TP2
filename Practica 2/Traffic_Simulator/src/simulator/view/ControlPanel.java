@@ -93,6 +93,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				@Override
 				public void run() {
 					run_sim(n - 1);
+					
 				}
 			});
 		} else {

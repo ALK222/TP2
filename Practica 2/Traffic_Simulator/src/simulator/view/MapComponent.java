@@ -39,7 +39,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	MapComponent(Controller ctrl) {
 		initGUI();
-		//ctrl.addObserver(this);
+		ctrl.addObserver(this);
 	}
 
 	private void initGUI() {
@@ -125,7 +125,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 				// Choose a color for the vehcile's label and background, depending on its
 				// contamination class
-				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
+				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContamination()));
 				g.setColor(new Color(0, vLabelColor, 0));
 
 				// draw an image of a car (with circle as background) and it identifier

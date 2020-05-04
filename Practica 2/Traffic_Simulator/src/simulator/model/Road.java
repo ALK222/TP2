@@ -21,17 +21,17 @@ public abstract class Road extends SimulatedObject {
 
 	protected Junction destination;
 
-	protected int length;
+	protected Integer length;
 
-	protected int max_speed;
+	protected Integer max_speed;
 
-	protected int current_speed_limit;
+	protected Integer current_speed_limit;
 
-	protected int contamination_alarm;
+	protected Integer contamination_alarm;
 
 	protected Weather weather_condition;
 
-	protected int total_contamination;
+	protected Integer total_contamination;
 
 	protected List<Vehicle> vehicles;
 
@@ -68,7 +68,7 @@ public abstract class Road extends SimulatedObject {
 
 	protected abstract int calculateVehicleSpeed(Vehicle v) throws VehicleException;
 
-	public int getLenght() {
+	public Integer getLenght() {
 		return this.length;
 	}
 
@@ -116,17 +116,18 @@ public abstract class Road extends SimulatedObject {
 		}
 
 		// Recuerda shortear esta wea
-		
+
 		Comparator<Vehicle> c = new Comparator<Vehicle>() {
 
 			@Override
 			public int compare(Vehicle o1, Vehicle o2) {
-				if(o1.getLocation() == o2.getLocation()) return 0;
-				else if (o1.getLocation() < o2.getLocation()) return 1; 
+				if (o1.getLocation() == o2.getLocation())
+					return 0;
+				else if (o1.getLocation() < o2.getLocation())
+					return 1;
 				return -1;
 			}
 		};
-
 
 		this.vehicles.sort(c);
 	}
@@ -135,12 +136,12 @@ public abstract class Road extends SimulatedObject {
 	public JSONObject report() {
 		JSONObject report = new JSONObject();
 		JSONArray ja = new JSONArray();
-		report.put("id", (String)this.getId());
-		report.put("speedlimit", (int)this.current_speed_limit);
-		report.put("weather", (String)this.weather_condition.parse());
-		report.put("co2",(int) this.total_contamination);
-		for(Vehicle v : vehicles){
-			ja.put((String)v.getId());
+		report.put("id", (String) this.getId());
+		report.put("speedlimit", (int) this.current_speed_limit);
+		report.put("weather", (String) this.weather_condition.parse());
+		report.put("co2", (int) this.total_contamination);
+		for (Vehicle v : vehicles) {
+			ja.put((String) v.getId());
 		}
 		report.put("vehicles", ja);
 		return report;
@@ -149,16 +150,29 @@ public abstract class Road extends SimulatedObject {
 	public Junction getSrc() {
 		return this.origin;
 	}
+
 	public Junction getDest() {
 		return this.destination;
 	}
 
-	public double getTotalCO2() {
+	public Integer getTotalCO2() {
 		return this.total_contamination;
 	}
 
-	public double getCO2Limit() {
+	public Integer getCO2Limit() {
 		return this.contamination_alarm;
+	}
+
+	public String getWeather() {
+		return this.weather_condition.parse();
+	}
+
+	public Integer getMaxSpeed() {
+		return this.max_speed;
+	}
+
+	public Integer getCurrSpeed() {
+		return this.current_speed_limit;
 	}
 
 }

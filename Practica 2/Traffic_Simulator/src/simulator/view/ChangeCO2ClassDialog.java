@@ -100,7 +100,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
                         (Integer) listCont.getSelectedItem()));
 
                 try {
-                    NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks), vc);
+                    NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
                     newContClass.execute(_ctrl.getTS().getRoadMap());
                    
                 } catch (VehicleException e1) {

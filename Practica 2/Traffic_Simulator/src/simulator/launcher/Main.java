@@ -139,7 +139,7 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws IOException, RoadException, VehicleException, JunctionException,
-			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
+		SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller c = new Controller(ts, _eventsFactory);
 		c.loadEvents(new FileInputStream(_inFile));
@@ -154,7 +154,8 @@ public class Main {
 		} else {
 			os = System.out;
 			file = null;
-		}SwingUtilities.invokeLater(new Runnable() {
+		}
+		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
 			public void run() {

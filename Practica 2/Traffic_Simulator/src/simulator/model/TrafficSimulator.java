@@ -28,6 +28,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		this.mapa_carreteras = new RoadMap();
 		this.event_list = new SortedArrayList<Event>();
 		this.time = 1;
+		this.observers =  new SortedArrayList<TrafficSimObserver>();
 	}
 
 	// METHODS
@@ -101,7 +102,9 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public int getTime() {
+		return this.time;
+	}
 	public JSONObject report() {
 		JSONObject r = new JSONObject();
 		r.put("time", (int)time - 1);

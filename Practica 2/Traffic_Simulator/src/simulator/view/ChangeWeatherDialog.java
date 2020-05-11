@@ -1,5 +1,12 @@
 package simulator.view;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,23 +18,18 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import exceptions.RoadException;
-import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
-import simulator.model.NewSetContClassEvent;
 import simulator.model.Road;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
-
 class ChangeWeatherDialog extends JDialog implements ActionListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -307371379788952772L;
     private List<Road> r = new ArrayList<Road>();
     private Weather[] w ;
     private String[] wS;
@@ -113,10 +115,8 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
                     newWeatherClass.execute(_ctrl.getTS().getRoadMap());
                    
                 } catch (WeatherException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 } catch (RoadException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             

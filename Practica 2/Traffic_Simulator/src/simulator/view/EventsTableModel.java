@@ -10,6 +10,8 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
+import exceptions.EventException;
+
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver{
 
 	/**
@@ -87,7 +89,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			s = _events.get(rowIndex).getTime();
 			break;
 		case 2:
-			s = _events.get(rowIndex).getId();
+			s = _events.get(rowIndex).toString();
 			break;
 		}
 		return s;
@@ -164,8 +166,8 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	}
 
 	@Override
-	public void onError(String err) {
-		// TODO Auto-generated method stub
+	public void onError(String err) throws EventException {
+		throw new EventException(err);
 		
 	}
 }

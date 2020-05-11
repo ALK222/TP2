@@ -13,6 +13,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
+import exceptions.RoadException;
 import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.Road;
@@ -101,15 +102,13 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			// choose a color for the road depending on the total contamination, the darker
 			// the
 			// more contaminated (wrt its co2 limit)
-			int roadColorValue = 200
-					- (int) (200.0 * Math.min(1.0, (double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit())));
-			//Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
+			int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit())));
+			Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
 
 			// draw line from (x1,y1) to (x2,y2) with arrow of color arrowColor and line of
 			// color roadColor. The size of the arrow is 15px length and 5 px width
-
 			g.drawLine(x1, y, x2, y);
-			g.setColor(junctionColor);
+			g.setColor(roadColor);
 
 		}
 
@@ -163,7 +162,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			}
 			
 			W= loadImage(name);
-			g.drawImage(W, 200,200 , 32, 32, this);//Falta ajustar la posición
+			g.drawImage(W, 200,200 , 32, 32, this);//Falta ajustar la posiciï¿½n
 		}
 	}
 
@@ -194,31 +193,27 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		update(map);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
 		update(map);
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		update(map);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		update(map);
 	}
 
 	@Override
-	public void onError(String err) {
-		// TODO Auto-generated method stub
+	public void onError(String err) throws RoadException {
+		throw new RoadException(err);
 
 	}
 

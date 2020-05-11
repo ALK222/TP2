@@ -163,6 +163,7 @@ public class Main {
 			}
 		});
 		//c.run(_time/* , os */);
+		os.close();
 
 	}
 
@@ -184,7 +185,7 @@ public class Main {
 		initFactories();
 		parseArgs(args);
 		startBatchMode();
-		//startGUIMode();
+		startGUIMode();
 	}
 
 	// example command lines:

@@ -3,15 +3,13 @@ package simulator.view;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
+import exceptions.JunctionException;
 import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
 import simulator.model.Event;
 import simulator.model.Junction;
-import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
@@ -146,8 +144,8 @@ SwingUtilities.invokeLater(new Runnable(){
 	}
 
 	@Override
-	public void onError(String err) {
-		// TODO Auto-generated method stub
+	public void onError(String err) throws JunctionException {
+		throw new JunctionException(err);
 		
 	}
 

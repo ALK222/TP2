@@ -61,6 +61,7 @@ public class Controller implements Observable<TrafficSimObserver>{
 		}
 		p.println("\n]");
 		p.println("}");
+		p.close();
 	}
 
 	public void reset(){

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
+import exceptions.VehicleException;
 import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
 import simulator.model.Event;
@@ -25,7 +26,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 	public VehiclesTableModel(Controller _ctrl) {
 		
 		_vehicles = new SortedArrayList<Vehicle>();
-		//_ctrl.addObserver(this);// Si añades esto como observador(que creo que no lo es) salta error al meter tambien el RoadsTableModel,
+		//_ctrl.addObserver(this);// Si aï¿½ades esto como observador(que creo que no lo es) salta error al meter tambien el RoadsTableModel,
 		//porque no se pueden comparar, no son iguales.
 	}
 
@@ -153,7 +154,8 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 	}
 
 	@Override
-	public void onError(String err) {		
+	public void onError(String err) throws VehicleException {
+		throw new VehicleException(err);		
 	}
 
 

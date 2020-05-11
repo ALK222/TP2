@@ -7,22 +7,16 @@ import exceptions.VehicleException;
 public abstract class Event implements Comparable<Event> {
 
 	protected int _time;
-	protected String id;
 
-	Event(int time, String id) {
+	Event(int time) {
 		if (time < 1)
 			throw new IllegalArgumentException("Time must be positive (" + time + ")");
 		else
 			_time = time;
-		this.id = id;
 	}
 
 	public int getTime() {
 		return _time;
-	}
-
-	public String getId(){
-		return id;
 	}
 
 	@Override
@@ -31,6 +25,8 @@ public abstract class Event implements Comparable<Event> {
 		else if (this._time < o.getTime()) return -1; 
 		return 1;
 	}
+
+	public abstract String toString();
 
 	abstract void execute(RoadMap map) throws RoadException, VehicleException, JunctionException;
 }

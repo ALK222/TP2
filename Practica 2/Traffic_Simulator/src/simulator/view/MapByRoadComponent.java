@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.io.File;
 import java.io.IOException;
@@ -107,8 +108,15 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 			// draw line from (x1,y1) to (x2,y2) with arrow of color arrowColor and line of
 			// color roadColor. The size of the arrow is 15px length and 5 px width
-			g.drawLine(x1, y, x2, y);
+			g.setColor(_JUNCTION_COLOR);
+			g.fillOval(x1, y, _JRADIUS, _JRADIUS);
+			g.drawString("prueba", x1, y +5);
+			//En Map by road no hay triangulo de flecha
 			g.setColor(roadColor);
+			g.drawLine(x1, y, x2, y);
+			g.setColor(junctionColor);
+			g.fillOval(x2, y, _JRADIUS, _JRADIUS);
+			g.drawString("prueba", x2, y + 5);
 
 		}
 

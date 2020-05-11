@@ -64,9 +64,7 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
          * 
          * 
          * **/
-        road = new String[2];
-        road[0]= "r1";
-        road[1] = "r2";
+     
         
         ///////////
         

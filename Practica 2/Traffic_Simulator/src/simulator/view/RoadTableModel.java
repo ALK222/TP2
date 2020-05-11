@@ -23,8 +23,8 @@ public class RoadTableModel extends AbstractTableModel implements TrafficSimObse
 
 	public RoadTableModel(Controller _ctrl) {
 	_Roads = new SortedArrayList<Road>();
-		//_Roads = null;
-		//_ctrl.addObserver(this);
+		
+		_ctrl.addObserver(this);
 
 	}
 

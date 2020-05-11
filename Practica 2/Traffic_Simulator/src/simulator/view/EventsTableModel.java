@@ -27,6 +27,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	}
 	public EventsTableModel(Controller _ctrl) {
 		_events=null;
+		_ctrl.addObserver(this);
 	}
 
 	public void update() {
@@ -80,16 +81,21 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	//
 	// returns the value of a particular cell 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Object s = null;
+		String s = null;
+
+		
+		Event e = _events.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			s = rowIndex;
+			Integer a= rowIndex;
+			s = a.toString();
 			break;
 		case 1:
-			s = _events.get(rowIndex).getTime();
+			 Integer b= e.getTime();
+			 s=b.toString();
 			break;
 		case 2:
-			s = _events.get(rowIndex).toString();
+			s = e.toString();
 			break;
 		}
 		return s;

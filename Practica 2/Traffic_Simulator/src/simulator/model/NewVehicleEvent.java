@@ -42,7 +42,7 @@ public class NewVehicleEvent extends Event {
 
 	@Override
 	public String toString(){
-		return "New Vehicle '" + this.v._id + "'";
+		return "New Vehicle '" + this.id + "'";
 	}
 
 }

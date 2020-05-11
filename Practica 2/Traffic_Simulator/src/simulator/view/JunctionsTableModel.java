@@ -21,6 +21,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
 		public JunctionsTableModel(Controller _ctrl) {
 			this._Junction = new SortedArrayList<Junction>();
+			_ctrl.addObserver(this);
 		}
 	
 

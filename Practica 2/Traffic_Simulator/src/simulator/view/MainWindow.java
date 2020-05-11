@@ -29,6 +29,7 @@ public class MainWindow extends JFrame{
         super("Traffic Simulator");
         _ctrl = ctrl;
         initGUI();
+        
     }
 
     private void initGUI() {

@@ -61,9 +61,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
          * 
          * 
          * **/
-        vehicles = new String[2];
-        vehicles[0]= "v1";
-        vehicles[1] = "v2";
+     
         
         ///////////
         listVehicles = new JComboBox<String>(vehicles);

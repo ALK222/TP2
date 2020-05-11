@@ -26,7 +26,7 @@ public class  VehiclesTableModel extends AbstractTableModel implements TrafficSi
 	public VehiclesTableModel(Controller _ctrl) {
 		
 		_vehicles = new SortedArrayList<Vehicle>();
-		//_ctrl.addObserver(this);// Si a�ades esto como observador(que creo que no lo es) salta error al meter tambien el RoadsTableModel,
+		_ctrl.addObserver(this);// Si a�ades esto como observador(que creo que no lo es) salta error al meter tambien el RoadsTableModel,
 		//porque no se pueden comparar, no son iguales.
 	}
 

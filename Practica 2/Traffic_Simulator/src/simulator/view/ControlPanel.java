@@ -76,7 +76,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this._ctrl = ctrl;
 		_stoped = false;
 		initGui();
-		//_ctrl.addObserver(this);
+		_ctrl.addObserver(this);
 	}
 
 	private void run_sim(int n) {
@@ -243,6 +243,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void createTickCounter() {
 		
 		setTicksArea = new JSpinner();
+		setTicksArea.setValue(ticks);
 		setTicksArea.setToolTipText("Set ticks to execute in simulation");
 		//setTicksArea.setMinimumSize(new Dimension(80, 30));
 	//	setTicksArea.setMaximumSize(new Dimension(200, 30));
@@ -322,7 +323,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

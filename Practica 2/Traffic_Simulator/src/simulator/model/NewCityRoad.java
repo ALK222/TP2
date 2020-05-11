@@ -19,7 +19,7 @@ public class NewCityRoad extends NewRoadEvent {
 
 	@Override
 	public String toString(){
-		return "New City Road '" + this.r._id + "'";
+		return "New City Road '" + this.id + "'";
 	}
 
 }

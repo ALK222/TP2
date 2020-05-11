@@ -184,7 +184,7 @@ public class Main {
 			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		initFactories();
 		parseArgs(args);
-		startBatchMode();
+	//	startBatchMode();
 		startGUIMode();
 	}
 

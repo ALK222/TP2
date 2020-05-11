@@ -28,7 +28,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		this.mapa_carreteras = new RoadMap();
 		this.event_list = new SortedArrayList<Event>();
 		this.time = 1;
-		this.observers =  new SortedArrayList<TrafficSimObserver>();
+		this.observers =  new ArrayList<TrafficSimObserver>();
 	}
 
 	// METHODS
@@ -39,7 +39,8 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	}
 
 	private void onEventAdded(RoadMap mapa_carreteras2, List<Event> event_list2, Event e, int time2) {
-		// TODO Auto-generated method stub
+		 for (TrafficSimObserver o : observers)
+			 o.onEventAdded(mapa_carreteras2,event_list2,e,time2);
 		
 	}
 
@@ -120,16 +121,15 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 	@Override
 	public void addObserver(TrafficSimObserver o) {
-
-		this.observers.add(o);
-
+		 if(!this.observers.contains(o)) this.observers.add(o);
+		 o.onRegister(this.mapa_carreteras, this.event_list,time);
 	}
 
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
 		
 		this.observers.remove(o);
-
+		
 	}
 	/*
 	 * 

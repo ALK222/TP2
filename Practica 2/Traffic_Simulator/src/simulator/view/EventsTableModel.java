@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
@@ -17,7 +18,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	private static final long serialVersionUID = 1L;
 	
 	
-	private List<EventEx> _events;
+	private List<Event> _events;
 	private String[] _colNames = { "#", "Time", "Priority" };
 	public EventsTableModel() {
 		_events=null;
@@ -35,7 +36,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		fireTableDataChanged();;		
 	}
 	
-	public void setEventsList(List<EventEx> events) {
+	public void setEventsList(List<Event> events) {
 		_events = events;
 		update();
 	}
@@ -86,7 +87,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			s = _events.get(rowIndex).getTime();
 			break;
 		case 2:
-			s = _events.get(rowIndex).getPriority();
+			s = _events.get(rowIndex).getId();
 			break;
 		}
 		return s;
@@ -94,31 +95,71 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				_events = events;
+				fireTableStructureChanged();
+
+			}
+		});
 		
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				_events = events;
+				fireTableStructureChanged();
+
+			}
+		});
 		
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				_events = events;
+				fireTableStructureChanged();
+
+			}
+		});
 		
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				_events = events;
+				fireTableStructureChanged();
+
+			}
+		});
 		
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				_events = events;
+				fireTableStructureChanged();
+
+			}
+		});
 		
 	}
 

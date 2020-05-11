@@ -7,16 +7,22 @@ import exceptions.VehicleException;
 public abstract class Event implements Comparable<Event> {
 
 	protected int _time;
+	protected String id;
 
-	Event(int time) {
+	Event(int time, String id) {
 		if (time < 1)
 			throw new IllegalArgumentException("Time must be positive (" + time + ")");
 		else
 			_time = time;
+		this.id = id;
 	}
 
-	int getTime() {
+	public int getTime() {
 		return _time;
+	}
+
+	public String getId(){
+		return id;
 	}
 
 	@Override

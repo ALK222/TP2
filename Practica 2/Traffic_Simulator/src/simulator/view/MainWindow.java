@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,7 +37,7 @@ public class MainWindow extends JFrame{
 
     private void initGUI() {
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -83,9 +86,55 @@ public class MainWindow extends JFrame{
         mapView.setPreferredSize(new Dimension(500, 400));
         mapsPanel.add(mapRoadsView);
 
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+        this.addWindowListener(new WindowListener() {
+        	
+        	@Override
+        	public void windowOpened(WindowEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        	
+        	@Override
+        	public void windowIconified(WindowEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        	
+        	@Override
+        	public void windowDeiconified(WindowEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        	
+        	@Override
+        	public void windowDeactivated(WindowEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        	
+        	@Override
+        	public void windowClosing(WindowEvent e) {
+        		quit();
+        		
+        	}
+        	
+        	@Override
+        	public void windowClosed(WindowEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        	
+        	@Override
+        	public void windowActivated(WindowEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        });
     }
 
     private JPanel createViewPanel(JComponent c, String title){
@@ -98,4 +147,12 @@ public class MainWindow extends JFrame{
         p.add(new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
         return p;
     }
+    private void quit() {
+    	
+		int n = JOptionPane.showOptionDialog(new JFrame(),
+				 "Are sure you want to quit?", "Quit",
+				 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				 null, null);
+				 if (n == 0) {System.exit(0); }
+	}
 }

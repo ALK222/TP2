@@ -43,8 +43,8 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	@Override
 	public Object getValueAt(int row, int col) {
 		String o = "";
-		Junction aux = this._Junction.get(col);
-		switch (row) {
+		Junction aux = this._Junction.get(row);
+		switch (col) {
 		case 0:
 			o = aux.getId();
 			break;

@@ -91,6 +91,7 @@ public class MainWindow extends JFrame{
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+        this.setResizable(true);
         this.addWindowListener(new WindowListener() {
         	
         	@Override
@@ -141,7 +142,6 @@ public class MainWindow extends JFrame{
         JPanel p = new JPanel(new BorderLayout());
         Border b = BorderFactory.createLineBorder(Color.black, 2);
 
-        // TODO add a framed boreder to p with title
         p.setBorder(BorderFactory.createTitledBorder(b, title, TitledBorder.LEFT, TitledBorder.TOP));
         
         p.add(new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));

@@ -3,9 +3,7 @@ package simulator.view;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
@@ -44,8 +42,8 @@ public class RoadTableModel extends AbstractTableModel implements TrafficSimObse
 	@Override
 	public Object getValueAt(int row, int col) {
 		String o = "";
-		Road aux = this._Roads.get(col);
-		switch (row) {
+		Road aux = this._Roads.get(row);
+		switch (col) {
 		case 0:
 			o = aux.getId();
 			break;

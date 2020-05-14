@@ -3,8 +3,6 @@ package simulator.model;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.JComponent;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

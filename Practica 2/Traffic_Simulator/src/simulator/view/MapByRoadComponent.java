@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import exceptions.RoadException;
 import simulator.control.Controller;
@@ -196,27 +196,58 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 		
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		update(map);
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		update(map);
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		update(map);
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		update(map);
+		SwingUtilities.invokeLater(new Runnable(){
+		
+			@Override
+			public void run() {
+				update(map);
+			}
+		});
 	}
 
 	@Override

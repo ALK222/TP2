@@ -48,8 +48,9 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 		try{
 			++time;
-
-			this.onAdvanceStart(this.mapa_carreteras, this.event_list, this.time);
+			for(TrafficSimObserver o : this.observers) {
+				o.onAdvanceEnd(mapa_carreteras, event_list, time);
+			}
 	
 			List<Event> aux1 = new ArrayList<>();
 			for (Event e : event_list) {
@@ -69,7 +70,9 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 				road.advance(time);
 			}
 	
-			onAdvanceEnd(mapa_carreteras, event_list, time);
+			for(TrafficSimObserver o: this.observers){
+				o.onAdvanceEnd(this.mapa_carreteras, this.event_list, this.time);
+			}
 		}
 		catch (Exception e){
 			onError(e.getMessage());
@@ -100,7 +103,9 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	}
 
 	private void onReset(RoadMap mapa_carreteras2, List<Event> event_list2, int time2) {
-		// TODO Auto-generated method stub
+		for(TrafficSimObserver o: observers){
+			o.onReset(this.mapa_carreteras, this.event_list, this.time);
+		}
 		
 	}
 	public int getTime() {

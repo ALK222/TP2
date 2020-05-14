@@ -110,6 +110,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			// color roadColor. The size of the arrow is 15px length and 5 px width
 			g.setColor(_JUNCTION_COLOR);
 			g.fillOval(x1, y, _JRADIUS, _JRADIUS);
+			g.setColor(_JUNCTION_LABEL_COLOR);
 			g.drawString("prueba", x1, y +5);
 			//En Map by road no hay triangulo de flecha
 			g.setColor(roadColor);
@@ -117,7 +118,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.setColor(junctionColor);
 			g.fillOval(x2, y, _JRADIUS, _JRADIUS);
 			g.drawString("prueba", x2, y + 5);
-
+			++i;
 		}
 
 	}
@@ -162,11 +163,16 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			name=r.getWeather();
 		//	SUNNY, CLOUDY, RAINY, WINDY, STORM;
 			switch(name) {
-			case"SUNNY": name="sun";break;
-			case"CLOUDY":name="cloud";break;
-			case"RAINY":name="rain";break;
-			case"WINDY":name="wind";break;
-			case"STORM":name="storm";break;
+			case"SUNNY": name="sun";
+				break;
+			case"CLOUDY":name="cloud";
+				break;
+			case"RAINY":name="rain";
+				break;
+			case"WINDY":name="wind";
+				break;
+			case"STORM":name="storm";
+				break;
 			}
 			
 			W= loadImage(name);

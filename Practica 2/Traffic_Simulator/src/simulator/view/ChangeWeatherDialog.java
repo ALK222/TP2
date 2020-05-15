@@ -107,17 +107,15 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
             public void actionPerformed(ActionEvent e) {
             	List<Pair<String, Weather>> rd = new ArrayList<Pair<String, Weather>>();
                 rd.add(new Pair<String, Weather>((String) listRoad.getSelectedItem(),
-                         (Weather)listWeather.getSelectedItem()));
+                         Weather.valueOf((String)listWeather.getSelectedItem())));
 
                 try {
                 	SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks+_ctrl.getTS().getTime()), rd);
-                    newWeatherClass.execute(_ctrl.getTS().getRoadMap());
-                   
+                	_ctrl.addEvents(newWeatherClass); 
+                   dispose();
                 } catch (WeatherException e1) {
                     e1.printStackTrace();
-                } catch (RoadException e1) {
-					e1.printStackTrace();
-				}
+                }
             
             
             }
@@ -132,11 +130,11 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
         mainPanel.add(panelSup);
         mainPanel.add(botones);
         this.add(mainPanel);
-       // this.setVisible(false);
+        this.setVisible(false);
         this.pack();
 
     }
-    public int open(RoadMap map) {
+    public void open(RoadMap map) {
     	  w= Weather.values();
           wS = new String[w.length];
           for (int i = 0; i < w.length; ++i) {
@@ -144,7 +142,6 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
           }
           
           listRoad = new JComboBox<String>(road);
- 	return 0;
  }
     private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();

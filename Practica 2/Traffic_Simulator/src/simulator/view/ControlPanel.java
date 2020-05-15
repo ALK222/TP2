@@ -197,29 +197,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				changeCO2Class();
-				//conClassDialog.setVisible(true);
+				
 				
 			}});
 		toolbar.add(setContButton);
 	}
 	private void changeCO2Class(){
 		ChangeCO2ClassDialog dial= new ChangeCO2ClassDialog(_ctrl);
+		dial.open(_ctrl.getTS().getRoadMap());
 		dial.setVisible(true);
-		int status = dial.open(_ctrl.getTS().getRoadMap());
 		
-		if(status ==1) {
-			  List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
-              vc.add(new Pair<String, Integer>(dial.getId(),dial.getConClass()));
-
-              try {
-                  NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
-                  newContClass.execute(_ctrl.getTS().getRoadMap());
-                 
-              } catch (VehicleException e1) {
-                  // TODO Auto-generated catch block
-                  e1.printStackTrace();
-              }
-		}
 	}
 	private void createChangeWeatherButton() {
 		setWeatherButton = new JButton();
@@ -236,7 +223,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	private void changeWeather() {
 		ChangeWeatherDialog dial= new ChangeWeatherDialog(_ctrl);
-		int status = dial.open(_ctrl.getTS().getRoadMap());
+		dial.open(_ctrl.getTS().getRoadMap());
 		dial.setVisible(true);
 		
 	}

@@ -10,6 +10,8 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.json.JSONArray;
+
 import exceptions.VehicleException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -38,8 +40,10 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private JLabel tick_label;
     private Controller _ctrl;
     private JSpinner tick_field;
+    private int status;
     public ChangeCO2ClassDialog(Controller ctrl) {
         this._ctrl = ctrl;
+        status=0;
         initGUI();
     }
 
@@ -95,17 +99,16 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
             	  List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
-                  vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),
-                          (Integer) listCont.getSelectedItem()));
+                  vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),(Integer)listCont.getSelectedItem()));
 
                   try {
                       NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
-                      newContClass.execute(_ctrl.getTS().getRoadMap());
-                     
+                      _ctrl.addEvents(newContClass);                          
+                      dispose();
                   } catch (VehicleException e1) {
                       // TODO Auto-generated catch block
                       e1.printStackTrace();
-                  }
+                  }	
             }
            
         });
@@ -119,26 +122,19 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
         mainPanel.add(panelSup);
         mainPanel.add(botones);
         this.add(mainPanel);
-       // this.setVisible(false);
+       this.setVisible(false);
         this.pack();
 
     }
-    public int open(RoadMap map) {
+    public void open(RoadMap map) {
     	   v = map.getVehicles();
            vehicles = new String[v.size()];
            for (int i = 0; i < v.size(); ++i) {
                vehicles[i] = v.get(i).getId();
            }
            listVehicles = new JComboBox<String>(vehicles);
-    	return 0;
     }
-    public int getConClass() {
-    	
-    	return (Integer)this.listCont.getSelectedItem();
-    }
-    public String getId() {
-    	return (String) listVehicles.getSelectedItem();
-    }
+   
     private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();
 		tick_field.setValue(ticks);

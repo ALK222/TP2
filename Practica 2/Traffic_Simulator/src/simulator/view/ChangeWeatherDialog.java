@@ -22,6 +22,7 @@ import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Road;
+import simulator.model.RoadMap;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
 
@@ -131,11 +132,20 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
         mainPanel.add(panelSup);
         mainPanel.add(botones);
         this.add(mainPanel);
-        this.setVisible(false);
+       // this.setVisible(false);
         this.pack();
 
     }
-    
+    public int open(RoadMap map) {
+    	  w= Weather.values();
+          wS = new String[w.length];
+          for (int i = 0; i < w.length; ++i) {
+              wS[i] = w[i].parse();
+          }
+          
+          listRoad = new JComboBox<String>(road);
+ 	return 0;
+ }
     private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();
 		tick_field.setValue(ticks);

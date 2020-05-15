@@ -14,6 +14,7 @@ import exceptions.VehicleException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.NewSetContClassEvent;
+import simulator.model.RoadMap;
 import simulator.model.Vehicle;
 
 import java.awt.event.ActionEvent;
@@ -51,11 +52,11 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 	     JPanel panelSup = new JPanel();
 	     panelSup.setLayout(new FlowLayout());
         //Vehicle selector
-        v = _ctrl.getTS().getRoadMap().getVehicles();
-        vehicles = new String[v.size()];
-        for (int i = 0; i < v.size(); ++i) {
-            vehicles[i] = v.get(i).getId();
-        }
+	     v = _ctrl.getTS().getRoadMap().getVehicles();
+         vehicles = new String[v.size()];
+         for (int i = 0; i < v.size(); ++i) {
+             vehicles[i] = v.get(i).getId();
+         }
         /*
          *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA 
          * 
@@ -93,18 +94,18 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
-                vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),
-                        (Integer) listCont.getSelectedItem()));
+            	  List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
+                  vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),
+                          (Integer) listCont.getSelectedItem()));
 
-                try {
-                    NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
-                    newContClass.execute(_ctrl.getTS().getRoadMap());
-                   
-                } catch (VehicleException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+                  try {
+                      NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
+                      newContClass.execute(_ctrl.getTS().getRoadMap());
+                     
+                  } catch (VehicleException e1) {
+                      // TODO Auto-generated catch block
+                      e1.printStackTrace();
+                  }
             }
            
         });
@@ -118,11 +119,26 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
         mainPanel.add(panelSup);
         mainPanel.add(botones);
         this.add(mainPanel);
-        this.setVisible(false);
+       // this.setVisible(false);
         this.pack();
 
     }
-    
+    public int open(RoadMap map) {
+    	   v = map.getVehicles();
+           vehicles = new String[v.size()];
+           for (int i = 0; i < v.size(); ++i) {
+               vehicles[i] = v.get(i).getId();
+           }
+           listVehicles = new JComboBox<String>(vehicles);
+    	return 0;
+    }
+    public int getConClass() {
+    	
+    	return (Integer)this.listCont.getSelectedItem();
+    }
+    public String getId() {
+    	return (String) listVehicles.getSelectedItem();
+    }
     private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();
 		tick_field.setValue(ticks);

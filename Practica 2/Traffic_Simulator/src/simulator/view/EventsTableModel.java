@@ -109,7 +109,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			public void run() {
 				_events = events;
 				fireTableStructureChanged();
-
+				fireTableDataChanged();
 			}
 		});
 		
@@ -123,7 +123,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			public void run() {
 				_events = events;
 				fireTableStructureChanged();
-
+				fireTableDataChanged();
 			}
 		});
 		
@@ -137,7 +137,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			public void run() {
 				_events = events;
 				fireTableStructureChanged();
-
+				fireTableDataChanged();
 			}
 		});
 		
@@ -151,7 +151,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			public void run() {
 				_events = events;
 				fireTableStructureChanged();
-
+				fireTableDataChanged();
 			}
 		});
 		
@@ -165,7 +165,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 			public void run() {
 				_events = events;
 				fireTableStructureChanged();
-
+				fireTableDataChanged();
 			}
 		});
 		

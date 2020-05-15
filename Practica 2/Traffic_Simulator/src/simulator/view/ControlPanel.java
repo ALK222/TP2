@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -32,7 +33,9 @@ import exceptions.StrategyException;
 import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
+import simulator.misc.Pair;
 import simulator.model.Event;
+import simulator.model.NewSetContClassEvent;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
@@ -45,6 +48,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private Controller _ctrl;
 
+	private RoadMap _map;
 	private boolean _stoped;
 
 	private JToolBar toolbar;
@@ -192,11 +196,31 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				conClassDialog.setVisible(true);
+				changeCO2Class();
+				//conClassDialog.setVisible(true);
+				
 			}});
 		toolbar.add(setContButton);
 	}
+	private void changeCO2Class(){
+		ChangeCO2ClassDialog dial= new ChangeCO2ClassDialog(_ctrl);
+		dial.setVisible(true);
+		int status = dial.open(_ctrl.getTS().getRoadMap());
+		
+		if(status ==1) {
+			  List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
+              vc.add(new Pair<String, Integer>(dial.getId(),dial.getConClass()));
 
+              try {
+                  NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
+                  newContClass.execute(_ctrl.getTS().getRoadMap());
+                 
+              } catch (VehicleException e1) {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+              }
+		}
+	}
 	private void createChangeWeatherButton() {
 		setWeatherButton = new JButton();
 		setWeatherButton.setToolTipText("Changes Road Weather");
@@ -206,11 +230,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				weatherClassDialog.setVisible(true);
+				changeWeather();
 			}});
 		toolbar.add(setWeatherButton);
 	}
-	
+	private void changeWeather() {
+		ChangeWeatherDialog dial= new ChangeWeatherDialog(_ctrl);
+		int status = dial.open(_ctrl.getTS().getRoadMap());
+		dial.setVisible(true);
+		
+	}
+
 	
 	private void createRunButton() {
 		setRunButton = new JButton();

@@ -38,6 +38,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private JLabel tick_label;
     private Controller _ctrl;
     private JSpinner tick_field;
+    private String _label = "Schedule an event to change the CO2 class of a vehicle after a given  number of simulation ticks from now.";
     public ChangeCO2ClassDialog(Controller ctrl) {
         this._ctrl = ctrl;
         initGUI();
@@ -46,7 +47,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private void initGUI() {
     	JPanel mainPanel = new JPanel();
     	JPanel topPanel= new JPanel();
-    	topPanel.add(new JLabel("Schedule an event to change the CO2 class of a vehicle after a given  number of simulation ticks from now."));
+    	topPanel.add(new JLabel(_label));
 	     mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
 	     mainPanel.add(topPanel);
 	     JPanel panelSup = new JPanel();
@@ -99,9 +100,11 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
                           (Integer) listCont.getSelectedItem()));
 
                   try {
-                      NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
-                      newContClass.execute(_ctrl.getTS().getRoadMap());
-                     
+                      if(ticks != 0){
+                        NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
+                      _ctrl.addEvents(newContClass);
+                      dispose();
+                      } 
                   } catch (VehicleException e1) {
                       // TODO Auto-generated catch block
                       e1.printStackTrace();
@@ -119,9 +122,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
         mainPanel.add(panelSup);
         mainPanel.add(botones);
         this.add(mainPanel);
-       // this.setVisible(false);
         this.pack();
-
     }
     public int open(RoadMap map) {
     	   v = map.getVehicles();

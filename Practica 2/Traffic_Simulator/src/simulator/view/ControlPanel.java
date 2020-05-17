@@ -154,6 +154,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		resetButton = new JButton();
 		resetButton.setToolTipText("Resets the simulation");
+		resetButton.setIcon(new ImageIcon("/resources/icons/reset.png"));
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -352,7 +353,8 @@ private void disableButtons() {
 	setTicksArea.setEnabled(false); 
 
 	setExitButton.setEnabled(false); 
-		
+	
+	resetButton.setEnabled(false);
 		
 	}
 	
@@ -360,7 +362,7 @@ private void disableButtons() {
 		
 		loadButton.setEnabled(true);
 
-		 setContButton.setEnabled(true); 
+		setContButton.setEnabled(true); 
 
 		setWeatherButton.setEnabled(true); 
 
@@ -371,6 +373,8 @@ private void disableButtons() {
 		setTicksArea.setEnabled(true); 
 
 		setExitButton.setEnabled(true); 
+
+		resetButton.setEnabled(true);
 		
 	}
 	

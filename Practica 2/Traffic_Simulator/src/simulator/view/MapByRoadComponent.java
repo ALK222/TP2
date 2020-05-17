@@ -93,7 +93,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			int y = (i + 1) * 50;
 			int x2 = getWidth() - 100;
 			g.setColor(_Name_Color);
-		//	g.drawString("Hola", 20, 50);
+		
 			g.drawString(r.getId(), x1-20, y);
 			// choose a color for the circle depending on the traffic light of the road
 			Color junctionColor = _RED_LIGHT_COLOR;
@@ -122,29 +122,28 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.drawString(r.getDest().getId(), x2, y -5);
 			drawWeather(g,r, x2+20,y-10);
 			drawContamination(g,r,x2+60,y-10);
+		
 			++i;
 		}
 
 	}
 
 	private void drawVehicles(Graphics g) {
-		int i = 0;
+	int i=0;
 		for (Vehicle v : _map.getVehicles()) {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
-				int y = (i + 1) * 50;
-				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
-				// corresponding road. It is calculated relativly to the length of the road, and
-				// the location on the vehicle.
 				Road r = v.getCurrentRoad();
-				int x1 = r.getSrc().getX();
+				i =  _map.getRoads().indexOf(r);
+				int y = (i + 1) * 50;
+				
+				
+				int x1 = 50;
 
-				int x2 = r.getDest().getX();
+				int x2 = getWidth() - 100;
 				// double x = Math.sin(alpha) * relLoc;;
-				double x = x1 + (int) ((x2 - x1) * ((double) v.getLocation() / (double) r.getLenght()));
+				int x = x1 + (int) ((x2 - x1) * ((double) v.getLocation() / (double) r.getLenght()));
 
-				int xDir = x1 < x2 ? 1 : -1;
-
-				int vX = x1 + xDir * ((int) x);
+				
 
 				// Choose a color for the vehcile's label and background, depending on its
 				// contamination class
@@ -153,10 +152,9 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 				// draw an image of a car (with circle as background) and it identifier
 
-				g.drawImage(_car, vX, y - 6, 16, 16, this);
-				g.drawString(v.getId(), vX, y - 6);
+				g.drawImage(_car, x, y - 6, 16, 16, this);
+				g.drawString(v.getId(), x, y - 6);
 			}
-			i++;
 		}
 
 	}

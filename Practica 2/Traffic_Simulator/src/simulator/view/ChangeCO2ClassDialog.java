@@ -31,7 +31,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     private List<Vehicle> v = new ArrayList<Vehicle>();
     private Integer[] contClass = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private int ticks;
+    private int ticks = 1;
     private String[] vehicles;
     private JComboBox<String> listVehicles;
     private JComboBox<Integer> listCont;
@@ -81,7 +81,6 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
         tick_label = new JLabel();
         tick_label.setText(" Ticks: ");
         panelSup.add(tick_label);
-        ticks = 0;
         panelSup.add(createTickTextLabel());
 
         this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);

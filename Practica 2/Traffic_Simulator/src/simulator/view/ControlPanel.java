@@ -69,7 +69,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	protected ChangeWeatherDialog weatherClassDialog;
 
-	protected int ticks = 10;//Valor por defecto
+	//protected int ticks = 10;//Valor por defecto
+	protected int ticks = 1;//Valor por defecto
 
 	public ControlPanel(Controller ctrl) {
 
@@ -147,7 +148,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		chooser = new JFileChooser();
 		chooser.setDialogTitle("Choose a file to load the objects to the simulation");
-		chooser.setCurrentDirectory(new File ("/resources/examples/"));// Se abre directamente en el dir de los ejemplos
+		chooser.setCurrentDirectory(new File ("src/resources/examples/"));// Se abre directamente en el dir de los ejemplos
 		loadButton = new JButton();
 		loadButton.setToolTipText("Loads roads, vehicles, junctions and events into the simulator");
 		loadButton.setIcon(new ImageIcon(this.getClass().getResource("/resources/icons/open.png")));

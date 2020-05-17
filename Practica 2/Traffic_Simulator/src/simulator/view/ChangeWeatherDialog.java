@@ -33,7 +33,7 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	private List<Road> r = new ArrayList<Road>();
 	private Weather[] w;
 	private String[] wS;
-	private int ticks;
+	private int ticks = 1;;
 	private String[] road;
 	private JComboBox<String> listRoad;
 	private JComboBox<String> listWeather;
@@ -91,7 +91,7 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 		tick_label = new JLabel();
 		tick_label.setText(" Ticks: ");
 		panelSup.add(tick_label);
-		ticks = 0;
+		
 		panelSup.add(createTickTextLabel());
 
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);

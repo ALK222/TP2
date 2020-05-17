@@ -206,7 +206,8 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	private Image loadImage(String img) {
 		Image i = null;
 		try {
-			return ImageIO.read(new File("resources/icons/" + img));
+			return ImageIO.read(new File("src/resources/icons/" + img));// Yo no se por que tengo que poner el src/ para que me coja la imagen
+			//luego cambiar o dime si a ti tb te pasa.
 		} catch (IOException e) {
 		}
 		return i;

@@ -53,6 +53,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private JButton loadButton;
 
+	private JButton resetButton;
+
 	private JButton setContButton;
 
 	private JButton setWeatherButton;
@@ -141,8 +143,27 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		createTickCounter();
 		toolbar.addSeparator();
 
+		//Reset button
+		createResetButton();
+
 		// Exit button
 		createExitButton();
+	}
+
+	private void createResetButton() {
+
+		resetButton = new JButton();
+		resetButton.setToolTipText("Resets the simulation");
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_ctrl.reset();
+
+
+			}});
+		toolbar.add(resetButton);
+
 	}
 
 	// USAR COMO PLANTILLA PARA EL RESTO DE BOTONES
@@ -153,7 +174,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		chooser.setCurrentDirectory(new File ("src/resources/examples/"));// Se abre directamente en el dir de los ejemplos
 		loadButton = new JButton();
 		loadButton.setToolTipText("Loads roads, vehicles, junctions and events into the simulator");
-		loadButton.setIcon(new ImageIcon(this.getClass().getResource("/resources/icons/open.png")));
+		loadButton.setIcon(new ImageIcon("/resources/icons/open.png"));
 		loadButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -192,7 +213,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setContButton = new JButton();
 		setContButton.setToolTipText("Changes the CO2 class of a vehicle");
 		setContButton.setIcon(
-				new ImageIcon(this.getClass().getResource("/resources/icons/co2class.png")));
+				new ImageIcon("/resources/icons/co2class.png"));
 		setContButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -213,7 +234,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setWeatherButton = new JButton();
 		setWeatherButton.setToolTipText("Changes Road Weather");
 		setWeatherButton.setIcon(
-				new ImageIcon(this.getClass().getResource("/resources/icons/weather.png")));
+				new ImageIcon("/resources/icons/weather.png"));
 		setWeatherButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -234,7 +255,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setRunButton = new JButton();
 		setRunButton.setToolTipText("Run the simulation N ticks");
 		setRunButton.setIcon(
-				new ImageIcon(this.getClass().getResource("/resources/icons/run.png")));
+				new ImageIcon("/resources/icons/run.png"));
 		setRunButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -250,7 +271,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setStopButton = new JButton();
 		setStopButton.setToolTipText("Changes Road Weather");
 		setStopButton.setIcon(
-				new ImageIcon(this.getClass().getResource("/resources/icons/stop.png")));
+				new ImageIcon("/resources/icons/stop.png"));
 		setStopButton.setEnabled(false);
 		setStopButton.addActionListener(new ActionListener() {
 
@@ -303,7 +324,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setExitButton = new JButton();
 		setExitButton.setToolTipText("Exit the aplication");
 		setExitButton.setIcon(
-				new ImageIcon(this.getClass().getResource("/resources/icons/exit.png")));
+				new ImageIcon("/resources/icons/exit.png"));
 		setExitButton.addActionListener(new ActionListener() {
 
 			@Override

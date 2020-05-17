@@ -17,7 +17,6 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import exceptions.RoadException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;

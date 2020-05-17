@@ -10,8 +10,6 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.json.JSONArray;
-
 import exceptions.VehicleException;
 import simulator.control.Controller;
 import simulator.misc.Pair;

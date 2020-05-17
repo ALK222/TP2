@@ -46,13 +46,13 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	}
 
 	private void initGUI() {
-		_car = loadImage("car_front.png");
+		_car = loadImage("car.png");
 	}
 
 	private Image loadImage(String img) {
 		Image i = null;
 		try {
-			return ImageIO.read(new File("resources/icons/" + img));
+			return ImageIO.read(new File("src/resources/icons/" + img));
 		} catch (IOException e) {
 		}
 		return i;

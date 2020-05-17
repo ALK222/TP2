@@ -73,7 +73,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	protected ChangeWeatherDialog weatherClassDialog;
 	
-	protected int ticks;
+	protected int ticks = 10;//Valor por defecto
 
 	public ControlPanel(Controller ctrl) {
 
@@ -81,6 +81,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		_stoped = false;
 		initGui();
 		_ctrl.addObserver(this);
+		
 	}
 
 	private void run_sim(int n) {

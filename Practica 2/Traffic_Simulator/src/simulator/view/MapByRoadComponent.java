@@ -27,7 +27,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private static final long serialVersionUID = 1L;
 
 	private static final int _JRADIUS = 10;
-
+	private static final Color _Name_Color = Color.BLACK;
 	private static final Color _BG_COLOR = Color.WHITE;
 	private static final Color _JUNCTION_COLOR = Color.BLUE;
 	private static final Color _JUNCTION_LABEL_COLOR = new Color(200, 100, 0);
@@ -80,8 +80,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private void drawMap(Graphics g) {
 		drawRoads(g);
 		drawVehicles(g);
-		drawWeather(g);
-		drawContamination(g);
+	
+	
 	}
 
 	private void drawRoads(Graphics g) {
@@ -91,7 +91,9 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			// the road goes from (x1,y) to (x2,y)
 			int x1 = 50;
 			int y = (i + 1) * 50;
-			int x2 = getWidth() - 100;
+			int x2 = getWidth() - 200;
+			g.setColor(_Name_Color);
+		//	g.drawString("Hola", 20, 50);
 			g.drawString(r.getId(), x1-20, y);
 			// choose a color for the circle depending on the traffic light of the road
 			Color junctionColor = _RED_LIGHT_COLOR;
@@ -103,21 +105,23 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			// choose a color for the road depending on the total contamination, the darker
 			// the
 			// more contaminated (wrt its co2 limit)
-			int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit())));
-			Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
-
+			//int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit())));
+		//	Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
+			
 			// draw line from (x1,y1) to (x2,y2) with arrow of color arrowColor and line of
 			// color roadColor. The size of the arrow is 15px length and 5 px width
 			g.setColor(_JUNCTION_COLOR);
-			g.fillOval(x1, y, _JRADIUS, _JRADIUS);
+			g.fillOval(x1, y-5, _JRADIUS, _JRADIUS);
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString("prueba", x1, y +5);
+			g.drawString(r.getSrc().getId(), x1, y -5);
 			//En Map by road no hay triangulo de flecha
-			g.setColor(roadColor);
+			g.setColor(Color.BLACK);
 			g.drawLine(x1, y, x2, y);
 			g.setColor(junctionColor);
-			g.fillOval(x2, y, _JRADIUS, _JRADIUS);
-			g.drawString("prueba", x2, y + 5);
+			g.fillOval(x2, y-5, _JRADIUS, _JRADIUS);
+			g.drawString(r.getDest().getId(), x2, y -5);
+			drawWeather(g, x2+20,y-10);
+			drawContamination(g,x2+60,y-10);
 			++i;
 		}
 
@@ -152,42 +156,45 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 				g.drawImage(_car, vX, y - 6, 12, 12, this);
 				g.drawString(v.getId(), vX, y - 6);
 			}
+			i++;
 		}
 
 	}
 
-	private void drawWeather(Graphics g) {
+	private void drawWeather(Graphics g, int x, int y) {
 		Image W;
 		String name="";
+		String aux="";
 		for (Road r : _map.getRoads()) {
 			name=r.getWeather();
 		//	SUNNY, CLOUDY, RAINY, WINDY, STORM;
 			switch(name) {
-			case"SUNNY": name="sun";
+			case"SUNNY": aux="sun.png";
 				break;
-			case"CLOUDY":name="cloud";
+			case"CLOUDY":aux="cloud.png";
 				break;
-			case"RAINY":name="rain";
+			case"RAINY":aux="rain.png";
 				break;
-			case"WINDY":name="wind";
+			case"WINDY":aux="wind.png";
 				break;
-			case"STORM":name="storm";
+			case"STORM":aux="storm.png";
 				break;
 			}
 			
-			W= loadImage(name);
-			g.drawImage(W, 200,200 , 32, 32, this);//Falta ajustar la posici�n
+			W= loadImage(aux);
+			g.drawImage(W, x,y , 32, 32, this);//Falta ajustar la posici�n
 		}
 	}
 
-	private void drawContamination(Graphics g) {
+	private void drawContamination(Graphics g, int x, int y) {
 		Image W;
 		String name="";
 		for (Road r : _map.getRoads()) {
 			int C = (int) Math.floor(Math.min((double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit()), 1.0) / 0.19);
 			name="cont_"+C+".png";
 			W= loadImage(name);
-			g.drawImage(W, 200,200 , 32, 32, this);
+			
+			g.drawImage(W, x,y , 32, 32, this); // Parametros: Nombre, x, y tamx, y, ni idea
 		}
 	}
 

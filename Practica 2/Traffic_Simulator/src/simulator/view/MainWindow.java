@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
@@ -41,7 +43,6 @@ public class MainWindow extends JFrame{
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
-
         this.setContentPane(mainPanel);
         mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
         mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
@@ -85,7 +86,7 @@ public class MainWindow extends JFrame{
         JPanel mapRoadsView = createViewPanel(new MapByRoadComponent(_ctrl), "Map By Road");
         mapView.setPreferredSize(new Dimension(500, 400));
         mapsPanel.add(mapRoadsView);
-
+       
         
         
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

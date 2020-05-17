@@ -158,11 +158,11 @@ public class Junction extends SimulatedObject {
 
 	public int getX() {
 		//Falta saber si hay que meter X e Y a los junction
-		return 0;
+		return _x;
 	}
 	public int getY() {
 		//Falta saber si hay que meter X e Y a los junction
-		return 0;
+		return _y;
 	}
 
 	public int getGreenLightIndex() {

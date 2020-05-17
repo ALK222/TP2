@@ -27,124 +27,129 @@ import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
 
 class ChangeWeatherDialog extends JDialog implements ActionListener {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -307371379788952772L;
-    private List<Road> r = new ArrayList<Road>();
-    private Weather[] w ;
-    private String[] wS;
-    private int ticks;
-    private String[] road;
-    private JComboBox<String> listRoad;
-    private JComboBox<String> listWeather;
-    private JLabel tick_label;
-    private Controller _ctrl;
-    private JSpinner tick_field;
-    public ChangeWeatherDialog(Controller ctrl) {
-        this._ctrl = ctrl;
-        initGUI();
-    }
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -307371379788952772L;
+	private List<Road> r = new ArrayList<Road>();
+	private Weather[] w;
+	private String[] wS;
+	private int ticks;
+	private String[] road;
+	private JComboBox<String> listRoad;
+	private JComboBox<String> listWeather;
+	private JLabel tick_label;
+	private Controller _ctrl;
+	private JSpinner tick_field;
+	private String _label;
 
-    private void initGUI() {
-    	JPanel mainPanel = new JPanel();
-    	JPanel topPanel= new JPanel();
-    	topPanel.add(new JLabel("Schedule an event to change the weather of a road after a given  number of simulation ticks from now."));
-	     mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
-	     mainPanel.add(topPanel);
-	     JPanel panelSup = new JPanel();
-	     panelSup.setLayout(new FlowLayout());
-        //Vehicle selector
-        r = _ctrl.getTS().getRoadMap().getRoads();
-        road = new String[r.size()];
-        for (int i = 0; i < r.size(); ++i) {
-            road[i] = r.get(i).getId();
-        }
-        /*
-         *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA 
-         * 
-         * 
-         * **/
-     
-        
-        ///////////
-        
-        //Coger el clima
-        w= Weather.values();
-        wS = new String[w.length];
-        for (int i = 0; i < w.length; ++i) {
-            wS[i] = w[i].parse();
-        }
-        
-        listRoad = new JComboBox<String>(road);
-        JLabel textV = new JLabel("Road: ");
-        panelSup.add(textV);
-        panelSup.add(listRoad);
-        //Contamination Selector
-        listWeather = new JComboBox<String>(wS);
-        JLabel textClass = new JLabel("Weather: ");
-        panelSup.add(textClass);
-        panelSup.add(listWeather);
+	public ChangeWeatherDialog(Controller ctrl) {
+		this._ctrl = ctrl;
+		initGUI();
+		_label = "Schedule an event to change the weather of a road after a given  number of simulation ticks from now.";
+	}
 
-        //Tick selector
-        tick_label = new JLabel();
-        tick_label.setText(" Ticks: ");
-        panelSup.add(tick_label);
-        ticks = 0;
-        panelSup.add(createTickTextLabel());
+	private void initGUI() {
+		JPanel mainPanel = new JPanel();
+		JPanel topPanel = new JPanel();
+		topPanel.add(new JLabel(_label));
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+		mainPanel.add(topPanel);
+		JPanel panelSup = new JPanel();
+		panelSup.setLayout(new FlowLayout());
+		// Vehicle selector
+		r = _ctrl.getTS().getRoadMap().getRoads();
+		road = new String[r.size()];
+		for (int i = 0; i < r.size(); ++i) {
+			road[i] = r.get(i).getId();
+		}
+		/*
+		 * INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA
+		 * 
+		 * 
+		 **/
 
-        this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		///////////
 
-        //Botones
-        JPanel botones = new JPanel();
-        botones.setLayout(new FlowLayout());
+		// Coger el clima
+		w = Weather.values();
+		wS = new String[w.length];
+		for (int i = 0; i < w.length; ++i) {
+			wS[i] = w[i].parse();
+		}
 
-        //CONFIRMAR
-        JButton okB = new JButton("OK");
-        okB.addActionListener(new ActionListener() {
+		listRoad = new JComboBox<String>(road);
+		JLabel textV = new JLabel("Road: ");
+		panelSup.add(textV);
+		panelSup.add(listRoad);
+		// Contamination Selector
+		listWeather = new JComboBox<String>(wS);
+		JLabel textClass = new JLabel("Weather: ");
+		panelSup.add(textClass);
+		panelSup.add(listWeather);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	List<Pair<String, Weather>> rd = new ArrayList<Pair<String, Weather>>();
-                rd.add(new Pair<String, Weather>((String) listRoad.getSelectedItem(),
-                         Weather.valueOf((String)listWeather.getSelectedItem())));
+		// Tick selector
+		tick_label = new JLabel();
+		tick_label.setText(" Ticks: ");
+		panelSup.add(tick_label);
+		ticks = 0;
+		panelSup.add(createTickTextLabel());
 
-                try {
-                	SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks+_ctrl.getTS().getTime()), rd);
-                	_ctrl.addEvents(newWeatherClass); 
-                   dispose();
-                } catch (WeatherException e1) {
-                    e1.printStackTrace();
-                }
-            
-            
-            }
-            });
-        botones.add(okB);
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
-        //CANCELAR
-        JButton cancelB = new JButton("cancel");
-        cancelB.addActionListener(this);
+		// Botones
+		JPanel botones = new JPanel();
+		botones.setLayout(new FlowLayout());
 
-        botones.add(cancelB);
-        mainPanel.add(panelSup);
-        mainPanel.add(botones);
-        this.add(mainPanel);
-        this.setVisible(false);
-        this.pack();
+		// CONFIRMAR
+		JButton okB = new JButton("OK");
+		okB.addActionListener(new ActionListener() {
 
-    }
-    public void open(RoadMap map) {
-    	  w= Weather.values();
-          wS = new String[w.length];
-          for (int i = 0; i < w.length; ++i) {
-              wS[i] = w[i].parse();
-          }
-          
-          listRoad = new JComboBox<String>(road);
- }
-    private JSpinner createTickTextLabel() {
-        tick_field = new JSpinner();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Pair<String, Weather>> rd = new ArrayList<Pair<String, Weather>>();
+				rd.add(new Pair<String, Weather>((String) listRoad.getSelectedItem(),
+						Weather.valueOf((String) listWeather.getSelectedItem())));
+
+				try {
+					if (ticks != 0) {
+						SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks + _ctrl.getTS().getTime()), rd);
+						_ctrl.addEvents(newWeatherClass);
+						dispose();
+					}
+				} catch (WeatherException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		botones.add(okB);
+
+		// CANCELAR
+		JButton cancelB = new JButton("cancel");
+		cancelB.addActionListener(this);
+
+		botones.add(cancelB);
+		mainPanel.add(panelSup);
+		mainPanel.add(botones);
+		this.add(mainPanel);
+		this.setVisible(false);
+		this.pack();
+
+	}
+
+	public void open(RoadMap map) {
+		w = Weather.values();
+		wS = new String[w.length];
+		for (int i = 0; i < w.length; ++i) {
+			wS[i] = w[i].parse();
+		}
+
+		listRoad = new JComboBox<String>(road);
+	}
+
+	private JSpinner createTickTextLabel() {
+		tick_field = new JSpinner();
 		tick_field.setValue(ticks);
 		tick_field.setMinimumSize(new Dimension(80, 30));
 		tick_field.setMaximumSize(new Dimension(200, 30));
@@ -152,21 +157,19 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 		tick_field.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent e) {
-				
-				ticks = Integer.valueOf(tick_field.getValue().toString());
-				
-			}
-			
-		});		
-		
-		return tick_field;
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        this.dispose();
-    }
+				ticks = Integer.valueOf(tick_field.getValue().toString());
+
+			}
+
+		});
+
+		return tick_field;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.dispose();
+	}
 
 }
-
-

@@ -40,9 +40,10 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private JLabel tick_label;
     private Controller _ctrl;
     private JSpinner tick_field;
+    private String _label = "Schedule an event to change the CO2 class of a vehicle after a given  number of simulation ticks from now.";
     public ChangeCO2ClassDialog(Controller ctrl) {
         this._ctrl = ctrl;
-        status=0;
+      
         initGUI();
     }
 

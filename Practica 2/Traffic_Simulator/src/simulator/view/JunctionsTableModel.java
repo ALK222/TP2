@@ -10,8 +10,10 @@ import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
 import simulator.model.Event;
 import simulator.model.Junction;
+import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
+import simulator.model.Vehicle;
 
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
 	private static final long serialVersionUID = 1L;
@@ -56,7 +58,20 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 			
 			break;
 		case 2:
-			o = aux.getQueue().toString();
+			if(aux.getQueue().isEmpty()) {o ="";}
+			else {
+				/*for (Road r : listRoad) {
+			r = listRoad.get(i);
+			if (r.origin.equals(this))
+				aux = r;
+		}*/int i=0;
+				for(List<Vehicle> v : aux.getQueue()) {
+					o += aux.getInRoads().get(i).getId()+": " + v.toString() ;
+					i++;
+				}
+		//	List<Vehicle>  auxQ= aux.getQueue().get(0);
+			//o = aux.getId()+ " "+aux.getQueue().toString();
+			}
 			break;
 		}
 		return o;

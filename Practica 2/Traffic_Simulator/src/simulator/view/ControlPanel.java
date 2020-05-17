@@ -87,6 +87,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				_ctrl.run(1);
 			} catch (Exception e) {
 				onError(e.getMessage());
+				enableButtons();
 				_stoped = true;
 				return;
 			}
@@ -101,6 +102,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		} else {
 			enableToolBar(true);
 			_stoped = true;
+			enableButtons();
 		}
 	}
 
@@ -238,6 +240,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_stoped = false;
+				disableButtons();
 				run_sim(ticks);
 			}});
 		toolbar.add(setRunButton);
@@ -248,6 +251,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setStopButton.setToolTipText("Changes Road Weather");
 		setStopButton.setIcon(
 				new ImageIcon(this.getClass().getResource("/resources/icons/stop.png")));
+		setStopButton.setEnabled(false);
 		setStopButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -313,6 +317,48 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.add(setExitButton);
 	}
 
+private void disableButtons() {
+	loadButton.setEnabled(false);
+
+	 setContButton.setEnabled(false); 
+
+	setWeatherButton.setEnabled(false); 
+
+	setRunButton.setEnabled(false); 
+
+	setStopButton.setEnabled(true); ;
+
+	setTicksArea.setEnabled(false); 
+
+	setExitButton.setEnabled(false); 
+		
+		
+	}
+	
+	private void enableButtons() {
+		
+		loadButton.setEnabled(true);
+
+		 setContButton.setEnabled(true); 
+
+		setWeatherButton.setEnabled(true); 
+
+		setRunButton.setEnabled(true); 
+
+		setStopButton.setEnabled(false); ;
+
+		setTicksArea.setEnabled(true); 
+
+		setExitButton.setEnabled(true); 
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub

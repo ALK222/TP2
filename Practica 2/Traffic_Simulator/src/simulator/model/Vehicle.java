@@ -101,7 +101,11 @@ public class Vehicle extends SimulatedObject {
 	public Integer getDistance(){
 		return this.total_distance;
 	}
-
+	public String getItinerary() {
+		
+		return this.itinerary.toString();
+	}
+	
 	protected void setContamination(int contamination) throws VehicleException {
 		if (contamination < 0 && contamination > 10) {
 			throw new VehicleException("Invalid contamination Value");

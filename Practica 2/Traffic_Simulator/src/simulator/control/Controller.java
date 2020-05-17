@@ -65,7 +65,7 @@ public class Controller implements Observable<TrafficSimObserver>{
 
 	public void run(int n) throws RoadException, VehicleException, JunctionException {
 
-		for(int i = 0; i <= n; i++){
+		for(int i = 0; i < n; i++){
 			traffic_simulator.advance();
 		}
 	}

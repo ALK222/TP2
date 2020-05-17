@@ -17,7 +17,6 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -46,7 +45,7 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	public ChangeWeatherDialog(Controller ctrl) {
 		this._ctrl = ctrl;
 		initGUI();
-		
+
 	}
 
 	private void initGUI() {
@@ -65,8 +64,8 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 		}
 		/*
 		 * INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA
-		 * 
-		 * 
+		 *
+		 *
 		 **/
 
 		///////////

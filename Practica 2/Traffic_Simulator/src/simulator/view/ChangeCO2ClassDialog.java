@@ -10,8 +10,6 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
-
 import exceptions.VehicleException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -43,7 +41,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private String _label = "Schedule an event to change the CO2 class of a vehicle after a given  number of simulation ticks from now.";
     public ChangeCO2ClassDialog(Controller ctrl) {
         this._ctrl = ctrl;
-      
+
         initGUI();
     }
 
@@ -62,12 +60,12 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
              vehicles[i] = v.get(i).getId();
          }
         /*
-         *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA 
-         * 
-         * 
+         *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA
+         *
+         *
          * **/
-     
-        
+
+
         ///////////
         listVehicles = new JComboBox<String>(vehicles);
         JLabel textV = new JLabel("Vehicles: ");
@@ -106,13 +104,13 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
                         NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
                       _ctrl.addEvents(newContClass);
                       dispose();
-                      } 
+                      }
                   } catch (VehicleException e1) {
-                     
+
                       e1.printStackTrace();
-                  }	
+                  }
             }
-           
+
         });
         botones.add(okB);
 
@@ -135,7 +133,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
            }
            listVehicles = new JComboBox<String>(vehicles);
     }
-   
+
     private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();
 		tick_field.setValue(ticks);
@@ -145,13 +143,13 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 		tick_field.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent e) {
-				
+
 				ticks = Integer.valueOf(tick_field.getValue().toString());
-				
+
 			}
-			
-		});		
-		
+
+		});
+
 		return tick_field;
     }
 
@@ -161,5 +159,3 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     }
 
 }
-
-

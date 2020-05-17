@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
@@ -33,7 +32,7 @@ public class MainWindow extends JFrame{
         super("Traffic Simulator");
         _ctrl = ctrl;
         initGUI();
-        
+
     }
 
     private void initGUI() {
@@ -85,55 +84,56 @@ public class MainWindow extends JFrame{
         JPanel mapRoadsView = createViewPanel(new MapByRoadComponent(_ctrl), "Map By Road");
         mapView.setPreferredSize(new Dimension(500, 400));
         mapsPanel.add(mapRoadsView);
-       
-        
-        
+
+
+
+
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.pack();
         this.setVisible(true);
         this.setResizable(true);
         this.addWindowListener(new WindowListener() {
-        	
+
         	@Override
         	public void windowOpened(WindowEvent e) {
         		// TODO Auto-generated method stub
-        		
+
         	}
-        	
+
         	@Override
         	public void windowIconified(WindowEvent e) {
         		// TODO Auto-generated method stub
-        		
+
         	}
-        	
+
         	@Override
         	public void windowDeiconified(WindowEvent e) {
         		// TODO Auto-generated method stub
-        		
+
         	}
-        	
+
         	@Override
         	public void windowDeactivated(WindowEvent e) {
         		// TODO Auto-generated method stub
-        		
+
         	}
-        	
+
         	@Override
         	public void windowClosing(WindowEvent e) {
         		quit();
-        		
+
         	}
-        	
+
         	@Override
         	public void windowClosed(WindowEvent e) {
         		// TODO Auto-generated method stub
-        		
+
         	}
-        	
+
         	@Override
         	public void windowActivated(WindowEvent e) {
         		// TODO Auto-generated method stub
-        		
+
         	}
         });
     }
@@ -143,12 +143,12 @@ public class MainWindow extends JFrame{
         Border b = BorderFactory.createLineBorder(Color.black, 2);
 
         p.setBorder(BorderFactory.createTitledBorder(b, title, TitledBorder.LEFT, TitledBorder.TOP));
-        
+
         p.add(new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
         return p;
     }
     private void quit() {
-    	
+
 		int n = JOptionPane.showOptionDialog(new JFrame(),
 				 "Are sure you want to quit?", "Quit",
 				 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,

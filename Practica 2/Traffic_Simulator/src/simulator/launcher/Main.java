@@ -48,6 +48,8 @@ public class Main {
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
 
+	private static boolean _gui = false;
+
 	private static Integer _time;
 
 	private static void parseArgs(String[] args) {
@@ -61,6 +63,7 @@ public class Main {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
+			parseGuiOption(line, cmdLineOptions);
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
@@ -87,6 +90,8 @@ public class Main {
 	private static Options buildOptions() {
 		Options cmdLineOptions = new Options();
 
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mostrar").hasArg(false).desc("Show gui").build());
+
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Events input file").build());
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
@@ -94,6 +99,12 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("t").longOpt("time").hasArg().desc("Time input").build());
 
 		return cmdLineOptions;
+	}
+
+	private static void parseGuiOption(CommandLine line, Options cmdLineOptions){
+		if(line.hasOption("m")){
+			_gui = true;
+		}
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
@@ -106,7 +117,7 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if ((_inFile == null) && (_gui == false)) {
 			throw new ParseException("An events file is missing");
 		}
 	}
@@ -155,14 +166,7 @@ public class Main {
 			os = System.out;
 			file = null;
 		}
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new MainWindow(c);
-			}
-		});
-		//c.run(_time/* , os */);
+		c.run(_time, os );
 		os.close();
 
 	}
@@ -184,8 +188,12 @@ public class Main {
 			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		initFactories();
 		parseArgs(args);
-	//	startBatchMode();
-		startGUIMode();
+		if(_gui == true){
+			startGUIMode();
+		}
+		else{
+			startBatchMode();
+		}
 	}
 
 	// example command lines:

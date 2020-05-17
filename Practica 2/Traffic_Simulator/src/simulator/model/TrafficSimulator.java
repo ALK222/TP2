@@ -85,16 +85,6 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		
 	}
 
-	private void onAdvanceEnd(RoadMap mapa_carreteras2, List<Event> event_list2, int time2) {
-		
-		
-	}
-
-	private void onAdvanceStart(RoadMap mapa_carreteras2, List<Event> event_list2, int time2) {
-	
-		
-	}
-
 	public void reset() {
 		mapa_carreteras.reset();
 		event_list.clear();

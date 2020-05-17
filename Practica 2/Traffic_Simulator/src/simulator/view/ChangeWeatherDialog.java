@@ -107,9 +107,6 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Pair<String, Weather>> rd = new ArrayList<Pair<String, Weather>>();
-					String hola= listRoad.getSelectedItem().toString();
-					int aux =listRoad.getSelectedIndex();
-					String adios=  listWeather.getSelectedItem().toString();
 				rd.add(new Pair<String, Weather>((String) listRoad.getSelectedItem(),
 						Weather.valueOf((String) listWeather.getSelectedItem())));
 
@@ -141,13 +138,13 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	}
 
 	public void open(RoadMap map) {
-		r = _ctrl.getTS().getRoadMap().getRoads();
-		road = new String[r.size()];
-		for (int i = 0; i < r.size(); ++i) {
-			road[i] = r.get(i).getId();
-		}
+		// r = _ctrl.getTS().getRoadMap().getRoads();
+		// road = new String[r.size()];
+		// for (int i = 0; i < r.size(); ++i) {
+		// 	road[i] = r.get(i).getId();
+		// }
 
-		listRoad = new JComboBox<String>(road);
+		// listRoad = new JComboBox<String>(road);
 	}
 
 	private JSpinner createTickTextLabel() {

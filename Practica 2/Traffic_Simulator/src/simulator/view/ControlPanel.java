@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -33,9 +32,9 @@ import exceptions.StrategyException;
 import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
-import simulator.misc.Pair;
+
 import simulator.model.Event;
-import simulator.model.NewSetContClassEvent;
+
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
@@ -48,7 +47,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private Controller _ctrl;
 
-	private RoadMap _map;
+
 	private boolean _stoped;
 
 	private JToolBar toolbar;

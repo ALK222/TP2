@@ -10,7 +10,7 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.json.JSONArray;
+
 
 import exceptions.VehicleException;
 import simulator.control.Controller;
@@ -108,7 +108,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
                       dispose();
                       } 
                   } catch (VehicleException e1) {
-                      // TODO Auto-generated catch block
+                     
                       e1.printStackTrace();
                   }	
             }

@@ -17,7 +17,7 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import exceptions.RoadException;
+
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -41,12 +41,12 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	private JLabel tick_label;
 	private Controller _ctrl;
 	private JSpinner tick_field;
-	private String _label;
+	private String _label = "Schedule an event to change the weather of a road after a given  number of simulation ticks from now.";;
 
 	public ChangeWeatherDialog(Controller ctrl) {
 		this._ctrl = ctrl;
 		initGUI();
-		_label = "Schedule an event to change the weather of a road after a given  number of simulation ticks from now.";
+		
 	}
 
 	private void initGUI() {
@@ -108,6 +108,9 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Pair<String, Weather>> rd = new ArrayList<Pair<String, Weather>>();
+					String hola= listRoad.getSelectedItem().toString();
+					int aux =listRoad.getSelectedIndex();
+					String adios=  listWeather.getSelectedItem().toString();
 				rd.add(new Pair<String, Weather>((String) listRoad.getSelectedItem(),
 						Weather.valueOf((String) listWeather.getSelectedItem())));
 
@@ -139,10 +142,10 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	}
 
 	public void open(RoadMap map) {
-		w = Weather.values();
-		wS = new String[w.length];
-		for (int i = 0; i < w.length; ++i) {
-			wS[i] = w[i].parse();
+		r = _ctrl.getTS().getRoadMap().getRoads();
+		road = new String[r.size()];
+		for (int i = 0; i < r.size(); ++i) {
+			road[i] = r.get(i).getId();
 		}
 
 		listRoad = new JComboBox<String>(road);

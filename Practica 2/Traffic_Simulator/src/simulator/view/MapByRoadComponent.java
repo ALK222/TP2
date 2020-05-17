@@ -91,7 +91,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			// the road goes from (x1,y) to (x2,y)
 			int x1 = 50;
 			int y = (i + 1) * 50;
-			int x2 = getWidth() - 200;
+			int x2 = getWidth() - 100;
 			g.setColor(_Name_Color);
 		//	g.drawString("Hola", 20, 50);
 			g.drawString(r.getId(), x1-20, y);
@@ -120,8 +120,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.setColor(junctionColor);
 			g.fillOval(x2, y-5, _JRADIUS, _JRADIUS);
 			g.drawString(r.getDest().getId(), x2, y -5);
-			drawWeather(g, x2+20,y-10);
-			drawContamination(g,x2+60,y-10);
+			drawWeather(g,r, x2+20,y-10);
+			drawContamination(g,r,x2+60,y-10);
 			++i;
 		}
 
@@ -153,7 +153,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 				// draw an image of a car (with circle as background) and it identifier
 
-				g.drawImage(_car, vX, y - 6, 12, 12, this);
+				g.drawImage(_car, vX, y - 6, 16, 16, this);
 				g.drawString(v.getId(), vX, y - 6);
 			}
 			i++;
@@ -161,11 +161,11 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 	}
 
-	private void drawWeather(Graphics g, int x, int y) {
+	private void drawWeather(Graphics g,Road r, int x, int y) {
 		Image W;
 		String name="";
 		String aux="";
-		for (Road r : _map.getRoads()) {
+		
 			name=r.getWeather();
 		//	SUNNY, CLOUDY, RAINY, WINDY, STORM;
 			switch(name) {
@@ -183,19 +183,18 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			
 			W= loadImage(aux);
 			g.drawImage(W, x,y , 32, 32, this);//Falta ajustar la posici�n
-		}
 	}
 
-	private void drawContamination(Graphics g, int x, int y) {
+	private void drawContamination(Graphics g, Road r,int x, int y) {
 		Image W;
 		String name="";
-		for (Road r : _map.getRoads()) {
+	
 			int C = (int) Math.floor(Math.min((double) r.getTotalCO2() / (1.0 + (double) r.getCO2Limit()), 1.0) / 0.19);
 			name="cont_"+C+".png";
 			W= loadImage(name);
 			
 			g.drawImage(W, x,y , 32, 32, this); // Parametros: Nombre, x, y tamx, y, ni idea
-		}
+		
 	}
 
 	private void updatePrefferedSize() {

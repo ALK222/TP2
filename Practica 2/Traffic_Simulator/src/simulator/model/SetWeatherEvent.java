@@ -31,7 +31,7 @@ public class SetWeatherEvent extends Event {
 
 	@Override
 	public String toString(){
-		return "Change Weather: " + this.p.toString();
+		return "Change Weather: " + this.p.get(0).getFirst().toString() +"," +  this.p.get(0).getSecond().toString() ;
 	}
 
 }

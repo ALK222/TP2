@@ -30,6 +30,6 @@ public class NewSetContClassEvent extends Event {
 	
 	@Override
 	public String toString(){
-		return "Change CO2 class: " + this.p.toString();
+		return "Change CO2 class: " + this.p.get(0).getFirst().toString() +"," +  this.p.get(0).getSecond().toString() ;
 	}
 }

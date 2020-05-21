@@ -27,7 +27,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	public TrafficSimulator() {
 		this.mapa_carreteras = new RoadMap();
 		this.event_list = new SortedArrayList<Event>();
-		this.time = 1;
+		this.time = 0;
 		this.observers =  new ArrayList<TrafficSimObserver>();
 	}
 

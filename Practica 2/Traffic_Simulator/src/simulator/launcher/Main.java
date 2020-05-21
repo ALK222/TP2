@@ -2,6 +2,7 @@ package simulator.launcher;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -90,7 +91,7 @@ public class Main {
 	private static Options buildOptions() {
 		Options cmdLineOptions = new Options();
 
-		cmdLineOptions.addOption(Option.builder("m").longOpt("mostrar").hasArg(false).desc("Show gui").build());
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mostrar").hasArg(true).desc("Show gui").build());
 
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Events input file").build());
 		cmdLineOptions.addOption(
@@ -101,8 +102,8 @@ public class Main {
 		return cmdLineOptions;
 	}
 
-	private static void parseGuiOption(CommandLine line, Options cmdLineOptions){
-		if(line.hasOption("m")){
+	private static void parseGuiOption(CommandLine line, Options cmdLineOptions) {
+		if (line.hasOption("m")) {
 			_gui = line.getOptionValue("m");
 		}
 	}
@@ -150,7 +151,7 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws IOException, RoadException, VehicleException, JunctionException,
-		SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
+			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller c = new Controller(ts, _eventsFactory);
 		c.loadEvents(new FileInputStream(_inFile));
@@ -166,14 +167,17 @@ public class Main {
 			os = System.out;
 			file = null;
 		}
-		c.run(_time, os );
+		c.run(_time, os);
 		os.close();
 
 	}
 
-	private static void startGUIMode() throws SimulatorException {
+	private static void startGUIMode()
+			throws SimulatorException, JSONException, FileNotFoundException, StrategyException, CoordException,
+			FactoryException, RoadException, JunctionException, VehicleException, WeatherException {
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller ctrl = new Controller(ts,_eventsFactory);
+		ctrl.loadEvents(new FileInputStream(_inFile));
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
@@ -189,12 +193,12 @@ public class Main {
 			ParseException {
 		initFactories();
 		parseArgs(args);
-		if(_gui == "gui"){
+		if(_gui.equals("gui")){
 
 			startGUIMode();
 
 		}
-		else if (_gui == "console"){
+		else if (_gui.equals("console")){
 
 			startBatchMode();
 

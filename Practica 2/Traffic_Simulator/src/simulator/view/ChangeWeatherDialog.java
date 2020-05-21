@@ -44,6 +44,7 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 
 	public ChangeWeatherDialog(Controller ctrl) {
 		this._ctrl = ctrl;
+		this.setModal(true);
 		initGUI();
 
 	}

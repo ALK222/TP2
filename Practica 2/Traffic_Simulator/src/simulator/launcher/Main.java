@@ -126,9 +126,13 @@ public class Main {
 	private static void parseTimeOption(CommandLine line) {
 		String aux = line.getOptionValue("t");
 		if (aux == null) {
+
 			_time = _timeLimitDefaultValue;
+
 		} else {
+
 			_time = Integer.parseInt(aux);
+			
 		}
 	}
 

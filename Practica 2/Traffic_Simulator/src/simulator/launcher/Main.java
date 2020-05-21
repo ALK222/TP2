@@ -48,7 +48,7 @@ public class Main {
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
 
-	private static boolean _gui = false;
+	private static String _gui;
 
 	private static Integer _time;
 
@@ -103,7 +103,7 @@ public class Main {
 
 	private static void parseGuiOption(CommandLine line, Options cmdLineOptions){
 		if(line.hasOption("m")){
-			_gui = true;
+			_gui = line.getOptionValue("m");
 		}
 	}
 
@@ -117,7 +117,7 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if ((_inFile == null) && (_gui == false)) {
+		if ((_inFile == null) && (_gui.equals(null))) {
 			throw new ParseException("An events file is missing");
 		}
 	}
@@ -185,14 +185,24 @@ public class Main {
 	}
 
 	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,
-			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException {
+			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException,
+			ParseException {
 		initFactories();
 		parseArgs(args);
-		if(_gui == true){
+		if(_gui == "gui"){
+
 			startGUIMode();
+
+		}
+		else if (_gui == "console"){
+
+			startBatchMode();
+
 		}
 		else{
-			startBatchMode();
+			
+			throw new ParseException("Invalid visualitation mode");
+
 		}
 	}
 

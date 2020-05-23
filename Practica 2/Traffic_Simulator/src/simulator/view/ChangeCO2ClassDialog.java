@@ -125,14 +125,6 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
        this.setVisible(false);
         this.pack();
     }
-    public void open(RoadMap map) {
-    	//    v = map.getVehicles();
-        //    vehicles = new String[v.size()];
-        //    for (int i = 0; i < v.size(); ++i) {
-        //        vehicles[i] = v.get(i).getId();
-        //    }
-        //    listVehicles = new JComboBox<String>(vehicles);
-    }
 
     private JSpinner createTickTextLabel() {
         tick_field = new JSpinner();

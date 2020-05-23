@@ -52,15 +52,10 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 				o.onAdvanceEnd(mapa_carreteras, event_list, time);
 			}
 	
-			List<Event> aux1 = new ArrayList<>();
-			for (Event e : event_list) {
-				if (e.getTime() == this.time) {
-					aux1.add(e);
-					e.execute(mapa_carreteras);
-				}
+			while(event_list.get(0).getTime() == this.time){
+				event_list.get(0).execute(this.mapa_carreteras);
+				event_list.remove(0);
 			}
-	
-			event_list.removeAll(aux1);
 	
 			for (Junction j : mapa_carreteras.getJunctions()) {
 				j.advance(time);

@@ -101,8 +101,4 @@ public class Controller implements Observable<TrafficSimObserver>{
 	 *
 	 */
 	
-	public TrafficSimulator getTS() {
-		return this.traffic_simulator;
-	}
-	
 }

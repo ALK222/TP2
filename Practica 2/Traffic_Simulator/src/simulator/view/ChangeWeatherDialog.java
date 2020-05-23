@@ -40,10 +40,14 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	private JLabel tick_label;
 	private Controller _ctrl;
 	private JSpinner tick_field;
-	private String _label = "Schedule an event to change the weather of a road after a given  number of simulation ticks from now.";;
+	private String _label = "Schedule an event to change the weather of a road after a given  number of simulation ticks from now.";
+	private RoadMap _map;
+	private int _time;;
 
-	public ChangeWeatherDialog(Controller ctrl) {
+	public ChangeWeatherDialog(Controller ctrl, RoadMap map, int time) {
 		this._ctrl = ctrl;
+		this._map = map;
+		this._time = time;
 		this.setModal(true);
 		initGUI();
 
@@ -58,18 +62,12 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 		JPanel panelSup = new JPanel();
 		panelSup.setLayout(new FlowLayout());
 		// Vehicle selector
-		r = _ctrl.getTS().getRoadMap().getRoads();
+		r = _map.getRoads();
 		road = new String[r.size()];
 		for (int i = 0; i < r.size(); ++i) {
 			road[i] = r.get(i).getId();
 		}
-		/*
-		 * INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA
-		 *
-		 *
-		 **/
 
-		///////////
 
 		// Coger el clima
 		w = Weather.values();
@@ -113,7 +111,7 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 
 				try {
 					if (ticks != 0) {
-						SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks + _ctrl.getTS().getTime()), rd);
+						SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks + _time), rd);
 						_ctrl.addEvents(newWeatherClass);
 						dispose();
 					}
@@ -139,13 +137,6 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 	}
 
 	public void open(RoadMap map) {
-		// r = _ctrl.getTS().getRoadMap().getRoads();
-		// road = new String[r.size()];
-		// for (int i = 0; i < r.size(); ++i) {
-		// 	road[i] = r.get(i).getId();
-		// }
-
-		// listRoad = new JComboBox<String>(road);
 	}
 
 	private JSpinner createTickTextLabel() {

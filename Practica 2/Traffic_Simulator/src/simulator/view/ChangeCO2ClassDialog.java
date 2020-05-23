@@ -39,8 +39,14 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
     private Controller _ctrl;
     private JSpinner tick_field;
     private String _label = "Schedule an event to change the CO2 class of a vehicle after a given  number of simulation ticks from now.";
-    public ChangeCO2ClassDialog(Controller ctrl) {
+    private RoadMap _map;
+    private int _time;
+
+    
+    public ChangeCO2ClassDialog(Controller ctrl, RoadMap map, int time) {
         this._ctrl = ctrl;
+        this._map = map;
+        this._time = time;
         this.setModal(true);
 
         initGUI();
@@ -55,19 +61,13 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 	     JPanel panelSup = new JPanel();
 	     panelSup.setLayout(new FlowLayout());
         //Vehicle selector
-	     v = _ctrl.getTS().getRoadMap().getVehicles();
+	     v = _map.getVehicles();
          vehicles = new String[v.size()];
          for (int i = 0; i < v.size(); ++i) {
              vehicles[i] = v.get(i).getId();
          }
-        /*
-         *INSERCION DE VEHICULO MANUAL PARA VER SI FUNCIONA
-         *
-         *
-         * **/
 
 
-        ///////////
         listVehicles = new JComboBox<String>(vehicles);
         JLabel textV = new JLabel("Vehicles: ");
         panelSup.add(textV);
@@ -101,7 +101,7 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 
                   try {
                       if(ticks != 0){
-                        NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks+_ctrl.getTS().getTime()), vc);
+                        NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks + _time), vc);
                       _ctrl.addEvents(newContClass);
                       dispose();
                       }

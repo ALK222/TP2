@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -71,6 +72,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	protected ChangeWeatherDialog weatherClassDialog;
 
+	private RoadMap _map;
+
+	private int _time;
+
+	
+
 	//protected int ticks = 10;//Valor por defecto
 	protected int ticks = 1;//Valor por defecto
 
@@ -78,8 +85,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		this._ctrl = ctrl;
 		_stoped = false;
-		initGui();
 		_ctrl.addObserver(this);
+		initGui();
+		
 
 	}
 
@@ -120,8 +128,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.toolbar = new JToolBar();
 		setLayout(new BorderLayout());
 		add(toolbar, BorderLayout.PAGE_START);
-		conClassDialog = new ChangeCO2ClassDialog(_ctrl);
-		weatherClassDialog = new ChangeWeatherDialog(_ctrl);
+		conClassDialog = new ChangeCO2ClassDialog(_ctrl, _map, _time);
+		weatherClassDialog = new ChangeWeatherDialog(_ctrl, _map, _time);
 		// Load
 		createLoadButton();
 		toolbar.addSeparator();
@@ -226,8 +234,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.add(setContButton);
 	}
 	private void changeCO2Class(){
-		ChangeCO2ClassDialog dial= new ChangeCO2ClassDialog(_ctrl);
-		dial.open(_ctrl.getTS().getRoadMap());
+		ChangeCO2ClassDialog dial= new ChangeCO2ClassDialog(_ctrl, _map, _time);
 		dial.setVisible(true);
 
 	}
@@ -245,8 +252,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.add(setWeatherButton);
 	}
 	private void changeWeather() {
-		ChangeWeatherDialog dial= new ChangeWeatherDialog(_ctrl);
-		dial.open(_ctrl.getTS().getRoadMap());
+		ChangeWeatherDialog dial= new ChangeWeatherDialog(_ctrl, _map, _time);
 		dial.setVisible(true);
 
 	}
@@ -287,9 +293,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setTicksArea = new JSpinner();
 		setTicksArea.setValue(ticks);
 		setTicksArea.setToolTipText("Set ticks to execute in simulation");
-		//setTicksArea.setMinimumSize(new Dimension(80, 30));
-	//	setTicksArea.setMaximumSize(new Dimension(200, 30));
-		//setTicksArea.setPreferredSize(new Dimension(80, 30));
+		setTicksArea.setMinimumSize(new Dimension(80, 30));
+		setTicksArea.setMaximumSize(new Dimension(200, 30));
+		setTicksArea.setPreferredSize(new Dimension(80, 30));
 		setTicksArea.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent e) {
@@ -302,22 +308,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.add(new JLabel("Ticks:"));
 		toolbar.add(setTicksArea);
 
-		/*
-		 *tick_field.setValue(ticks);
-		tick_field.setMinimumSize(new Dimension(80, 30));
-		tick_field.setMaximumSize(new Dimension(200, 30));
-		tick_field.setPreferredSize(new Dimension(80, 30));
-		tick_field.addChangeListener(new ChangeListener() {
-
-			public void stateChanged(ChangeEvent e) {
-
-				ticks = Integer.valueOf(tick_field.getValue().toString());
-
-			}
-
-		});
-		 *
-		 */
 	}
 
 
@@ -386,31 +376,36 @@ private void disableButtons() {
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		this._map = map;
+		this._time = time;
 
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		this._map = map;
+		this._time = time;
 
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
+		this._map = map;
+		this._time = time;
 
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		this._map = map;
+		this._time = time;
 
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-
+		this._map = map;
+		this._time = time;
 
 	}
 

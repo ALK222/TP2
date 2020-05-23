@@ -96,19 +96,19 @@ class ChangeCO2ClassDialog extends JDialog implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	  List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
-                  vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),(Integer)listCont.getSelectedItem()));
+            	List<Pair<String, Integer>> vc = new ArrayList<Pair<String, Integer>>();
+                vc.add(new Pair<String, Integer>((String) listVehicles.getSelectedItem(),(Integer)listCont.getSelectedItem()));
 
-                  try {
-                      if(ticks != 0){
+                try {
+                    if(ticks != 0 && v.size() != 0){
                         NewSetContClassEvent newContClass = new NewSetContClassEvent((ticks + _time), vc);
-                      _ctrl.addEvents(newContClass);
-                      dispose();
-                      }
-                  } catch (VehicleException e1) {
-
-                      e1.printStackTrace();
-                  }
+                        _ctrl.addEvents(newContClass);                        
+                    }
+                    dispose();
+                } 
+                catch (VehicleException e1) {
+                    e1.printStackTrace();
+                }
             }
 
         });

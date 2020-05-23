@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,7 +65,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private JButton setStopButton;
 
-	private JSpinner setTicksArea ;
+	private JSpinner setTicksArea;
 
 	private JButton setExitButton;
 
@@ -76,10 +77,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private int _time;
 
-	
-
-	//protected int ticks = 10;//Valor por defecto
-	protected int ticks = 1;//Valor por defecto
+	// protected int ticks = 10;//Valor por defecto
+	protected int ticks = 1;// Valor por defecto
 
 	public ControlPanel(Controller ctrl) {
 
@@ -87,7 +86,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		_stoped = false;
 		_ctrl.addObserver(this);
 		initGui();
-		
 
 	}
 
@@ -151,7 +149,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		createTickCounter();
 		toolbar.addSeparator();
 
-		//Reset button
+		// Reset button
 		createResetButton();
 
 		// Exit button
@@ -169,8 +167,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			public void actionPerformed(ActionEvent e) {
 				_ctrl.reset();
 
-
-			}});
+			}
+		});
+		resetButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		toolbar.add(resetButton);
 
 	}
@@ -326,6 +325,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						 null, null);
 						 if (n == 0) {System.exit(0); }
 			}});
+		setExitButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		toolbar.add(setExitButton);
 	}
 

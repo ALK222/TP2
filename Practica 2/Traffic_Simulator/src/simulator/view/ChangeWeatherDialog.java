@@ -110,11 +110,12 @@ class ChangeWeatherDialog extends JDialog implements ActionListener {
 						Weather.valueOf((String) listWeather.getSelectedItem())));
 
 				try {
-					if (ticks != 0) {
+					if (ticks != 0 && r.size() != 0) {
 						SetWeatherEvent newWeatherClass = new SetWeatherEvent((ticks + _time), rd);
 						_ctrl.addEvents(newWeatherClass);
-						dispose();
 					}
+					
+					dispose();
 				} catch (WeatherException e1) {
 					e1.printStackTrace();
 				}

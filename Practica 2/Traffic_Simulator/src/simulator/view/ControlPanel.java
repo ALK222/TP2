@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -128,6 +129,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		add(toolbar, BorderLayout.PAGE_START);
 		conClassDialog = new ChangeCO2ClassDialog(_ctrl, _map, _time);
 		weatherClassDialog = new ChangeWeatherDialog(_ctrl, _map, _time);
+		JToolBar aux =  new JToolBar();
 		// Load
 		createLoadButton();
 		toolbar.addSeparator();
@@ -149,14 +151,22 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		createTickCounter();
 		toolbar.addSeparator();
 
-		// Reset button
-		createResetButton();
-
-		// Exit button
-		createExitButton();
+		stackExitReset(aux);
+	
 	}
 
-	private void createResetButton() {
+	private void stackExitReset(JToolBar aux) {
+		// Reset button
+				createResetButton( aux);
+
+				// Exit button
+				createExitButton( aux);
+				aux.setAlignmentX(Component.RIGHT_ALIGNMENT);
+				toolbar.add(Box.createHorizontalGlue());
+				toolbar.add(aux);
+	}
+	
+	private void createResetButton(JToolBar aux) {
 
 		resetButton = new JButton();
 		resetButton.setToolTipText("Resets the simulation");
@@ -169,8 +179,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			}
 		});
-		resetButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		toolbar.add(resetButton);
+		//toolbar.add(Box.createHorizontalGlue());
+		//resetButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		aux.add(resetButton);
 
 	}
 
@@ -310,8 +321,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 
-	private void createExitButton() {
+	private void createExitButton(JToolBar aux) {
 		setExitButton = new JButton();
+		setExitButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		setExitButton.setToolTipText("Exit the aplication");
 		setExitButton.setIcon(
 				new ImageIcon("src/resources/icons/exit.png"));
@@ -325,8 +337,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						 null, null);
 						 if (n == 0) {System.exit(0); }
 			}});
-		setExitButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		toolbar.add(setExitButton);
+		//toolbar.add(Box.createHorizontalGlue());
+		//toolbar.add(setExitButton);
+		aux.add(setExitButton);
 	}
 
 private void disableButtons() {

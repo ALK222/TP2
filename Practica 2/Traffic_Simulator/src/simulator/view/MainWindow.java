@@ -20,7 +20,7 @@ import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 
-public class MainWindow extends JFrame{
+public class MainWindow extends JFrame {
 
     /**
      *
@@ -28,7 +28,7 @@ public class MainWindow extends JFrame{
     private static final long serialVersionUID = 1L;
     private Controller _ctrl;
 
-    public MainWindow(Controller ctrl){
+    public MainWindow(Controller ctrl) {
         super("Traffic Simulator");
         _ctrl = ctrl;
         initGUI();
@@ -56,8 +56,7 @@ public class MainWindow extends JFrame{
         mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
         viewsPanel.add(mapsPanel);
 
-
-        //tables
+        // tables
 
         JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
         eventsView.setPreferredSize(new Dimension(500, 200));
@@ -75,7 +74,7 @@ public class MainWindow extends JFrame{
         eventsView.setPreferredSize(new Dimension(500, 200));
         tablesPanel.add(junctionsView);
 
-        //maps
+        // maps
 
         JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
         mapView.setPreferredSize(new Dimension(500, 400));
@@ -85,60 +84,57 @@ public class MainWindow extends JFrame{
         mapView.setPreferredSize(new Dimension(500, 400));
         mapsPanel.add(mapRoadsView);
 
-
-
-
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.pack();
         this.setVisible(true);
         this.setResizable(true);
         this.addWindowListener(new WindowListener() {
 
-        	@Override
-        	public void windowOpened(WindowEvent e) {
-        		// TODO Auto-generated method stub
+            @Override
+            public void windowOpened(WindowEvent e) {
+                // TODO Auto-generated method stub
 
-        	}
+            }
 
-        	@Override
-        	public void windowIconified(WindowEvent e) {
-        		// TODO Auto-generated method stub
+            @Override
+            public void windowIconified(WindowEvent e) {
+                // TODO Auto-generated method stub
 
-        	}
+            }
 
-        	@Override
-        	public void windowDeiconified(WindowEvent e) {
-        		// TODO Auto-generated method stub
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                // TODO Auto-generated method stub
 
-        	}
+            }
 
-        	@Override
-        	public void windowDeactivated(WindowEvent e) {
-        		// TODO Auto-generated method stub
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                // TODO Auto-generated method stub
 
-        	}
+            }
 
-        	@Override
-        	public void windowClosing(WindowEvent e) {
-        		quit();
+            @Override
+            public void windowClosing(WindowEvent e) {
+                quit();
 
-        	}
+            }
 
-        	@Override
-        	public void windowClosed(WindowEvent e) {
-        		// TODO Auto-generated method stub
+            @Override
+            public void windowClosed(WindowEvent e) {
+                // TODO Auto-generated method stub
 
-        	}
+            }
 
-        	@Override
-        	public void windowActivated(WindowEvent e) {
-        		// TODO Auto-generated method stub
+            @Override
+            public void windowActivated(WindowEvent e) {
+                // TODO Auto-generated method stub
 
-        	}
+            }
         });
     }
 
-    private JPanel createViewPanel(JComponent c, String title){
+    private JPanel createViewPanel(JComponent c, String title) {
         JPanel p = new JPanel(new BorderLayout());
         Border b = BorderFactory.createLineBorder(Color.black, 2);
 
@@ -147,12 +143,13 @@ public class MainWindow extends JFrame{
         p.add(new JScrollPane(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
         return p;
     }
+
     private void quit() {
 
-		int n = JOptionPane.showOptionDialog(new JFrame(),
-				 "Are sure you want to quit?", "Quit",
-				 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-				 null, null);
-				 if (n == 0) {System.exit(0); }
-	}
+        int n = JOptionPane.showOptionDialog(new JFrame(), "Are sure you want to quit?", "Quit",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if (n == 0) {
+            System.exit(0);
+        }
+    }
 }

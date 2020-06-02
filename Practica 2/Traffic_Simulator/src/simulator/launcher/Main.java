@@ -132,7 +132,7 @@ public class Main {
 		} else {
 
 			_time = Integer.parseInt(aux);
-			
+
 		}
 	}
 
@@ -180,10 +180,11 @@ public class Main {
 			throws SimulatorException, JSONException, FileNotFoundException, StrategyException, CoordException,
 			FactoryException, RoadException, JunctionException, VehicleException, WeatherException {
 		TrafficSimulator ts = new TrafficSimulator();
-		Controller ctrl = new Controller(ts,_eventsFactory);
-		ctrl.loadEvents(new FileInputStream(_inFile));
+		Controller ctrl = new Controller(ts, _eventsFactory);
+		if (_inFile != null)
+			ctrl.loadEvents(new FileInputStream(_inFile));
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				new MainWindow(ctrl);
@@ -192,23 +193,21 @@ public class Main {
 
 	}
 
-	private static void start(String[] args) throws IOException, RoadException, VehicleException, JunctionException,
-			SimulatorException, JSONException, StrategyException, CoordException, FactoryException, WeatherException,
-			ParseException {
+	private static void start(String[] args)
+			throws IOException, RoadException, VehicleException, JunctionException, SimulatorException, JSONException,
+			StrategyException, CoordException, FactoryException, WeatherException, ParseException {
 		initFactories();
 		parseArgs(args);
-		if(_gui.equals("gui")){
+		if (_gui.equals("gui")) {
 
 			startGUIMode();
 
-		}
-		else if (_gui.equals("console")){
+		} else if (_gui.equals("console")) {
 
 			startBatchMode();
 
-		}
-		else{
-			
+		} else {
+
 			throw new ParseException("Invalid visualitation mode");
 
 		}

@@ -19,12 +19,10 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	private List<Junction> _Junction;
 	private String[] labels = { "Id", "Road Green", "Queues" };
 
-
-		public JunctionsTableModel(Controller _ctrl) {
-			this._Junction = new SortedArrayList<Junction>();
-			_ctrl.addObserver(this);
-		}
-	
+	public JunctionsTableModel(Controller _ctrl) {
+		this._Junction = new SortedArrayList<Junction>();
+		_ctrl.addObserver(this);
+	}
 
 	@Override
 	public int getColumnCount() {
@@ -46,32 +44,33 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 		String o = "";
 		Junction aux = this._Junction.get(row);
 		switch (col) {
-		case 0:
-			o = aux.getId();
-			break;
-		case 1:
-			int index =aux.getGreenLightIndex();
-			if(index != -1)
-			o=  aux.getInRoads().get(index).getId();
-			else o="NONE";
-			
-			break;
-		case 2:
-			if(aux.getQueue().isEmpty()) {o ="";}
-			else {
-				/*for (Road r : listRoad) {
-			r = listRoad.get(i);
-			if (r.origin.equals(this))
-				aux = r;
-		}*/int i=0;
-				for(List<Vehicle> v : aux.getQueue()) {
-					o += aux.getInRoads().get(i).getId()+": " + v.toString() ;
-					i++;
+			case 0:
+				o = aux.getId();
+				break;
+			case 1:
+				int index = aux.getGreenLightIndex();
+				if (index != -1)
+					o = aux.getInRoads().get(index).getId();
+				else
+					o = "NONE";
+
+				break;
+			case 2:
+				if (aux.getQueue().isEmpty()) {
+					o = "";
+				} else {
+					/*
+					 * for (Road r : listRoad) { r = listRoad.get(i); if (r.origin.equals(this)) aux
+					 * = r; }
+					 */int i = 0;
+					for (List<Vehicle> v : aux.getQueue()) {
+						o += aux.getInRoads().get(i).getId() + ": " + v.toString();
+						i++;
+					}
+					// List<Vehicle> auxQ= aux.getQueue().get(0);
+					// o = aux.getId()+ " "+aux.getQueue().toString();
 				}
-		//	List<Vehicle>  auxQ= aux.getQueue().get(0);
-			//o = aux.getId()+ " "+aux.getQueue().toString();
-			}
-			break;
+				break;
 		}
 		return o;
 	}
@@ -81,16 +80,10 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 		return false;
 	}
 
-
-	
-
-
-	
-
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		SwingUtilities.invokeLater(new Runnable(){
-			
+		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
 				_Junction = map.getJunctions();
@@ -98,13 +91,13 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 				fireTableDataChanged();
 			}
 		});
-		
+
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-SwingUtilities.invokeLater(new Runnable(){
-			
+		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
 				_Junction = map.getJunctions();
@@ -112,14 +105,13 @@ SwingUtilities.invokeLater(new Runnable(){
 				fireTableDataChanged();
 			}
 		});
-		
-		
+
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-SwingUtilities.invokeLater(new Runnable(){
-			
+		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
 				_Junction = map.getJunctions();
@@ -127,13 +119,13 @@ SwingUtilities.invokeLater(new Runnable(){
 				fireTableDataChanged();
 			}
 		});
-		
+
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-SwingUtilities.invokeLater(new Runnable(){
-			
+		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
 				_Junction = map.getJunctions();
@@ -141,13 +133,13 @@ SwingUtilities.invokeLater(new Runnable(){
 				fireTableDataChanged();
 			}
 		});
-		
+
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-SwingUtilities.invokeLater(new Runnable(){
-			
+		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
 				_Junction = map.getJunctions();
@@ -155,13 +147,13 @@ SwingUtilities.invokeLater(new Runnable(){
 				fireTableDataChanged();
 			}
 		});
-		
+
 	}
 
 	@Override
 	public void onError(String err) throws JunctionException {
 		throw new JunctionException(err);
-		
+
 	}
 
 }

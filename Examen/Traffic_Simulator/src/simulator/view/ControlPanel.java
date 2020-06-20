@@ -56,8 +56,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private JButton loadButton;
 
-	private JButton resetButton;
-
 	private JButton setContButton;
 
 	private JButton setWeatherButton;
@@ -129,7 +127,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		add(toolbar, BorderLayout.PAGE_START);
 		conClassDialog = new ChangeCO2ClassDialog(_ctrl, _map, _time);
 		weatherClassDialog = new ChangeWeatherDialog(_ctrl, _map, _time);
-		JToolBar aux =  new JToolBar();
+		JToolBar aux = new JToolBar();
 		// Load
 		createLoadButton();
 		toolbar.addSeparator();
@@ -152,37 +150,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolbar.addSeparator();
 
 		stackExitReset(aux);
-	
+
 	}
 
 	private void stackExitReset(JToolBar aux) {
-		// Reset button
-				createResetButton( aux);
-
-				// Exit button
-				createExitButton( aux);
-				aux.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				toolbar.add(Box.createHorizontalGlue());
-				toolbar.add(aux);
-	}
-	
-	private void createResetButton(JToolBar aux) {
-
-		resetButton = new JButton();
-		resetButton.setToolTipText("Resets the simulation");
-		resetButton.setIcon(new ImageIcon("src/resources/icons/reset.png"));
-		resetButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				_ctrl.reset();
-
-			}
-		});
-		//toolbar.add(Box.createHorizontalGlue());
-		//resetButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		aux.add(resetButton);
-
+		// Exit button
+		createExitButton(aux);
+		aux.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		toolbar.add(Box.createHorizontalGlue());
+		toolbar.add(aux);
 	}
 
 	// USAR COMO PLANTILLA PARA EL RESTO DE BOTONES
@@ -190,7 +166,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		chooser = new JFileChooser();
 		chooser.setDialogTitle("Choose a file to load the objects to the simulation");
-		chooser.setCurrentDirectory(new File ("src/resources/examples/"));// Se abre directamente en el dir de los ejemplos
+		chooser.setCurrentDirectory(new File("src/resources/examples/"));// Se abre directamente en el dir de los
+																			// ejemplos
 		loadButton = new JButton();
 		loadButton.setToolTipText("Loads roads, vehicles, junctions and events into the simulator");
 		loadButton.setIcon(new ImageIcon("src/resources/icons/open.png"));
@@ -231,48 +208,48 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		setContButton = new JButton();
 		setContButton.setToolTipText("Changes the CO2 class of a vehicle");
-		setContButton.setIcon(
-				new ImageIcon("src/resources/icons/co2class.png"));
+		setContButton.setIcon(new ImageIcon("src/resources/icons/co2class.png"));
 		setContButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				changeCO2Class();
 
-
-			}});
+			}
+		});
 		toolbar.add(setContButton);
 	}
-	private void changeCO2Class(){
-		ChangeCO2ClassDialog dial= new ChangeCO2ClassDialog(_ctrl, _map, _time);
+
+	private void changeCO2Class() {
+		ChangeCO2ClassDialog dial = new ChangeCO2ClassDialog(_ctrl, _map, _time);
 		dial.setVisible(true);
 
 	}
+
 	private void createChangeWeatherButton() {
 		setWeatherButton = new JButton();
 		setWeatherButton.setToolTipText("Changes Road Weather");
-		setWeatherButton.setIcon(
-				new ImageIcon("src/resources/icons/weather.png"));
+		setWeatherButton.setIcon(new ImageIcon("src/resources/icons/weather.png"));
 		setWeatherButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				changeWeather();
-			}});
+			}
+		});
 		toolbar.add(setWeatherButton);
 	}
+
 	private void changeWeather() {
-		ChangeWeatherDialog dial= new ChangeWeatherDialog(_ctrl, _map, _time);
+		ChangeWeatherDialog dial = new ChangeWeatherDialog(_ctrl, _map, _time);
 		dial.setVisible(true);
 
 	}
 
-
 	private void createRunButton() {
 		setRunButton = new JButton();
 		setRunButton.setToolTipText("Run the simulation N ticks");
-		setRunButton.setIcon(
-				new ImageIcon("src/resources/icons/run.png"));
+		setRunButton.setIcon(new ImageIcon("src/resources/icons/run.png"));
 		setRunButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -280,24 +257,26 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				_stoped = false;
 				disableButtons();
 				run_sim(ticks);
-			}});
+			}
+		});
 		toolbar.add(setRunButton);
 	}
 
 	private void createStopButton() {
 		setStopButton = new JButton();
 		setStopButton.setToolTipText("Changes Road Weather");
-		setStopButton.setIcon(
-				new ImageIcon("src/resources/icons/stop.png"));
+		setStopButton.setIcon(new ImageIcon("src/resources/icons/stop.png"));
 		setStopButton.setEnabled(false);
 		setStopButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				stop();
-			}});
+			}
+		});
 		toolbar.add(setStopButton);
 	}
+
 	private void createTickCounter() {
 
 		setTicksArea = new JSpinner();
@@ -320,73 +299,64 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	}
 
-
 	private void createExitButton(JToolBar aux) {
 		setExitButton = new JButton();
 		setExitButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		setExitButton.setToolTipText("Exit the aplication");
-		setExitButton.setIcon(
-				new ImageIcon("src/resources/icons/exit.png"));
+		setExitButton.setIcon(new ImageIcon("src/resources/icons/exit.png"));
 		setExitButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showOptionDialog(new JFrame(),
-						 "Are sure you want to quit?", "Quit",
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-						 null, null);
-						 if (n == 0) {System.exit(0); }
-			}});
-		//toolbar.add(Box.createHorizontalGlue());
-		//toolbar.add(setExitButton);
+				int n = JOptionPane.showOptionDialog(new JFrame(), "Are sure you want to quit?", "Quit",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (n == 0) {
+					System.exit(0);
+				}
+			}
+		});
+		// toolbar.add(Box.createHorizontalGlue());
+		// toolbar.add(setExitButton);
 		aux.add(setExitButton);
 	}
 
-private void disableButtons() {
-	loadButton.setEnabled(false);
+	private void disableButtons() {
+		loadButton.setEnabled(false);
 
-	 setContButton.setEnabled(false); 
+		setContButton.setEnabled(false);
 
-	setWeatherButton.setEnabled(false); 
+		setWeatherButton.setEnabled(false);
 
-	setRunButton.setEnabled(false); 
+		setRunButton.setEnabled(false);
 
-	setStopButton.setEnabled(true); ;
+		setStopButton.setEnabled(true);
+		;
 
-	setTicksArea.setEnabled(false); 
+		setTicksArea.setEnabled(false);
 
-	setExitButton.setEnabled(false); 
-	
-	resetButton.setEnabled(false);
-		
+		setExitButton.setEnabled(false);
+
 	}
-	
+
 	private void enableButtons() {
-		
+
 		loadButton.setEnabled(true);
 
-		setContButton.setEnabled(true); 
+		setContButton.setEnabled(true);
 
-		setWeatherButton.setEnabled(true); 
+		setWeatherButton.setEnabled(true);
 
-		setRunButton.setEnabled(true); 
+		setRunButton.setEnabled(true);
 
-		setStopButton.setEnabled(false); ;
+		setStopButton.setEnabled(false);
+		;
 
-		setTicksArea.setEnabled(true); 
+		setTicksArea.setEnabled(true);
 
-		setExitButton.setEnabled(true); 
+		setExitButton.setEnabled(true);
 
-		resetButton.setEnabled(true);
-		
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		this._map = map;

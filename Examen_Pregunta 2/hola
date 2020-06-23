@@ -1,0 +1,5 @@
+{
+  "states": [
+{"time":2299,"state":{"roads":[{"speedlimit":120,"co2":36778,"weather":"SUNNY","vehicles":[],"id":"r1"},{"speedlimit":120,"co2":0,"weather":"STORM","vehicles":[],"id":"r2"},{"speedlimit":120,"co2":0,"weather":"SUNNY","vehicles":[],"id":"r3"}],"vehicles":[{"distance":15000,"co2":66376,"id":"v1","class":5,"speed":0,"status":"ARRIVED"},{"distance":15000,"co2":25100,"id":"v2","class":2,"speed":0,"status":"ARRIVED"}],"junctions":[{"green":"none","queues":[],"id":"j1"},{"green":"none","queues":[],"id":"j2"},{"green":"r2","queues":[{"road":"r1","vehicles":[]},{"road":"r2","vehicles":[]}],"id":"j3"},{"green":"r3","queues":[{"road":"r3","vehicles":[]}],"id":"j4"}]}}
+]
+}

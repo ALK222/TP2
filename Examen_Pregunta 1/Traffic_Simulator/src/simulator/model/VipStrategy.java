@@ -23,8 +23,8 @@ public class VipStrategy implements DequeuingStrategy {
         }
         if (aux.size() <= _limit) {
             int i = 0;
-            while (aux.size() <= _limit) {
-                if (!aux.contains(q.get(i))) {
+            while (aux.size() <= _limit && i < _limit) {
+                if (q.size() > i && !aux.contains(q.get(i))) {
                     aux.add(q.get(i));
                 }
                 ++i;

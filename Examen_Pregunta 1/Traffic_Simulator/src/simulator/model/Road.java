@@ -60,6 +60,7 @@ public abstract class Road extends SimulatedObject {
 		this.destination = destJunc;
 		this.destination.addIncommingRoad(this);
 		this.origin.addOutGoingRoad(this);
+		this.current_speed_limit = this.max_speed;
 	}
 
 	protected abstract void updateSpeedLimit();

@@ -8,7 +8,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
@@ -26,6 +30,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import exceptions.CoordException;
 import exceptions.FactoryException;
@@ -36,6 +41,7 @@ import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.model.Event;
+import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
@@ -67,6 +73,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JSpinner setTicksArea;
 
 	private JButton setExitButton;
+
+	private JButton weatherHistoryButton;
 
 	protected ChangeCO2ClassDialog conClassDialog;
 
@@ -144,6 +152,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		// Stop button
 		createStopButton();
+
+		// Weather History Button
+		createHistoryButton();
 
 		// Tick counter
 		createTickCounter();
@@ -226,6 +237,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	}
 
+	private void weatherHistory() throws FileNotFoundException {
+
+		WeatherHistoryDialog dial = new WeatherHistoryDialog();
+		dial.setVisible(true);
+
+	}
+
 	private void createChangeWeatherButton() {
 		setWeatherButton = new JButton();
 		setWeatherButton.setToolTipText("Changes Road Weather");
@@ -299,6 +317,26 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	}
 
+	private void createHistoryButton() {
+		weatherHistoryButton = new JButton();
+		weatherHistoryButton.setToolTipText("Shows the History of weathers on all roads");
+		weatherHistoryButton.setIcon(new ImageIcon("src/resources/icons/pie-chart.png"));
+		weatherHistoryButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					weatherHistory();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		toolbar.add(weatherHistoryButton);
+	}
+
 	private void createExitButton(JToolBar aux) {
 		setExitButton = new JButton();
 		setExitButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -330,7 +368,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setRunButton.setEnabled(false);
 
 		setStopButton.setEnabled(true);
-		;
+
+		weatherHistoryButton.setEnabled(false);
 
 		setTicksArea.setEnabled(false);
 
@@ -349,7 +388,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		setRunButton.setEnabled(true);
 
 		setStopButton.setEnabled(false);
-		;
+
+		weatherHistoryButton.setEnabled(true);
 
 		setTicksArea.setEnabled(true);
 
@@ -358,10 +398,39 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+	public void onAdvanceStart(RoadMap map, List<Event> events, int time) throws FileNotFoundException {
 		this._map = map;
 		this._time = time;
+		// List<Road> auxS = new ArrayList<Road>();
+		// List<Road> auxC = new ArrayList<Road>();
+		// List<Road> auxR = new ArrayList<Road>();
+		// List<Road> auxW = new ArrayList<Road>();
+		// List<Road> auxSt = new ArrayList<Road>();
+		// JSONObject jo = new JSONObject("src/WeatherHistory.json");
+		// JSONObject ja = new JSONObject();
+		// for (Road r : _map.getRoads()) {
+		// switch (r.getWeather()) {
+		// case "SUNNY":
+		// auxS.add(r);
+		// break;
+		// case "CLOUDY":
+		// auxC.add(r);
+		// break;
+		// case "RAINY":
+		// auxR.add(r);
+		// break;
+		// case "WINDY":
+		// auxW.add(r);
+		// break;
+		// case "STORM":
+		// auxSt.add(r);
+		// break;
 
+		// }
+		// }
+		// // if (auxS.size() > 0) {
+		// // jo.put(Weather, value)
+		// // }
 	}
 
 	@Override

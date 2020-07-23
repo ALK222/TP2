@@ -8,11 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
@@ -30,7 +26,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import exceptions.CoordException;
 import exceptions.FactoryException;
@@ -41,7 +36,6 @@ import exceptions.VehicleException;
 import exceptions.WeatherException;
 import simulator.control.Controller;
 import simulator.model.Event;
-import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
@@ -79,6 +73,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	protected ChangeCO2ClassDialog conClassDialog;
 
 	protected ChangeWeatherDialog weatherClassDialog;
+
+	protected WeatherHistoryDialog weatherDialog;
 
 	private RoadMap _map;
 
@@ -225,7 +221,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				changeCO2Class();
-
 			}
 		});
 		toolbar.add(setContButton);
@@ -237,10 +232,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	}
 
-	private void weatherHistory() throws FileNotFoundException {
-
-		WeatherHistoryDialog dial = new WeatherHistoryDialog();
-		dial.setVisible(true);
+	private void weatherHistory() {
+		weatherDialog.setVisible(true);
 
 	}
 
@@ -321,17 +314,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		weatherHistoryButton = new JButton();
 		weatherHistoryButton.setToolTipText("Shows the History of weathers on all roads");
 		weatherHistoryButton.setIcon(new ImageIcon("src/resources/icons/pie-chart.png"));
+		weatherDialog = new WeatherHistoryDialog(this._ctrl);
 		weatherHistoryButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					weatherHistory();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
+				weatherHistory();
 			}
 		});
 		toolbar.add(weatherHistoryButton);
@@ -353,8 +341,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				}
 			}
 		});
-		// toolbar.add(Box.createHorizontalGlue());
-		// toolbar.add(setExitButton);
 		aux.add(setExitButton);
 	}
 
@@ -401,36 +387,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) throws FileNotFoundException {
 		this._map = map;
 		this._time = time;
-		// List<Road> auxS = new ArrayList<Road>();
-		// List<Road> auxC = new ArrayList<Road>();
-		// List<Road> auxR = new ArrayList<Road>();
-		// List<Road> auxW = new ArrayList<Road>();
-		// List<Road> auxSt = new ArrayList<Road>();
-		// JSONObject jo = new JSONObject("src/WeatherHistory.json");
-		// JSONObject ja = new JSONObject();
-		// for (Road r : _map.getRoads()) {
-		// switch (r.getWeather()) {
-		// case "SUNNY":
-		// auxS.add(r);
-		// break;
-		// case "CLOUDY":
-		// auxC.add(r);
-		// break;
-		// case "RAINY":
-		// auxR.add(r);
-		// break;
-		// case "WINDY":
-		// auxW.add(r);
-		// break;
-		// case "STORM":
-		// auxSt.add(r);
-		// break;
-
-		// }
-		// }
-		// // if (auxS.size() > 0) {
-		// // jo.put(Weather, value)
-		// // }
 	}
 
 	@Override
